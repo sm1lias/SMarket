@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:layout_marginBottom="33dp"
+        android:onClick="signUp"
         android:text="New User?Sign up now."
         app:layout_constraintBottom_toTopOf="@+id/bFPass"
         app:layout_constraintStart_toStartOf="@+id/bFPass" />
@@ -35,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="230dp"
+        android:onClick="forgetPassword"
         android:text="Did you forget your password?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

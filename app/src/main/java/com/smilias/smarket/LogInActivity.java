@@ -25,6 +25,11 @@ public class LogInActivity extends AppCompatActivity {
     EditText editTEmail, editTPass;
     private static final String TAG = "LogInActivity";
 
+    public void signUp(View view){
+        Intent intent = new Intent(this,SignUpActivity.class);
+        startActivity(intent);
+    }
+
     public void logIn(View view) {
         final String email = editTEmail.getText().toString();
         final String password = editTPass.getText().toString();
@@ -50,13 +55,13 @@ public class LogInActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LogInActivity.this, "success.",
                                     Toast.LENGTH_SHORT).show();
-                            //if(user.isEmailVerified()) {
-                                //Intent intent1= new Intent(LogInActivity.this,MessageScreen.class);
-                                //startActivity(intent1);
-                            //}else{
-                                //Intent intent2= new Intent(LogInActivity.this,VerifyScreen.class);
-                                //startActivity(intent2);
-                            //}
+                            if(user.isEmailVerified()) {
+                                Intent intent1= new Intent(LogInActivity.this,MainActivity.class);
+                                startActivity(intent1);
+                            }else{
+                                Intent intent2= new Intent(LogInActivity.this,VerifyActivity.class);
+                                startActivity(intent2);
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -67,6 +72,11 @@ public class LogInActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    public void forgetPassword(View view) {
+        Intent intent=new Intent(LogInActivity.this,ForgotPasswordActivity.class);
+        startActivity(intent);
     }
 
     @Override
