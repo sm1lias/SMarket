@@ -29,11 +29,6 @@ public class LoginFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void logIn(View view) {
-        Intent intent2= new Intent(getActivity(),LogInActivity.class);
-        startActivity(intent2);
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.

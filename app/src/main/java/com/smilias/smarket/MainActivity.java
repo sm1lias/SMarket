@@ -15,6 +15,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public void giorgos(View view) {
+        Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
+        startActivity(intent2);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
