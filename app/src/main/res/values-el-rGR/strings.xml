@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMarket</string>
+    <string name="menuHome">Κεντρική οθόνη</string>
+    <string name="menuCart">Καλάθι</string>
+    <string name="menuLogin">Είσοδος</string>
+    <string name="forgot_password_title">Γράφτε το email σας για νας σταλεί νέος κωδικός.</string>
+    <string name="button_confirm">ΕΠΙΒΕΒΑΙΩΣΗ</string>
+    <string name="password_hint">ΚΩΔΙΚΟΣ</string>
+    <string name="button_login">ΕΙΣΟΔΟΣ</string>
+    <string name="button_signup">ΕΓΓΡΑΦΗ</string>
+    <string name="button_forgot_password">Ξεχάσατε τον κωδικός σας;</string>
+    <string name="rpassword_hint">ΕΠΑΝΑΛΗΨΗ ΚΩΔΙΚΟΥ</string>
+    <string name="button_new_user">Νεός χρήστης; Εγγραφή τώρα.</string>
+    <string name="verify_email_title">Χρειάζεται να επιβεβαιώσετε το  email σας.</string>
+    <string name="button_send_vemail">Πατήστε εδώ για να σας σταλεί email επιβεβαίωσης.</string>
+    <string name="button_have_vemail">πατήστες εδώ αν λάβει ήδη email επιβεβαίωσης</string>
+</resources>

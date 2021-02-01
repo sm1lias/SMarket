@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:onClick="signUp2"
-        android:text="SIGN UP"
+        android:text="@string/button_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTRPass" />
@@ -24,7 +24,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="62dp"
         android:ems="10"
-        android:hint="PASSWORD"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTRPass"
         app:layout_constraintStart_toStartOf="@+id/editTRPass" />
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="82dp"
         android:ems="10"
-        android:hint="REPEAT PASSWORD"
+        android:hint="@string/rpassword_hint"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="121dp"
         android:ems="10"
-        android:hint="EMAIL"
+        android:hint="@string/default_web_client_id"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

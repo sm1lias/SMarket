@@ -10,36 +10,35 @@
         android:id="@+id/bLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginTop="30dp"
         android:onClick="logIn"
-        android:text="LOG IN"
-        app:layout_constraintBottom_toTopOf="@+id/bSignUp"
+        android:text="@string/button_login"
         app:layout_constraintEnd_toEndOf="@+id/bSignUp"
-        app:layout_constraintStart_toStartOf="@+id/editTPass" />
+        app:layout_constraintTop_toBottomOf="@+id/editTPass" />
 
     <Button
         android:id="@+id/bSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="33dp"
-        android:onClick="signUp"
-        android:text="New User?Sign up now."
-        app:layout_constraintBottom_toTopOf="@+id/bFPass"
-        app:layout_constraintStart_toStartOf="@+id/bFPass" />
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="77dp"
+        android:onClick="@string/button_new_user"
+        android:text="@string/button_signup"
+        app:layout_constraintEnd_toEndOf="@+id/editTPass"
+        app:layout_constraintStart_toStartOf="@+id/bFPass"
+        app:layout_constraintTop_toBottomOf="@+id/bLogIn" />
 
     <Button
         android:id="@+id/bFPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
-        android:layout_marginBottom="230dp"
+        android:layout_marginTop="45dp"
         android:onClick="forgetPassword"
-        android:text="Did you forget your password?"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/button_forgot_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bSignUp" />
 
     <EditText
         android:id="@+id/editTPass"
@@ -48,7 +47,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="35dp"
         android:ems="10"
-        android:hint="PASSWORD"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/editTEmail"
         app:layout_constraintTop_toBottomOf="@+id/editTEmail" />
@@ -60,7 +59,7 @@
         android:layout_marginStart="78dp"
         android:layout_marginTop="124dp"
         android:ems="10"
-        android:hint="EMAIL"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

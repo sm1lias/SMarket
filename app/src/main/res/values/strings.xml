@@ -14,4 +14,17 @@
     <string name="menuHome">Home</string>
     <string name="menuCart">Cart</string>
     <string name="menuLogin">LogIn</string>
+    <string name="forgot_password_title">Write your email below to send you a new password.</string>
+    <string name="button_confirm">CONFIRM</string>
+    <string name="email_hint">EMAIL</string>
+    <string name="password_hint">PASSWORD</string>
+    <string name="button_login">LOG IN</string>
+    <string name="button_signup">SIGN UP</string>
+    <string name="button_forgot_password">Did you forget your password?</string>
+    <string name="rpassword_hint">REPEAT PASSWORD</string>
+    <string name="button_new_user">New User?Sign up now.</string>
+    <string name="verify_email_title">You need to verify your email.</string>
+    <string name="button_send_vemail">Press here to send you verification email.</string>
+    <string name="button_have_vemail">"I have already recieved a verification email"</string>
+
 </resources>
