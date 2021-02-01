@@ -26,5 +26,6 @@
     <string name="verify_email_title">You need to verify your email.</string>
     <string name="button_send_vemail">Press here to send you verification email.</string>
     <string name="button_have_vemail">"I have already recieved a verification email"</string>
+    <string name="button_language">To Greek</string>
 
 </resources>

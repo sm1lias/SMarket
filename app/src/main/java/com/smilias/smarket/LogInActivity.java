@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Locale;
 
 public class LogInActivity extends AppCompatActivity {
     SQLiteDatabase db;
@@ -87,4 +90,5 @@ public class LogInActivity extends AppCompatActivity {
         editTPass = findViewById(R.id.editTPass);
         mAuth = FirebaseAuth.getInstance();
     }
+
 }
