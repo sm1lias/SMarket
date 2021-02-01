@@ -1,5 +1,6 @@
 package com.smilias.smarket;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,11 @@ public class LoginFragment extends Fragment {
 
     public LoginFragment() {
         // Required empty public constructor
+    }
+
+    public void logIn(View view) {
+        Intent intent2= new Intent(getActivity(),LogInActivity.class);
+        startActivity(intent2);
     }
 
     /**
