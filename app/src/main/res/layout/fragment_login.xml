@@ -34,8 +34,11 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="37dp"
         android:onClick="lang_change"
-        android:text="@string/button_language"
-        tools:layout_editor_absoluteX="266dp"
-        tools:layout_editor_absoluteY="29dp" />
+        android:text="change"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
