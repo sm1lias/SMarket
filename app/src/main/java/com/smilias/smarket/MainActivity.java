@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
-    public String language;
+    public String language="en";
     public Locale locale;
 
 
@@ -33,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
         startActivity(intent2);
+    }
+    public void locale_lang(Locale locale){
+        Locale.setDefault(locale);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
     public void lang_change(View view){
         Toast.makeText(this,language,Toast.LENGTH_SHORT).show();
@@ -43,17 +50,17 @@ public class MainActivity extends AppCompatActivity {
             locale = new Locale("en");
             language="en";
         }
-        else{
+        else if(language=="en"){
             editor.putString("lang", "el");
             locale = new Locale("el");
             language="el";
         }
-        editor.apply();
-        Locale.setDefault(locale);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
+        else{
+            Toast.makeText(this, "Unluck", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        editor.commit();
+        locale_lang(locale);
         Intent refresh = new Intent(this, MainActivity.class);
         finish();
         startActivity(refresh);
@@ -63,9 +70,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
-        language = preferences.getString("lang",Locale.getDefault().getLanguage());  // Shared preferences
+        //language  = preferences.getString("lang","en");  // Shared preferences
+        Locale locale = new Locale(language);
+        locale_lang(locale);
+        this.setContentView(R.layout.activity_main);
+
+
+
+
 
 
 
