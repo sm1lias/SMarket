@@ -25,64 +25,47 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
-    public String language="en";
+    public String language;
     public Locale locale;
-
-
 
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
         startActivity(intent2);
     }
-    public void locale_lang(Locale locale){
-        Locale.setDefault(locale);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-    }
-    public void lang_change(View view){
-        Toast.makeText(this,language,Toast.LENGTH_SHORT).show();
 
+    public void lang_change(View view){
         SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
-        if (language=="el") {
+        if (language.equals("el")) {
             editor.putString("lang", "en");
             locale = new Locale("en");
             language="en";
+            Toast.makeText(this,"Language changed to english",Toast.LENGTH_SHORT).show();
         }
-        else if(language=="en"){
+        else {
             editor.putString("lang", "el");
             locale = new Locale("el");
             language="el";
-        }
-        else{
-            Toast.makeText(this, "Unluck", Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this,"Η γλώσσα άλλαξε σε ελληνικά",Toast.LENGTH_SHORT).show();
         }
         editor.commit();
-        locale_lang(locale);
         Intent refresh = new Intent(this, MainActivity.class);
         finish();
         startActivity(refresh);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
-        //language  = preferences.getString("lang","en");  // Shared preferences
+
+        language  = preferences.getString("lang","en");  // Shared preferences
         Locale locale = new Locale(language);
-        locale_lang(locale);
+        Locale.setDefault(locale);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
         this.setContentView(R.layout.activity_main);
-
-
-
-
-
-
-
-
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
