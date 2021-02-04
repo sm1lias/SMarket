@@ -25,8 +25,9 @@
     <string name="button_new_user">New User?Sign up now.</string>
     <string name="verify_email_title">You need to verify your email.</string>
     <string name="button_send_vemail">Press here to send you verification email.</string>
-    <string name="button_have_vemail">"I have already recieved a verification email"</string>
+    <string name="button_have_vemail">"I have already received a verification email"</string>
     <string name="button_language">To Greek</string>
+    <string name="lan_change">ΕΛΛΗΝΙΚΑ</string>
     <string-array name="languages">
         <item>English</item>
         <item>Ελληνικά</item>

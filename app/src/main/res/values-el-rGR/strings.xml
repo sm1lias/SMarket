@@ -15,4 +15,5 @@
     <string name="verify_email_title">Χρειάζεται να επιβεβαιώσετε το  email σας.</string>
     <string name="button_send_vemail">Πατήστε εδώ για να σας σταλεί email επιβεβαίωσης.</string>
     <string name="button_have_vemail">πατήστες εδώ αν λάβει ήδη email επιβεβαίωσης</string>
+    <string name="lan_change">ENGLISH</string>
 </resources>

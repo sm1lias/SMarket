@@ -37,7 +37,7 @@
         android:layout_marginStart="53dp"
         android:layout_marginTop="37dp"
         android:onClick="lang_change"
-        android:text="change"
+        android:text="@string/lan_change"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

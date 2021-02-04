@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        // as soon as the application opens the first
-        // fragment should be shown to the user
-        // in this case it is algorithm fragment
+//         as soon as the application opens the first
+//         fragment should be shown to the user
+//         in this case it is algorithm fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new HomeFragment()).commit();
     }
 
