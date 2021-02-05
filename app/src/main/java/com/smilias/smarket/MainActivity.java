@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.menuLogin:
                     selectedFragment = new LoginFragment();
                     break;
+                case R.id.menuCategories:
+                    selectedFragment= new CategoriesFragment();
+                    break;
             }
             // It will help to replace the
             // one fragment to other.

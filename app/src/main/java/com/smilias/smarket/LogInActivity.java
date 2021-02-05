@@ -28,7 +28,7 @@ public class LogInActivity extends AppCompatActivity {
     EditText editTEmail, editTPass;
     private static final String TAG = "LogInActivity";
 
-    public void signUp(View view){
+    public void bSignUp(View view){
         Intent intent = new Intent(this,SignUpActivity.class);
         startActivity(intent);
     }
