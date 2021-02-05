@@ -11,15 +11,23 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -27,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     public String language;
     public Locale locale;
+    Spinner spinner;
+    FirebaseDatabase database;
+    String value;
+    ListView listView;
 
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
@@ -67,6 +79,26 @@ public class MainActivity extends AppCompatActivity {
                 getBaseContext().getResources().getDisplayMetrics());
 
         this.setContentView(R.layout.activity_main);
+       // database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference();
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot MainSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                value = MainSnapshot.child("products").getValue(String.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//
+//
+//        });
+
+
+
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);

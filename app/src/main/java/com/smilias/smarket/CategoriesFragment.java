@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +23,7 @@ public class CategoriesFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ListView listView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -52,6 +57,7 @@ public class CategoriesFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -59,6 +65,23 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_categories, container, false);
+        String[] myNum = new String[]{"10", "20", "30", "40"};
+        listView=(ListView) rootView.findViewById(R.id.listView);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,myNum);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i==0){
+                    Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
+                }
+                if(i==1){
+                    Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+        return rootView;
     }
 }
