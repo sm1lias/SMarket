@@ -48,7 +48,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="121dp"
         android:ems="10"
-        android:hint="@string/default_web_client_id"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
