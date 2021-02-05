@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
 
+        preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         language  = preferences.getString("lang","en");  // Shared preferences
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
+
         this.setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
