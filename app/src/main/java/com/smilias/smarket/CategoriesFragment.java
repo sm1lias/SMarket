@@ -34,8 +34,7 @@ public class CategoriesFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     ListView listView;
     FirebaseDatabase database;
-    String[] value;
-    ArrayList<String> cities= new ArrayList<>();
+    ArrayList<String> categories= new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -79,20 +78,17 @@ public class CategoriesFragment extends Fragment {
                 // whenever data at this location is updated.
                 for (DataSnapshot snapshot : MainSnapshot.getChildren()){
 
-                    cities.add(snapshot.getValue(String.class).toString());
+                    categories.add(snapshot.getValue(String.class).toString());
                 }
                // value = MainSnapshot.child("test").getValue(String.class);
-                ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,cities);
+                ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        if(i==0){
-                            Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
-                        }
-                        if(i==1){
-                            Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
-
+                        for(int y=0; y<categories.size(); y++) {
+                            if (i == y)
+                                Toast.makeText(getActivity(), String.valueOf(y), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
