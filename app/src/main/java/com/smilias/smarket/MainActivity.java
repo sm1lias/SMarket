@@ -35,10 +35,6 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     public String language;
     public Locale locale;
-    Spinner spinner;
-    FirebaseDatabase database;
-    String value;
-    ListView listView;
 
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
@@ -79,23 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 getBaseContext().getResources().getDisplayMetrics());
 
         this.setContentView(R.layout.activity_main);
-       // database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference();
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot MainSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                value = MainSnapshot.child("products").getValue(String.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//
-//
-//        });
+
 
 
 
