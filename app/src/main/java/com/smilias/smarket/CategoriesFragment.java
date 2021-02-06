@@ -71,18 +71,31 @@ public class CategoriesFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference myRef = database.getReference("SUPERMARKET");
+        myRef.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot MainSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (DataSnapshot snapshot : MainSnapshot.getChildren()){
 
-                    cities.add(snapshot.child("SUPERMARKET").getValue(String.class));
+                    cities.add(snapshot.getValue(String.class).toString());
                 }
                // value = MainSnapshot.child("test").getValue(String.class);
+                ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,cities);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if(i==0){
+                            Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
+                        }
+                        if(i==1){
+                            Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
 
+                        }
+                    }
+                });
 
 
                 // }
@@ -111,20 +124,7 @@ public class CategoriesFragment extends Fragment {
 
         String[] myNum = new String[]{"10", "20", "30", "40"};
         listView=(ListView) rootView.findViewById(R.id.listView);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,cities);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0){
-                    Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
-                }
-                if(i==1){
-                    Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
 
-                }
-            }
-        });
         return rootView;
     }
 }
