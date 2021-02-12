@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * Use the {@link CategoriesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoriesFragment extends Fragment {
+public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
 
     RecyclerView recyclerView;
     FirebaseDatabase database;
@@ -68,6 +68,11 @@ public class CategoriesFragment extends Fragment {
     }
 
     @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(getActivity(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -88,6 +93,7 @@ public class CategoriesFragment extends Fragment {
                     categories.add(snapshot.getValue(String.class).toString());
                 }
                 adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                adapter.setClickListener(CategoriesFragment.this::onItemClick);
                 recyclerView.setAdapter(adapter);
             }
 
