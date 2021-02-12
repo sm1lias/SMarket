@@ -69,43 +69,43 @@ public class CategoriesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("SUPERMARKET");
-        myRef.addValueEventListener (new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot MainSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.getChildren()){
-
-                    categories.add(snapshot.getValue(String.class).toString());
-                }
-               // value = MainSnapshot.child("test").getValue(String.class);
-                ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
-                listView.setAdapter(adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        for(int y=0; y<categories.size(); y++) {
-                            if (i == y)
-                                Toast.makeText(getActivity(), String.valueOf(y), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-
-                // }
-//                value=cities.toArray(new String[0]);
-//                Toast.makeText(getActivity(), value[0], Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-
-        });
+   //     database = FirebaseDatabase.getInstance();
+ //       DatabaseReference myRef = database.getReference("SUPERMARKET");
+//        myRef.addValueEventListener (new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot MainSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                for (DataSnapshot snapshot : MainSnapshot.getChildren()){
+//
+//                    categories.add(snapshot.getValue(String.class).toString());
+//                }
+//               // value = MainSnapshot.child("test").getValue(String.class);
+//                ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
+//                listView.setAdapter(adapter);
+//                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                        for(int y=0; y<categories.size(); y++) {
+//                            if (i == y)
+//                                Toast.makeText(getActivity(), String.valueOf(y), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//
+//
+//                // }
+////                value=cities.toArray(new String[0]);
+////                Toast.makeText(getActivity(), value[0], Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//
+//
+//        });
 
 
 
@@ -116,10 +116,8 @@ public class CategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_categories, container, false);
-
-
-        String[] myNum = new String[]{"10", "20", "30", "40"};
-        listView=(ListView) rootView.findViewById(R.id.listView);
+        listView=(ListView) getView().findViewById(R.id.listView);
+        //listView=(ListView) rootView.findViewById(R.id.listView);
 
         return rootView;
     }
