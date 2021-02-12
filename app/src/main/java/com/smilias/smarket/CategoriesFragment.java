@@ -30,15 +30,16 @@ import java.util.ArrayList;
  */
 public class CategoriesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     RecyclerView recyclerView;
     FirebaseDatabase database;
     ArrayList<String> categories= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -73,8 +74,10 @@ public class CategoriesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
         database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SUPERMARKET");
+
         myRef.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot MainSnapshot) {
@@ -84,11 +87,7 @@ public class CategoriesFragment extends Fragment {
 
                     categories.add(snapshot.getValue(String.class).toString());
                 }
-               // value = MainSnapshot.child("test").getValue(String.class);
-//                RecyclerView recyclerView = findViewById(R.id.rvAnimals);
-//                recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 adapter = new MyRecyclerViewAdapter(getActivity(), categories);
-                //adapter.setClickListener((MyRecyclerViewAdapter.ItemClickListener) getActivity());
                 recyclerView.setAdapter(adapter);
             }
 
@@ -96,11 +95,7 @@ public class CategoriesFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
-
         });
-
-
 
     }
 
@@ -108,11 +103,11 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_categories, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_categories, container, false);
+
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        //listView=(ListView) rootView.findViewById(R.id.listView);
 
         return rootView;
     }
