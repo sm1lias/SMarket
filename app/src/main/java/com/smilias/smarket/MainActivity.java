@@ -78,46 +78,45 @@ public class MainActivity extends AppCompatActivity {
                 getBaseContext().getResources().getDisplayMetrics());
 
         this.setContentView(R.layout.activity_main);
-
-        listView=findViewById(R.id.listView);
-
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("SUPERMARKET");
-        myRef.addValueEventListener (new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot MainSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.getChildren()){
-
-                    categories.add(snapshot.getValue(String.class).toString());
-                }
-                // value = MainSnapshot.child("test").getValue(String.class);
-                ArrayAdapter<String> adapter=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,categories);
-                listView.setAdapter(adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        for(int y=0; y<categories.size(); y++) {
-                            if (i == y)
-                                Toast.makeText(MainActivity.this, String.valueOf(y), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+//        listView=findViewById(R.id.listView);
+//
+//        database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("SUPERMARKET");
+//        myRef.addValueEventListener (new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot MainSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                for (DataSnapshot snapshot : MainSnapshot.getChildren()){
+//
+//                    categories.add(snapshot.getValue(String.class).toString());
+//                }
+//                // value = MainSnapshot.child("test").getValue(String.class);
+//                ArrayAdapter<String> adapter=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,categories);
+//                listView.setAdapter(adapter);
+//                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                        for(int y=0; y<categories.size(); y++) {
+//                            if (i == y)
+//                                Toast.makeText(MainActivity.this, String.valueOf(y), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
 
 
                 // }
 //                value=cities.toArray(new String[0]);
 //                Toast.makeText(getActivity(), value[0], Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-
-        });
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//
+//
+//        });
 
 
 

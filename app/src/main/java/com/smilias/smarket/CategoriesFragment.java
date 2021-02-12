@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,9 +34,11 @@ public class CategoriesFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    ListView listView;
+    RecyclerView recyclerView;
     FirebaseDatabase database;
     ArrayList<String> categories= new ArrayList<>();
+    LinearLayoutManager layoutManager;
+    MyRecyclerViewAdapter adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,43 +73,32 @@ public class CategoriesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-   //     database = FirebaseDatabase.getInstance();
- //       DatabaseReference myRef = database.getReference("SUPERMARKET");
-//        myRef.addValueEventListener (new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot MainSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                for (DataSnapshot snapshot : MainSnapshot.getChildren()){
-//
-//                    categories.add(snapshot.getValue(String.class).toString());
-//                }
-//               // value = MainSnapshot.child("test").getValue(String.class);
-//                ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
-//                listView.setAdapter(adapter);
-//                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                        for(int y=0; y<categories.size(); y++) {
-//                            if (i == y)
-//                                Toast.makeText(getActivity(), String.valueOf(y), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//
-//
-//                // }
-////                value=cities.toArray(new String[0]);
-////                Toast.makeText(getActivity(), value[0], Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//
-//
-//        });
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("SUPERMARKET");
+        myRef.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot MainSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                for (DataSnapshot snapshot : MainSnapshot.getChildren()){
+
+                    categories.add(snapshot.getValue(String.class).toString());
+                }
+               // value = MainSnapshot.child("test").getValue(String.class);
+//                RecyclerView recyclerView = findViewById(R.id.rvAnimals);
+//                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                //adapter.setClickListener((MyRecyclerViewAdapter.ItemClickListener) getActivity());
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
 
 
 
@@ -116,7 +109,9 @@ public class CategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_categories, container, false);
-        listView=(ListView) getView().findViewById(R.id.listView);
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         //listView=(ListView) rootView.findViewById(R.id.listView);
 
         return rootView;
