@@ -81,7 +81,7 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
         }
 
         database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("SUPERMARKET");
+        DatabaseReference myRef = database.getReference("CATEGORIES");
 
         myRef.addValueEventListener (new ValueEventListener() {
             @Override
@@ -90,7 +90,8 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
                 // whenever data at this location is updated.
                 for (DataSnapshot snapshot : MainSnapshot.getChildren()){
 
-                    categories.add(snapshot.getValue(String.class).toString());
+//                    categories.add(snapshot.getValue(String.class).toString());
+                    categories.add(snapshot.getKey());
                 }
                 adapter = new MyRecyclerViewAdapter(getActivity(), categories);
                 adapter.setClickListener(CategoriesFragment.this::onItemClick);
