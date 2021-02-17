@@ -32,7 +32,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     ArrayList<String> categories= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
-    String nitem;
+    String item;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,7 +49,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
 
     public ItemsFragment(String passedString) {
         // Required empty public constructor
-        nitem=passedString;
+        item=passedString;
     }
 
     /**
@@ -86,7 +86,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
             public void onDataChange(DataSnapshot MainSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(nitem).getChildren()){
+                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()){
 
 //                    categories.add(snapshot.getValue(String.class).toString());
                     categories.add(snapshot.getKey());
