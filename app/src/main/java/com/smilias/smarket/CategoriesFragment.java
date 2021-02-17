@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
-
+    DatabaseReference myRef;
     RecyclerView recyclerView;
     FirebaseDatabase database;
     ArrayList<String> categories= new ArrayList<>();
@@ -46,6 +46,10 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
     private String mParam2;
 
     public CategoriesFragment() {
+        // Required empty public constructor
+    }
+
+    public CategoriesFragment(String x) {
         // Required empty public constructor
     }
 
@@ -69,7 +73,29 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getActivity(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        ArrayList<String> items= new ArrayList<>();
+        String item=adapter.getItem(position);
+        myRef.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot MainSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                for (DataSnapshot snapshot : MainSnapshot.child(item).getChildren()){
+
+//                    categories.add(snapshot.getValue(String.class).toString());
+                    items.add(snapshot.getKey());
+                }
+                adapter = new MyRecyclerViewAdapter(getActivity(), items);
+                adapter.setClickListener(CategoriesFragment.this::onItemClick);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -81,7 +107,7 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
         }
 
         database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        myRef = database.getReference();
 
         myRef.addValueEventListener (new ValueEventListener() {
             @Override
