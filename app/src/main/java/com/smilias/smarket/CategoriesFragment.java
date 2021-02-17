@@ -81,14 +81,14 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
         }
 
         database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("CATEGORIES");
+        DatabaseReference myRef = database.getReference();
 
         myRef.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot MainSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.getChildren()){
+                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").getChildren()){
 
 //                    categories.add(snapshot.getValue(String.class).toString());
                     categories.add(snapshot.getKey());
