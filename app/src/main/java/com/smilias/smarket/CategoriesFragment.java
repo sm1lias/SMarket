@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,10 +50,6 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
         // Required empty public constructor
     }
 
-    public CategoriesFragment(String x) {
-        // Required empty public constructor
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -73,29 +70,9 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 
     @Override
     public void onItemClick(View view, int position) {
-        ArrayList<String> items= new ArrayList<>();
-        String item=adapter.getItem(position);
-        myRef.addValueEventListener (new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot MainSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.child(item).getChildren()){
-
-//                    categories.add(snapshot.getValue(String.class).toString());
-                    items.add(snapshot.getKey());
-                }
-                adapter = new MyRecyclerViewAdapter(getActivity(), items);
-                adapter.setClickListener(CategoriesFragment.this::onItemClick);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flFragment, new ItemsFragment(adapter.getItem(position)), "findThisFragment")
+                .commit();
     }
 
     @Override
