@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("CATEGORIES");
+        myRef = database.getReference();
     }
 
     @Override
@@ -93,13 +93,14 @@ public class HomeFragment extends Fragment {
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
-                        if (snapshot.hasChild(text)) {
-                            Toast.makeText(getActivity(), "YES.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Toast.makeText(getActivity(), "NO.",
-                                    Toast.LENGTH_SHORT).show();
+                        for (DataSnapshot snap : snapshot.child("CATEGORIES").getChildren()) {
+                            if (snap.hasChild(text)) {
+                                Toast.makeText(getActivity(), "YES.",
+                                        Toast.LENGTH_SHORT).show();
+                                getActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.flFragment, new ISupermarketsFragment(snap.getKey(),text), "findThisFragment")
+                                        .commit();
+                            }
                         }
                     }
 
