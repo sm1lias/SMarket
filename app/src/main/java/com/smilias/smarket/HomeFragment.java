@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
     DatabaseReference myRef;
     FirebaseDatabase database;
     boolean b;
+    ArrayList<String> items2 = new ArrayList<>();
     EditText editTextTextSearch;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -76,40 +77,80 @@ public class HomeFragment extends Fragment {
         myRef = database.getReference();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_home, container, false);
-        editTextTextSearch = (EditText)view.findViewById(R.id.editTextTextSearch);
-        // Inflate the layout for this fragment
-        Button buttonSearch=(Button) view.findViewById(R.id.buttonSearch);
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = editTextTextSearch.getText().toString();
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        for (DataSnapshot snap : snapshot.child("CATEGORIES").getChildren()) {
-                            if (snap.hasChild(text)) {
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        View view=inflater.inflate(R.layout.fragment_home, container, false);
+//        editTextTextSearch = (EditText)view.findViewById(R.id.editTextTextSearch);
+//        // Inflate the layout for this fragment
+//        Button buttonSearch=(Button) view.findViewById(R.id.buttonSearch);
+//        buttonSearch.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                String text = editTextTextSearch.getText().toString();
+//                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot snapshot) {
+//                        for (DataSnapshot snap : snapshot.child("CATEGORIES").getChildren()) {
+//                            if (snap.hasChild(text)) {
+//                                getActivity().getSupportFragmentManager().beginTransaction()
+//                                        .replace(R.id.flFragment, new ISupermarketsFragment(text), "findThisFragment")
+//                                        .commit();
+//                                b=true;
+//                            }
+//                        }
+//                        if(b!=true) Toast.makeText(getActivity(), "ITEM NOT FOUND",
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//                //return inflater.inflate(R.layout.fragment_home, container, false);
+//            }
+//        });
+//        return view;
+//    }
+//}
+@Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                         Bundle savedInstanceState) {
+    View view=inflater.inflate(R.layout.fragment_home, container, false);
+    editTextTextSearch = (EditText)view.findViewById(R.id.editTextTextSearch);
+    // Inflate the layout for this fragment
+    Button buttonSearch=(Button) view.findViewById(R.id.buttonSearch);
+    buttonSearch.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String text = editTextTextSearch.getText().toString();
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    for (DataSnapshot child1 : snapshot.child("CATEGORIES").getChildren()) {
+                        for (DataSnapshot child2 : child1.getChildren()) {
+                            String text2 = child2.getKey().toString();
+                            if (text2.contains(text)) {
+                                Toast.makeText(getActivity(), "YES.",
+                                        Toast.LENGTH_SHORT).show();
+                                items2.add(child2.getKey());
                                 getActivity().getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.flFragment, new ISupermarketsFragment(snap.getKey(),text), "findThisFragment")
+                                        //.replace(R.id.flFragment, new ISupermarketsFragment(snap.getKey(),text), "findThisFragment")
+                                        .replace(R.id.flFragment, new ItemsFragment(items2), "findThisFragment")
                                         .commit();
-                                b=true;
                             }
                         }
-                        if(b!=true) Toast.makeText(getActivity(), "ITEM NOT FOUND",
-                                Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
-                //return inflater.inflate(R.layout.fragment_home, container, false);
-            }
-        });
-        return view;
-    }
+                }
+            });
+            //return inflater.inflate(R.layout.fragment_home, container, false);
+        }
+    });
+    return view;
+}
 }

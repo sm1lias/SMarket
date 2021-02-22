@@ -49,9 +49,9 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
         // Required empty public constructor
     }
 
-    public ISupermarketsFragment(String passedString1, String passedString2) {
+    public ISupermarketsFragment(/*String passedString1*/String passedString2) {
         // Required empty public constructor
-        item1=passedString1;
+        //item1=passedString1;
         item2=passedString2;
     }
 
@@ -89,6 +89,12 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
             public void onDataChange(DataSnapshot MainSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
+                    if (snap.hasChild(item2)) {
+                        item1=snap.getKey();
+                        //b=true;
+                    }
+                }
                 for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item1).child(item2).getChildren()){  //testing
 
 //                    categories.add(snapshot.getValue(String.class).toString());

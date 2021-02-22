@@ -30,9 +30,11 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     RecyclerView recyclerView;
     FirebaseDatabase database;
     ArrayList<String> categories= new ArrayList<>();
+    ArrayList<String> items= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
     String item;
+    boolean con;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,10 +48,16 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     public ItemsFragment() {
         // Required empty public constructor
     }
+    public ItemsFragment(ArrayList<String> itemsPassed) {
+        // Required empty public constructor
+        items=itemsPassed;
+        con=false;
+    }
 
     public ItemsFragment(String passedString) {
         // Required empty public constructor
         item=passedString;
+        con=true;
     }
 
     /**
@@ -81,27 +89,33 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        myRef.addValueEventListener (new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot MainSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()){
+        if(con) {
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot MainSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()) {
 
 //                    categories.add(snapshot.getValue(String.class).toString());
-                    categories.add(snapshot.getKey());
+                        categories.add(snapshot.getKey());
+                    }
+                    adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                    adapter.setClickListener(ItemsFragment.this::onItemClick);
+                    recyclerView.setAdapter(adapter);
                 }
-                adapter = new MyRecyclerViewAdapter(getActivity(), categories);
-                adapter.setClickListener(ItemsFragment.this::onItemClick);
-                recyclerView.setAdapter(adapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
+                }
+            });
+        }
+        else{
+            adapter = new MyRecyclerViewAdapter(getActivity(), items);
+            adapter.setClickListener(ItemsFragment.this::onItemClick);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
 
@@ -121,7 +135,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     @Override
     public void onItemClick(View view, int position) {
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.flFragment, new ISupermarketsFragment(item,adapter.getItem(position)), "findThisFragment")
+                .replace(R.id.flFragment, new ISupermarketsFragment(/*item,*/adapter.getItem(position)), "findThisFragment")
                 .commit();
     }
 }
