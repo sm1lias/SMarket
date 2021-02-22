@@ -79,7 +79,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
             } else if(view.getId()==buttonAdd.getId()){
                 q=textViewQuantity.getText().toString();
                 quantity=Integer.parseInt(q);
-                if(quantity<=mQuantity) quantity=quantity+1;
+                if(quantity < mQuantity.get(getAdapterPosition()) ) quantity=quantity+1;
                 textViewQuantity.setText(String.valueOf(quantity));
             } else if(view.getId()==buttonDelete.getId()){
                 q=textViewQuantity.getText().toString();

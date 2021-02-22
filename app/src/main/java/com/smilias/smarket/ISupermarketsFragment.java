@@ -29,7 +29,8 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
     DatabaseReference myRef;
     RecyclerView recyclerView;
     FirebaseDatabase database;
-    ArrayList<String> categories,prices= new ArrayList<>();
+    ArrayList<String> prices= new ArrayList<>();
+    ArrayList<String> categories=new ArrayList<>();
     ArrayList<Integer> quantity= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapterImage adapter;
