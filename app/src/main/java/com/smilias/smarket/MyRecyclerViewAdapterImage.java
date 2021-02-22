@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -48,11 +49,13 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView1, myTextView2;
+        Button button;
 
         ViewHolder(View itemView) {
             super(itemView);
             myTextView1 = itemView.findViewById(R.id.category);
             myTextView2 = itemView.findViewById(R.id.price);
+            button = itemView.findViewById(R.id.button3);
 
             itemView.setOnClickListener(this);
         }

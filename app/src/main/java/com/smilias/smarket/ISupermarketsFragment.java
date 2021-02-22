@@ -31,7 +31,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
     FirebaseDatabase database;
     ArrayList<String> categories= new ArrayList<>();
     LinearLayoutManager layoutManager;
-    MyRecyclerViewAdapter adapter;
+    MyRecyclerViewAdapterImage adapter;
     String item1, item2;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -92,7 +92,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
 //                    categories.add(snapshot.getValue(String.class).toString());
                     categories.add(snapshot.getKey());
                 }
-                adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                adapter = new MyRecyclerViewAdapterImage(getActivity(), categories);
                 adapter.setClickListener(ISupermarketsFragment.this::onItemClick);
                 recyclerView.setAdapter(adapter);
             }
