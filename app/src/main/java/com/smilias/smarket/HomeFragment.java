@@ -131,15 +131,11 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
                         for (DataSnapshot child2 : child1.getChildren()) {
                             String text2 = child2.getKey().toString();
                             if (text2.contains(text)) {
-                                Toast.makeText(getActivity(), "YES.",
-                                        Toast.LENGTH_SHORT).show();
                                 items2.add(child2.getKey());
-
                             }
                         }
                     }
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            //.replace(R.id.flFragment, new ISupermarketsFragment(snap.getKey(),text), "findThisFragment")
                             .replace(R.id.flFragment, new ItemsFragment(items2), "findThisFragment")
                             .commit();
                 }
