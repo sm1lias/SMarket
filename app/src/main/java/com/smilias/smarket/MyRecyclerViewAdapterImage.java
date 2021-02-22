@@ -37,8 +37,8 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     public void onBindViewHolder(ViewHolder holder, int position) {
         String item = mData.get(position);
         String price= mPrice.get(position);
-        holder.myTextView1.setText(item);
-        holder.myTextView2.setText("PRICE: "+price);
+        holder.myTextView2.setText("SUPERMARKET: "+item);
+        holder.myTextView1.setText("PRICE: "+price);
     }
 
     // total number of rows
@@ -55,8 +55,8 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView1 = itemView.findViewById(R.id.category);
-            myTextView2 = itemView.findViewById(R.id.price);
+            myTextView1 = itemView.findViewById(R.id.price);
+            myTextView2 = itemView.findViewById(R.id.category);
             button = itemView.findViewById(R.id.button3);
 
             itemView.setOnClickListener(this);
