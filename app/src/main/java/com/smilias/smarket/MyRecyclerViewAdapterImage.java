@@ -14,13 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerViewAdapterImage.ViewHolder> {
 
     private List<String> mData;
+    private List<String> mPrice;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapterImage(Context context, List<String> data) {
+    MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.mPrice = prices;
     }
 
     // inflates the row layout from xml when needed
@@ -34,9 +36,9 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String item = mData.get(position);
-        String price="5";
+        String price= mPrice.get(position);
         holder.myTextView1.setText(item);
-        holder.myTextView2.setText(price);
+        holder.myTextView2.setText("PRICE: "+price);
     }
 
     // total number of rows

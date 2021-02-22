@@ -30,6 +30,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
     RecyclerView recyclerView;
     FirebaseDatabase database;
     ArrayList<String> categories= new ArrayList<>();
+    ArrayList<String> prices= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapterImage adapter;
     String item1, item2;
@@ -91,8 +92,9 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
 
 //                    categories.add(snapshot.getValue(String.class).toString());
                     categories.add(snapshot.getKey());
+                    prices.add(snapshot.child("PRICE").getValue(double.class).toString());
                 }
-                adapter = new MyRecyclerViewAdapterImage(getActivity(), categories);
+                adapter = new MyRecyclerViewAdapterImage(getActivity(), categories, prices);
                 adapter.setClickListener(ISupermarketsFragment.this::onItemClick);
                 recyclerView.setAdapter(adapter);
             }
