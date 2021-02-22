@@ -134,13 +134,14 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                 Toast.makeText(getActivity(), "YES.",
                                         Toast.LENGTH_SHORT).show();
                                 items2.add(child2.getKey());
-                                getActivity().getSupportFragmentManager().beginTransaction()
-                                        //.replace(R.id.flFragment, new ISupermarketsFragment(snap.getKey(),text), "findThisFragment")
-                                        .replace(R.id.flFragment, new ItemsFragment(items2), "findThisFragment")
-                                        .commit();
+
                             }
                         }
                     }
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            //.replace(R.id.flFragment, new ISupermarketsFragment(snap.getKey(),text), "findThisFragment")
+                            .replace(R.id.flFragment, new ItemsFragment(items2), "findThisFragment")
+                            .commit();
                 }
 
                 @Override
