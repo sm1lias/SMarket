@@ -2,11 +2,25 @@ package com.smilias.smarket;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +28,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    DatabaseReference myRef;
+    FirebaseDatabase database;
+    ArrayList<String> items= new ArrayList<>();
+    LinearLayoutManager layoutManager;
+    MyRecyclerViewAdapter adapter;
+    String item;
+    EditText editTextTextSearch;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +67,7 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +75,42 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("CATEGORIES");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_home, container, false);
+        editTextTextSearch = (EditText)view.findViewById(R.id.editTextTextSearch);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        Button buttonSearch=(Button) view.findViewById(R.id.buttonSearch);
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = editTextTextSearch.getText().toString();
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.hasChild(text)) {
+                            Toast.makeText(getActivity(), "YES.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "NO.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                //return inflater.inflate(R.layout.fragment_home, container, false);
+            }
+        });
+        return view;
     }
 }
