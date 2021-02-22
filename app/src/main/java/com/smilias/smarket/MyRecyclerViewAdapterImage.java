@@ -14,17 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerViewAdapterImage.ViewHolder> {
 
     private String q;
-    private List<String> mData;
-    private List<String> mPrice;
+    private List<String> mData,mPrice;
+    private List<Integer> mQuantity;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private int quantity=0;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices) {
+    MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices, List<Integer> quantitylist) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.mPrice = prices;
+        this.mQuantity = quantitylist;
     }
 
     // inflates the row layout from xml when needed
@@ -78,14 +79,12 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
             } else if(view.getId()==buttonAdd.getId()){
                 q=textViewQuantity.getText().toString();
                 quantity=Integer.parseInt(q);
-                quantity=quantity+1;
+                if(quantity<=mQuantity) quantity=quantity+1;
                 textViewQuantity.setText(String.valueOf(quantity));
             } else if(view.getId()==buttonDelete.getId()){
                 q=textViewQuantity.getText().toString();
                 quantity=Integer.parseInt(q);
-                if(quantity > 0){
-                quantity=quantity-1;
-                }
+                if(quantity > 0) quantity=quantity-1;
                 textViewQuantity.setText(String.valueOf(quantity));
             }
         }
