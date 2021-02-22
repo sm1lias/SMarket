@@ -21,10 +21,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ItemsFragment#newInstance} factory method to
+ * Use the {@link ISupermarketsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
+public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
 
     DatabaseReference myRef;
     RecyclerView recyclerView;
@@ -32,7 +32,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     ArrayList<String> categories= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
-    String item;
+    String item1, item2;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,13 +43,14 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     private String mParam1;
     private String mParam2;
 
-    public ItemsFragment() {
+    public ISupermarketsFragment() {
         // Required empty public constructor
     }
 
-    public ItemsFragment(String passedString) {
+    public ISupermarketsFragment(String passedString1, String passedString2) {
         // Required empty public constructor
-        item=passedString;
+        item1=passedString1;
+        item2=passedString2;
     }
 
     /**
@@ -58,11 +59,11 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ItemsFragment.
+     * @return A new instance of fragment ISupermarketsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ItemsFragment newInstance(String param1, String param2) {
-        ItemsFragment fragment = new ItemsFragment();
+    public static ISupermarketsFragment newInstance(String param1, String param2) {
+        ISupermarketsFragment fragment = new ISupermarketsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -86,13 +87,13 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
             public void onDataChange(DataSnapshot MainSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()){
+                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item1).child(item2).getChildren()){  //testing
 
 //                    categories.add(snapshot.getValue(String.class).toString());
                     categories.add(snapshot.getKey());
                 }
                 adapter = new MyRecyclerViewAdapter(getActivity(), categories);
-                adapter.setClickListener(ItemsFragment.this::onItemClick);
+                adapter.setClickListener(ISupermarketsFragment.this::onItemClick);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -101,9 +102,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
 
             }
         });
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,8 +119,6 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
 
     @Override
     public void onItemClick(View view, int position) {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.flFragment, new ISupermarketsFragment(item,adapter.getItem(position)), "findThisFragment")
-                .commit();
+
     }
 }
