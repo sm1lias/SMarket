@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +35,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
     String item;
-    boolean con;
+    boolean con,con2;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -112,9 +113,21 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
             });
         }
         else{
-            adapter = new MyRecyclerViewAdapter(getActivity(), items);
-            adapter.setClickListener(ItemsFragment.this::onItemClick);
-            recyclerView.setAdapter(adapter);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot MainSnapshot) {
+                    {
+                        adapter = new MyRecyclerViewAdapter(getActivity(), items);
+                        adapter.setClickListener(ItemsFragment.this::onItemClick);
+                        recyclerView.setAdapter(adapter);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
     }
 
@@ -128,7 +141,6 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
         return rootView;
     }
 
