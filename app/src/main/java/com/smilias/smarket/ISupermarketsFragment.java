@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Use the {@link ISupermarketsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
+public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAdapterImage.ItemClickListener {
 
     DatabaseReference myRef;
     RecyclerView recyclerView;
