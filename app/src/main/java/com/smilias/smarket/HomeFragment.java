@@ -30,10 +30,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
     DatabaseReference myRef;
     FirebaseDatabase database;
-    ArrayList<String> items= new ArrayList<>();
-    LinearLayoutManager layoutManager;
-    MyRecyclerViewAdapter adapter;
-    String item;
+    boolean b;
     EditText editTextTextSearch;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -95,13 +92,14 @@ public class HomeFragment extends Fragment {
                     public void onDataChange(DataSnapshot snapshot) {
                         for (DataSnapshot snap : snapshot.child("CATEGORIES").getChildren()) {
                             if (snap.hasChild(text)) {
-                                Toast.makeText(getActivity(), "YES.",
-                                        Toast.LENGTH_SHORT).show();
                                 getActivity().getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.flFragment, new ISupermarketsFragment(snap.getKey(),text), "findThisFragment")
                                         .commit();
+                                b=true;
                             }
                         }
+                        if(b!=true) Toast.makeText(getActivity(), "ITEM NOT FOUND",
+                                Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
