@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerViewAdapterImage.ViewHolder> {
 
+    private String q;
     private List<String> mData;
     private List<String> mPrice;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private int quantity=0;
 
     // data is passed into the constructor
     MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices) {
@@ -50,21 +52,42 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView1, myTextView2;
-        Button button;
+        TextView myTextView1, myTextView2, textViewQuantity;
+        Button button,buttonAdd,buttonDelete;
 
         ViewHolder(View itemView) {
             super(itemView);
             myTextView1 = itemView.findViewById(R.id.price);
             myTextView2 = itemView.findViewById(R.id.category);
+            textViewQuantity = itemView.findViewById(R.id.textViewQ);
             button = itemView.findViewById(R.id.button3);
+            buttonAdd =  itemView.findViewById(R.id.buttonAdd);
+            buttonDelete =  itemView.findViewById(R.id.buttonDelete);
 
             itemView.setOnClickListener(this);
+            button.setOnClickListener(this);
+            buttonAdd.setOnClickListener(this);
+            buttonDelete.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (view.getId()==button.getId()){
+
+            } else if(view.getId()==buttonAdd.getId()){
+                q=textViewQuantity.getText().toString();
+                quantity=Integer.parseInt(q);
+                quantity=quantity+1;
+                textViewQuantity.setText(String.valueOf(quantity));
+            } else if(view.getId()==buttonDelete.getId()){
+                q=textViewQuantity.getText().toString();
+                quantity=Integer.parseInt(q);
+                if(quantity > 0){
+                quantity=quantity-1;
+                }
+                textViewQuantity.setText(String.valueOf(quantity));
+            }
         }
     }
 

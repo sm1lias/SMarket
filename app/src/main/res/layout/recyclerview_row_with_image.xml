@@ -63,12 +63,12 @@
         app:layout_constraintStart_toStartOf="@+id/button3" />
 
     <TextView
-        android:id="@+id/textViewPrice"
+        android:id="@+id/textViewQ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="14dp"
-        android:text="TextView"
+        android:text="0"
         app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
         app:layout_constraintStart_toStartOf="@+id/buttonAdd" />
 
