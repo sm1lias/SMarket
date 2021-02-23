@@ -1,6 +1,8 @@
 package com.smilias.smarket;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +21,18 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private int quantity=0;
+    SQLiteDatabase db;
+    String item, price, pitem;
+
 
     // data is passed into the constructor
-    MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices, List<Integer> quantitylist) {
+    MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices, List<Integer> quantitylist, String pitem, SQLiteDatabase db) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.mPrice = prices;
         this.mQuantity = quantitylist;
+        this.pitem=pitem;
+        this.db = db;
     }
 
     // inflates the row layout from xml when needed
@@ -38,8 +45,8 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String item = mData.get(position);
-        String price= mPrice.get(position);
+        item = mData.get(position);
+        price= mPrice.get(position);
         holder.myTextView2.setText("SUPERMARKET: "+item);
         holder.myTextView1.setText("PRICE: "+price);
     }
@@ -56,8 +63,10 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
         TextView myTextView1, myTextView2, textViewQuantity;
         Button button,buttonAdd,buttonDelete;
 
+
         ViewHolder(View itemView) {
             super(itemView);
+
             myTextView1 = itemView.findViewById(R.id.price);
             myTextView2 = itemView.findViewById(R.id.category);
             textViewQuantity = itemView.findViewById(R.id.textViewQ);
@@ -75,6 +84,16 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
             if (view.getId()==button.getId()){
+                int i=getAdapterPosition();
+                q=textViewQuantity.getText().toString();
+                quantity=Integer.parseInt(q);
+                Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
+                if (cursor.getCount()>0){
+                    db.execSQL("UPDATE cart SET quantity = quantity+"+quantity+" WHERE supermarket =?", new String[]{mData.get(i)});
+                }
+                else {
+                    db.execSQL("INSERT INTO cart VALUES('" + pitem + "','" + mData.get(i) + "','" + quantity + "')");
+                }
 
             } else if(view.getId()==buttonAdd.getId()){
                 q=textViewQuantity.getText().toString();
@@ -87,6 +106,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                 if(quantity > 0) quantity=quantity-1;
                 textViewQuantity.setText(String.valueOf(quantity));
             }
+
         }
     }
 

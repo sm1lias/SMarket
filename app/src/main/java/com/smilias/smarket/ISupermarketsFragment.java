@@ -1,5 +1,6 @@
 package com.smilias.smarket;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapterImage adapter;
     String item1, item2;
+    SQLiteDatabase db;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -102,7 +104,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
                     prices.add(snapshot.child("PRICE").getValue(double.class).toString());
                     quantity.add(snapshot.child("QUANTITY").getValue(Integer.class));
                 }
-                adapter = new MyRecyclerViewAdapterImage(getActivity(), categories, prices, quantity);
+                adapter = new MyRecyclerViewAdapterImage(getActivity(), categories, prices, quantity, item2, db);
                 adapter.setClickListener(ISupermarketsFragment.this::onItemClick);
                 recyclerView.setAdapter(adapter);
             }
