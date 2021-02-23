@@ -156,33 +156,29 @@ public class MainActivity extends AppCompatActivity {
         price=0;
         Cursor cursor = db.rawQuery("SELECT * FROM cart",null);
         if (cursor.getCount()>0) {
-            while (cursor.moveToNext()){
-                item2=cursor.getString(0);
-                supermarket=cursor.getString(1);
-                quantity = cursor.getInt(2);
-                database = FirebaseDatabase.getInstance();
-                myRef = database.getReference();
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot MainSnapshot) {
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot MainSnapshot) {
+                    while (cursor.moveToNext()) {
+                        item2 = cursor.getString(0);
+                        supermarket = cursor.getString(1);
+                        quantity = cursor.getInt(2);
                         for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
                             if (snap.hasChild(item2)) {
-                                item1=snap.getKey();
-                                price = price + (quantity * snap.child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
+                                item1 = snap.getKey();
                             }
                         }
-
+                        price = price + (quantity * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
                     }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
+                }
+            });
+            Toast.makeText(this,String.valueOf(price), Toast.LENGTH_LONG).show();
         }
         else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
-        Toast.makeText(this,String.valueOf(price), Toast.LENGTH_LONG).show();
         //Intent intent= new Intent(this, CheckOutActivity.class);
         //startActivity(intent);
     }
