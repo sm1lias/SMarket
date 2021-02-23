@@ -38,13 +38,13 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
-    public String language,item1,item2;
+    public String language,item1,item2,supermarket;
     public double price;
     public Locale locale;
     SQLiteDatabase db;
     DatabaseReference myRef;
     FirebaseDatabase database;
-    int i,quantity;
+    int quantity;
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
         startActivity(intent2);
@@ -158,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
         if (cursor.getCount()>0) {
             while (cursor.moveToNext()){
                 item2=cursor.getString(0);
+                supermarket=cursor.getString(1);
+                quantity = cursor.getInt(2);
                 database = FirebaseDatabase.getInstance();
                 myRef = database.getReference();
                 myRef.addValueEventListener(new ValueEventListener() {
@@ -166,13 +168,10 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
                             if (snap.hasChild(item2)) {
                                 item1=snap.getKey();
+                                price = price + (quantity * snap.child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
                             }
                         }
-                        for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item1).child(item2).getChildren()){  //testing
 
-                            quantity=snapshot.child("QUANTITY").getValue(Integer.class);
-                            price=price + (quantity * snapshot.child("PRICE").getValue(double.class));
-                        }
                     }
 
                     @Override
