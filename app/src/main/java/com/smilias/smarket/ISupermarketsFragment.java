@@ -1,5 +1,6 @@
 package com.smilias.smarket;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -85,6 +86,8 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+        db = getActivity().openOrCreateDatabase("cartDb", Context.MODE_PRIVATE,null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS cart(item TEXT,supermarket TEXT, quantity INT)");
 
         myRef.addValueEventListener (new ValueEventListener() {
             @Override
