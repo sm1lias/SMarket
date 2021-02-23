@@ -39,7 +39,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     public String language,item1,item2,supermarket;
-    public double price;
+    public double price, tprice;
     public Locale locale;
     SQLiteDatabase db;
     DatabaseReference myRef;
@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         price = price + (quantity * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
+                        newprice(price);
                     }
                 }
                 @Override
@@ -176,10 +177,13 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-            Toast.makeText(this,String.valueOf(price), Toast.LENGTH_LONG).show();
+            Toast.makeText(this,String.valueOf(tprice), Toast.LENGTH_LONG).show();
         }
         else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
         //Intent intent= new Intent(this, CheckOutActivity.class);
         //startActivity(intent);
+    }
+    public void newprice(Double pr){
+        tprice=pr;
     }
 }
