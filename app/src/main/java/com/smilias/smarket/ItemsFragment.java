@@ -112,22 +112,14 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
                 }
             });
         }
-        else{
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot MainSnapshot) {
-                    {
-                        adapter = new MyRecyclerViewAdapter(getActivity(), items);
-                        adapter.setClickListener(ItemsFragment.this::onItemClick);
-                        recyclerView.setAdapter(adapter);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(con==false) {
+            adapter = new MyRecyclerViewAdapter(getActivity(), items);
+            adapter.setClickListener(ItemsFragment.this::onItemClick);
+            recyclerView.setAdapter(adapter);
         }
     }
 
