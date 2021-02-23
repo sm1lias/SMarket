@@ -93,7 +93,7 @@ public class CartFragment extends Fragment implements MyRecyclerViewAdapterCart.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_items, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
         // Inflate the layout for this fragment
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());

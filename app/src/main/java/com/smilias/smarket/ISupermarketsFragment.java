@@ -122,7 +122,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_items, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_i_supermarkets, container, false);
 
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
