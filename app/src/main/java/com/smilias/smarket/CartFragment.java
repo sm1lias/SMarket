@@ -83,7 +83,7 @@ public class CartFragment extends Fragment implements MyRecyclerViewAdapterCart.
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new MyRecyclerViewAdapterCart(getActivity(), item, supermarket, quantity );
+        adapter = new MyRecyclerViewAdapterCart(getActivity(), item, supermarket, quantity, db);
         adapter.setClickListener(CartFragment.this::onItemClick);
         recyclerView.setAdapter(adapter);
     }

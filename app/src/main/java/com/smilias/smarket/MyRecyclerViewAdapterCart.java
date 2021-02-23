@@ -16,50 +16,53 @@ import java.util.List;
 public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerViewAdapterCart.ViewHolder> {
 
     private String q;
-    private List<String> mData,mPrice;
+    private List<String> mItem,mSupermarket;
     private List<Integer> mQuantity;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private int quantity=0;
     SQLiteDatabase db;
-    String item, price, pitem;
+    String item, supermarket;
 
 
     // data is passed into the constructor
-    MyRecyclerViewAdapterCart(Context context, List<String> data, List<String> prices, List<Integer> quantitylist) {
+    MyRecyclerViewAdapterCart(Context context, List<String> item, List<String> supermarket, List<Integer> quantitylist,SQLiteDatabase db) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
-        this.mPrice = prices;
+        this.mItem = item;
+        this.mSupermarket = supermarket;
         this.mQuantity = quantitylist;
+        this.db = db;
     }
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row_with_image, parent, false);
+        View view = mInflater.inflate(R.layout.recyclerview_row_cart, parent, false);
         return new ViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        item = mData.get(position);
-        price= mPrice.get(position);
+        item = mItem.get(position);
+        supermarket= mSupermarket.get(position);
+        quantity=mQuantity.get(position);
+        holder.textViewQuantity.setText(String.valueOf(quantity));
         holder.myTextView2.setText("SUPERMARKET: "+item);
-        holder.myTextView1.setText("PRICE: "+price);
+        holder.myTextView1.setText("PRICE: "+supermarket);
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mItem.size();
     }
 
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView1, myTextView2, textViewQuantity;
-        Button button,buttonAdd,buttonDelete;
+        Button button;
 
 
         ViewHolder(View itemView) {
@@ -69,13 +72,9 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
             myTextView2 = itemView.findViewById(R.id.category);
             textViewQuantity = itemView.findViewById(R.id.textViewQ);
             button = itemView.findViewById(R.id.button3);
-            buttonAdd =  itemView.findViewById(R.id.buttonAdd);
-            buttonDelete =  itemView.findViewById(R.id.buttonDelete);
 
             itemView.setOnClickListener(this);
             button.setOnClickListener(this);
-            buttonAdd.setOnClickListener(this);
-            buttonDelete.setOnClickListener(this);
         }
 
         @Override
@@ -83,34 +82,14 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
             if (view.getId()==button.getId()){
                 int i=getAdapterPosition();
-                q=textViewQuantity.getText().toString();
-                quantity=Integer.parseInt(q);
-                Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
-                if (cursor.getCount()>0){
-                    db.execSQL("UPDATE cart SET quantity = quantity+"+quantity+" WHERE item=?  AND supermarket =?", new String[]{pitem, mData.get(i)});
-                }
-                else {
-                    db.execSQL("INSERT INTO cart VALUES('" + pitem + "','" + mData.get(i) + "','" + quantity + "')");
-                }
-
-            } else if(view.getId()==buttonAdd.getId()){
-                q=textViewQuantity.getText().toString();
-                quantity=Integer.parseInt(q);
-                if(quantity < mQuantity.get(getAdapterPosition()) ) quantity=quantity+1;
-                textViewQuantity.setText(String.valueOf(quantity));
-            } else if(view.getId()==buttonDelete.getId()){
-                q=textViewQuantity.getText().toString();
-                quantity=Integer.parseInt(q);
-                if(quantity > 0) quantity=quantity-1;
-                textViewQuantity.setText(String.valueOf(quantity));
+                db.execSQL("DELETE FROM cart WHERE item=?  AND supermarket =?", new String[]{mItem.get(i), mSupermarket.get(i)});
             }
-
         }
     }
 
     // convenience method for getting data at click position
     String getItem(int id) {
-        return mData.get(id);
+        return mItem.get(id);
     }
 
     // allows clicks events to be caught

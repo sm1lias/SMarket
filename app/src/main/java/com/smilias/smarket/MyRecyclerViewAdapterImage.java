@@ -49,6 +49,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
         price= mPrice.get(position);
         holder.myTextView2.setText("SUPERMARKET: "+item);
         holder.myTextView1.setText("PRICE: "+price);
+        holder.textViewQuantity.setText("1");
     }
 
     // total number of rows
@@ -103,7 +104,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
             } else if(view.getId()==buttonDelete.getId()){
                 q=textViewQuantity.getText().toString();
                 quantity=Integer.parseInt(q);
-                if(quantity > 0) quantity=quantity-1;
+                if(quantity > 1) quantity=quantity-1;
                 textViewQuantity.setText(String.valueOf(quantity));
             }
 
