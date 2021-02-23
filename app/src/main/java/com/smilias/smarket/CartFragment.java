@@ -6,12 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -83,9 +85,9 @@ public class CartFragment extends Fragment implements MyRecyclerViewAdapterCart.
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new MyRecyclerViewAdapterCart(getActivity(), item, supermarket, quantity, db);
-        adapter.setClickListener(CartFragment.this::onItemClick);
-        recyclerView.setAdapter(adapter);
+            adapter = new MyRecyclerViewAdapterCart(getActivity(), item, supermarket, quantity, db);
+            adapter.setClickListener(CartFragment.this::onItemClick);
+            recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -102,6 +104,8 @@ public class CartFragment extends Fragment implements MyRecyclerViewAdapterCart.
 
     @Override
     public void onItemClick(View view, int position) {
-
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flFragment, new CartFragment(), "findThisFragment")
+                .commit();
     }
 }

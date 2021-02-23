@@ -83,6 +83,7 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
             if (view.getId()==button.getId()){
                 int i=getAdapterPosition();
                 db.execSQL("DELETE FROM cart WHERE item=?  AND supermarket =?", new String[]{mItem.get(i), mSupermarket.get(i)});
+                //setItems(mItem,mSupermarket,mQuantity);
             }
         }
     }
@@ -100,5 +101,10 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+    }
+    public void setItems(List<String> item, List<String> supermarket, List<Integer> quantitylist) {
+        this.mItem=item;
+        this.mSupermarket=supermarket;
+        this.mQuantity=quantitylist;
     }
 }
