@@ -1,13 +1,17 @@
 package com.smilias.smarket;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     public String language;
     public Locale locale;
+    SQLiteDatabase db;
 
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
@@ -65,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        db = openOrCreateDatabase("cartDb", Context.MODE_PRIVATE,null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS cart(item TEXT,supermarket TEXT, quantity INT)");
 
         preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         language  = preferences.getString("lang","en");  // Shared preferences
@@ -115,4 +123,27 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    public void testdb(View view ){
+        Cursor cursor = db.rawQuery("SELECT * FROM cart",null);
+        if (cursor.getCount()>0){
+            StringBuilder builder = new StringBuilder();
+            while (cursor.moveToNext()){
+                builder.append("Student Name:").append(cursor.getString(0)).append("\n");
+                builder.append("Student E-mail:").append(cursor.getString(1)).append("\n");
+                builder.append("Student E-mail3:").append(cursor.getString(2)).append("\n");
+                builder.append("-----------------------------------\n");
+            }
+            showMessage("Available Students",builder.toString());
+        }
+        else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
+    }
+    public void showMessage(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setCancelable(true)
+                .setTitle(title)
+                .setMessage(message)
+                .show();
+    }
 }

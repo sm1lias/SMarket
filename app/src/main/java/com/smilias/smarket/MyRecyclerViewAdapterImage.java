@@ -89,7 +89,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                 quantity=Integer.parseInt(q);
                 Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
                 if (cursor.getCount()>0){
-                    db.execSQL("UPDATE cart SET quantity = quantity+"+quantity+" WHERE supermarket =?", new String[]{mData.get(i)});
+                    db.execSQL("UPDATE cart SET quantity = quantity+"+quantity+" WHERE item=?  AND supermarket =?", new String[]{pitem, mData.get(i)});
                 }
                 else {
                     db.execSQL("INSERT INTO cart VALUES('" + pitem + "','" + mData.get(i) + "','" + quantity + "')");
