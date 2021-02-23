@@ -169,27 +169,17 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         price = price + (quantity * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
-//                        newPrice(price);
-
                     }
-                    Toast.makeText(MainActivity.this,String.valueOf(price), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this,String.valueOf(price), Toast.LENGTH_LONG).show();
                     Intent intent= new Intent(MainActivity.this, CheckOutActivity.class);
+                    intent.putExtra("price",price);
                     startActivity(intent);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
-
         }
         else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
-        Intent intent= new Intent(this, CheckOutActivity.class);
-        startActivity(intent);
-
     }
-//    public void newPrice(Double pr){
-//        if (pr!=0.0)
-//        tprice=pr;
-//    }
 }
