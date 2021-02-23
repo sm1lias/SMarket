@@ -39,7 +39,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     public String language,item1,item2;
-    public double price=0;
+    public double price;
     public Locale locale;
     SQLiteDatabase db;
     DatabaseReference myRef;
@@ -153,12 +153,13 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
     public void toCheckOut(View view){
+        price=0;
         Cursor cursor = db.rawQuery("SELECT * FROM cart",null);
         if (cursor.getCount()>0) {
-            i = cursor.getCount();
-            cursor.moveToFirst();
-            for (int j = 0; j <= i; j++) {
+            while (cursor.moveToNext()){
                 item2=cursor.getString(0);
+                database = FirebaseDatabase.getInstance();
+                myRef = database.getReference();
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot MainSnapshot) {
@@ -166,11 +167,11 @@ public class MainActivity extends AppCompatActivity {
                             if (snap.hasChild(item2)) {
                                 item1=snap.getKey();
                             }
-                            for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item1).child(item2).getChildren()){  //testing
+                        }
+                        for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item1).child(item2).getChildren()){  //testing
 
-                                quantity=snapshot.child("QUANTITY").getValue(Integer.class);
-                                price=price + (quantity * snapshot.child("PRICE").getValue(double.class));
-                            }
+                            quantity=snapshot.child("QUANTITY").getValue(Integer.class);
+                            price=price + (quantity * snapshot.child("PRICE").getValue(double.class));
                         }
                     }
 
@@ -179,11 +180,11 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-                cursor.moveToNext();
             }
         }
         else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
-        Intent intent= new Intent(this, CheckOutActivity.class);
-        startActivity(intent);
+        Toast.makeText(this,String.valueOf(price), Toast.LENGTH_LONG).show();
+        //Intent intent= new Intent(this, CheckOutActivity.class);
+        //startActivity(intent);
     }
 }
