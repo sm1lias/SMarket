@@ -38,10 +38,13 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
-    public String language;
+    public String language,item1,item2;
+    public double price=0;
     public Locale locale;
     SQLiteDatabase db;
-
+    DatabaseReference myRef;
+    FirebaseDatabase database;
+    int i,quantity;
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
         startActivity(intent2);
@@ -70,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
 
         db = openOrCreateDatabase("cartDb", Context.MODE_PRIVATE,null);
         db.execSQL("CREATE TABLE IF NOT EXISTS cart(item TEXT,supermarket TEXT, quantity INT)");
@@ -147,6 +153,36 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
     public void toCheckOut(View view){
+        Cursor cursor = db.rawQuery("SELECT * FROM cart",null);
+        if (cursor.getCount()>0) {
+            i = cursor.getCount();
+            cursor.moveToFirst();
+            for (int j = 0; j <= i; j++) {
+                item2=cursor.getString(0);
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot MainSnapshot) {
+                        for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
+                            if (snap.hasChild(item2)) {
+                                item1=snap.getKey();
+                            }
+                            for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item1).child(item2).getChildren()){  //testing
+
+                                quantity=snapshot.child("QUANTITY").getValue(Integer.class);
+                                price=price + (quantity * snapshot.child("PRICE").getValue(double.class));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                cursor.moveToNext();
+            }
+        }
+        else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
         Intent intent= new Intent(this, CheckOutActivity.class);
         startActivity(intent);
     }
