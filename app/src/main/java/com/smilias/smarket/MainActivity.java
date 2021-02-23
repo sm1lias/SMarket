@@ -129,12 +129,12 @@ public class MainActivity extends AppCompatActivity {
         if (cursor.getCount()>0){
             StringBuilder builder = new StringBuilder();
             while (cursor.moveToNext()){
-                builder.append("Student Name:").append(cursor.getString(0)).append("\n");
-                builder.append("Student E-mail:").append(cursor.getString(1)).append("\n");
-                builder.append("Student E-mail3:").append(cursor.getString(2)).append("\n");
+                builder.append("ITEM:").append(cursor.getString(0)).append("\n");
+                builder.append("SUPERMARKET:").append(cursor.getString(1)).append("\n");
+                builder.append("QUANTITY:").append(cursor.getString(2)).append("\n");
                 builder.append("-----------------------------------\n");
             }
-            showMessage("Available Students",builder.toString());
+            showMessage("CART",builder.toString());
         }
         else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
     }
