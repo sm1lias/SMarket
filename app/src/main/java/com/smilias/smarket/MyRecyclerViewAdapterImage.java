@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,12 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerViewAdapterImage.ViewHolder> {
 
     private String q;
-    private List<String> mData,mPrice;
+    private List<String> mData,mPrice,mQuanString;
     private List<Integer> mQuantity;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private int quantity=0;
+    private int quantity=0,quan;
     SQLiteDatabase db;
+    Context context;
     String item, price, pitem;
 
 
@@ -33,6 +35,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
         this.mQuantity = quantitylist;
         this.pitem=pitem;
         this.db = db;
+        this.context=context;
     }
 
     // inflates the row layout from xml when needed
@@ -88,14 +91,22 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                 int i=getAdapterPosition();
                 q=textViewQuantity.getText().toString();
                 quantity=Integer.parseInt(q);
-                Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
-                if (cursor.getCount()>0){
-                    db.execSQL("UPDATE cart SET quantity = quantity+"+quantity+" WHERE item=?  AND supermarket =?", new String[]{pitem, mData.get(i)});
+                Cursor cursor2 = db.rawQuery("SELECT quantity FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
+                if (cursor2.getCount()>0){
+                    cursor2.moveToFirst();
+                    quan=Integer.parseInt(cursor2.getString(0));
                 }
-                else {
-                    db.execSQL("INSERT INTO cart VALUES('" + pitem + "','" + mData.get(i) + "','" + quantity + "')");
-                }
+                if((quan+quantity)>mQuantity.get(i)){
+                    Toast.makeText(context," Can't be completed", Toast.LENGTH_SHORT).show();
 
+                }else {
+                    Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
+                    if (cursor.getCount() > 0) {
+                        db.execSQL("UPDATE cart SET quantity = quantity+" + quantity + " WHERE item=?  AND supermarket =?", new String[]{pitem, mData.get(i)});
+                    } else {
+                        db.execSQL("INSERT INTO cart VALUES('" + pitem + "','" + mData.get(i) + "','" + quantity + "')");
+                    }
+                }
             } else if(view.getId()==buttonAdd.getId()){
                 q=textViewQuantity.getText().toString();
                 quantity=Integer.parseInt(q);

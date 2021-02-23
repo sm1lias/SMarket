@@ -102,9 +102,4 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
-    public void setItems(List<String> item, List<String> supermarket, List<Integer> quantitylist) {
-        this.mItem=item;
-        this.mSupermarket=supermarket;
-        this.mQuantity=quantitylist;
-    }
 }

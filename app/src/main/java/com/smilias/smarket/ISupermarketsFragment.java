@@ -97,7 +97,6 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
                 for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
                     if (snap.hasChild(item2)) {
                         item1=snap.getKey();
-                        //b=true;
                     }
                 }
                 for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item1).child(item2).getChildren()){  //testing
