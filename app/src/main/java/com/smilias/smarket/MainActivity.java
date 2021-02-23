@@ -146,4 +146,8 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage(message)
                 .show();
     }
+    public void toCheckOut(View view){
+        Intent intent= new Intent(this, CheckOutActivity.class);
+        startActivity(intent);
+    }
 }
