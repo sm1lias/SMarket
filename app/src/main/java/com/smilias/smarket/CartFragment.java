@@ -1,19 +1,33 @@
 package com.smilias.smarket;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements MyRecyclerViewAdapterCart.ItemClickListener {
+    SQLiteDatabase db;
+    ArrayList<String> item= new ArrayList<>();
+    ArrayList<String> supermarket=new ArrayList<>();
+    ArrayList<Integer> quantity= new ArrayList<>();
+    MyRecyclerViewAdapterCart adapter;
+    LinearLayoutManager layoutManager;
+    RecyclerView recyclerView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,12 +67,41 @@ public class CartFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        db = getActivity().openOrCreateDatabase("cartDb", Context.MODE_PRIVATE,null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS cart(item TEXT,supermarket TEXT, quantity INT)");
+
+        Cursor cursor = db.rawQuery("SELECT * FROM cart",null);
+        if (cursor.getCount()>0){
+            while (cursor.moveToNext()){
+                item.add(cursor.getString(0));
+                supermarket.add(cursor.getString(1));
+                quantity.add(cursor.getInt(2));
+            }
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter = new MyRecyclerViewAdapterCart(getActivity(), item, supermarket, quantity );
+        adapter.setClickListener(CartFragment.this::onItemClick);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_items, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        return rootView;
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
     }
 }

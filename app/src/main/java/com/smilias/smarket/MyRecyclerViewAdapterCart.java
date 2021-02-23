@@ -26,13 +26,11 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
 
 
     // data is passed into the constructor
-    MyRecyclerViewAdapterCart(Context context, List<String> data, List<String> prices, List<Integer> quantitylist, String pitem, SQLiteDatabase db) {
+    MyRecyclerViewAdapterCart(Context context, List<String> data, List<String> prices, List<Integer> quantitylist) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.mPrice = prices;
         this.mQuantity = quantitylist;
-        this.pitem=pitem;
-        this.db = db;
     }
 
     // inflates the row layout from xml when needed
