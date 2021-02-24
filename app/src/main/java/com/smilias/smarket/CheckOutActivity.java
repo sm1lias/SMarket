@@ -3,6 +3,7 @@ package com.smilias.smarket;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ public class CheckOutActivity extends AppCompatActivity {
         return expiryDate.matches("(?:0[1-9]|1[0-2])/[0-9]{2}");
     }
 
-    public void finish(){
+    public void finish(View view){
         PersonName = editTextTextPersonName.getText().toString();
         Number = editTextNumber.getText().toString();
         Date = editTextDate.getText().toString();
@@ -43,10 +44,6 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextDate.setError("Expiration Date is required");
             editTextDate.requestFocus();
             return;
-        }else if(Number.length()!=16){
-            editTextNumber.setError("Card Number is wrong");
-            editTextNumber.requestFocus();
-            return;
         }else if (validateCardExpiryDate(Date)) {
             editTextNumber.setError("Card has already expired");
             editTextNumber.requestFocus();
@@ -57,8 +54,8 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextCCV.requestFocus();
             return;
         }else if(CCV.length()!=3){
-            editTextNumber.setError("CCV is wrong");
-            editTextNumber.requestFocus();
+            editTextCCV.setError("CCV is wrong");
+            editTextCCV.requestFocus();
             return;
         }
     }
