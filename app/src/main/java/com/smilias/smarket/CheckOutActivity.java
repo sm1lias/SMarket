@@ -3,6 +3,8 @@ package com.smilias.smarket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -94,36 +96,44 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextCCV.requestFocus();
             return;
         }
-        else{
-                Cursor cursor = db.rawQuery("SELECT * FROM cart", null);
-                if (cursor.getCount() > 0) {
-                    myRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot MainSnapshot) {
-                            while (cursor.moveToNext()) {
-                                item2 = cursor.getString(0);
-                                supermarket = cursor.getString(1);
-                                quantitydb = cursor.getInt(2);
-                                for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
-                                    if (snap.hasChild(item2)) {
-                                        item1 = snap.getKey();
-                                    }
+        else {
+            Cursor cursor = db.rawQuery("SELECT * FROM cart", null);
+            if (cursor.getCount() > 0) {
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot MainSnapshot) {
+                        while (cursor.moveToNext()) {
+                            item2 = cursor.getString(0);
+                            supermarket = cursor.getString(1);
+                            quantitydb = cursor.getInt(2);
+                            for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
+                                if (snap.hasChild(item2)) {
+                                    item1 = snap.getKey();
                                 }
-                                quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
-                                myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase-quantitydb);
                             }
+                            quantityFirebase = MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
+                            myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase - quantitydb);
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
-                }
-                db.execSQL("DROP TABLE cart ");
-                db.close();
-                Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
-                Intent intent1= new Intent(CheckOutActivity.this,MainActivity.class);
-                startActivity(intent1);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+            db.execSQL("DROP TABLE cart ");
+            db.close();
+            Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
+//            Intent intent1= new Intent(this,MainActivity.class);
+//            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent1);
+            Intent mStartActivity = new Intent(this, MainActivity.class);
+            int mPendingIntentId = 123456;
+            PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+            System.exit(0);
+
         }
     }
 

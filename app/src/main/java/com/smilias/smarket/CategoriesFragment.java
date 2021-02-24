@@ -96,7 +96,7 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 //                    categories.add(snapshot.getValue(String.class).toString());
                     categories.add(snapshot.getKey());
                 }
-                adapter = new MyRecyclerViewAdapter(getActivity().getApplicationContext(), categories);
+                adapter = new MyRecyclerViewAdapter(getActivity(), categories);
                 adapter.setClickListener(CategoriesFragment.this::onItemClick);
                 recyclerView.setAdapter(adapter);
             }
