@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -94,7 +95,6 @@ public class CheckOutActivity extends AppCompatActivity {
             return;
         }
         else{
-
                 Cursor cursor = db.rawQuery("SELECT * FROM cart", null);
                 if (cursor.getCount() > 0) {
                     myRef.addValueEventListener(new ValueEventListener() {
@@ -118,6 +118,11 @@ public class CheckOutActivity extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
+                }else{
+                    db.execSQL("DROP TABLE cart ");
+                    Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(CheckOutActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
         }
     }
