@@ -8,13 +8,13 @@
     tools:context=".LoginFragment">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bLogInOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
         android:layout_marginTop="163dp"
         android:onClick="login"
-        android:text="Button"
+        android:text="LOGIN"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

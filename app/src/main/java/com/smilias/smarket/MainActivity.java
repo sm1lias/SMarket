@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseUser cuser;
     int quantity;
+
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
         startActivity(intent2);
@@ -77,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         cuser = FirebaseAuth.getInstance().getCurrentUser();
+
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();

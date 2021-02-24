@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +19,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
+    FirebaseUser cuser;
+    Button bLogInOut;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,12 +60,25 @@ public class LoginFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        cuser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        bLogInOut=v.findViewById(R.id.bLogInOut);
+        if (cuser != null) {
+            bLogInOut.setText("SIGN OUT");
+        }
+        return v;
+
     }
 }
