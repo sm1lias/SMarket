@@ -1,12 +1,22 @@
 package com.smilias.smarket;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +29,11 @@ public class CheckOutActivity extends AppCompatActivity {
     String PersonName,Number,Date,CCV;
     Date expiry;
     boolean expired;
+    String item1,item2,supermarket;
+    SQLiteDatabase db;
+    DatabaseReference myRef;
+    FirebaseDatabase database;
+    int quantitydb,quantityFirebase;
 
     public void finish(View view) throws ParseException {
         PersonName = editTextTextPersonName.getText().toString();
@@ -47,7 +62,7 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextTextPersonName.requestFocus();
             return;
         }
-        if (Number.isEmpty()) {
+        else if (Number.isEmpty()) {
             editTextNumber.setError("Card Number is required");
             editTextNumber.requestFocus();
             return;
@@ -56,7 +71,7 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextNumber.requestFocus();
             return;
         }
-        if (Date.isEmpty()) {
+        else if (Date.isEmpty()) {
             editTextDate.setError("Expiration Date is required");
             editTextDate.requestFocus();
             return;
@@ -78,12 +93,43 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextCCV.requestFocus();
             return;
         }
+        else{
+
+                Cursor cursor = db.rawQuery("SELECT * FROM cart", null);
+                if (cursor.getCount() > 0) {
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot MainSnapshot) {
+                            while (cursor.moveToNext()) {
+                                item2 = cursor.getString(0);
+                                supermarket = cursor.getString(1);
+                                quantitydb = cursor.getInt(2);
+                                for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
+                                    if (snap.hasChild(item2)) {
+                                        item1 = snap.getKey();
+                                    }
+                                }
+                                quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
+                                myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase-quantitydb);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+        db = openOrCreateDatabase("cartDb", Context.MODE_PRIVATE,null);
 
         editTextTextPersonName=findViewById(R.id.editTextTextPersonName);
         editTextNumber=findViewById(R.id.editTextNumber);

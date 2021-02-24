@@ -48,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference myRef;
     FirebaseDatabase database;
     FirebaseUser cuser;
-    int quantity;
+    int quantitydb;
     Button bloginout;
+    int quantityFirebase;
 
     public void login(View view) {
         if (cuser == null) {
@@ -184,18 +185,24 @@ public class MainActivity extends AppCompatActivity {
                         while (cursor.moveToNext()) {
                             item2 = cursor.getString(0);
                             supermarket = cursor.getString(1);
-                            quantity = cursor.getInt(2);
+                            quantitydb = cursor.getInt(2);
                             for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
                                 if (snap.hasChild(item2)) {
                                     item1 = snap.getKey();
                                 }
                             }
-                            price = price + (quantity * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
+                            price = price + (quantitydb * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
+                            quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
                         }
                         //Toast.makeText(MainActivity.this,String.valueOf(price), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
-                        intent.putExtra("price", price);
-                        startActivity(intent);
+                        if(quantityFirebase-quantitydb>=0) {
+                            Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
+                            intent.putExtra("price", price);
+                            startActivity(intent);
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this,"The quantity of "+ item2 +" from "+ supermarket + " is not available any more", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
