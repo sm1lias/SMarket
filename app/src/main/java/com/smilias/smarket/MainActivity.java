@@ -201,7 +201,8 @@ public class MainActivity extends AppCompatActivity {
                             StringBuilder builder = new StringBuilder();
                             for (int i=0;i<itemlist.size();i++) builder.append(itemlist.get(i));
                             notItem=builder.toString();
-                            if(itemlist.size()==1) Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" is not available any more", Toast.LENGTH_LONG).show();
+                            if (itemlist.size()==1)
+                            Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" is not available any more", Toast.LENGTH_LONG).show();
                             else Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" are not available any more", Toast.LENGTH_LONG).show();
                         }else if(itemlist==null) {
                             Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
