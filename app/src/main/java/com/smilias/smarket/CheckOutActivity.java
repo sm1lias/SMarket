@@ -84,7 +84,7 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextDate.requestFocus();
             return;
         }
-        if (CCV.isEmpty()) {
+        else if (CCV.isEmpty()) {
             editTextCCV.setError("CCV is required");
             editTextCCV.requestFocus();
             return;
@@ -108,9 +108,10 @@ public class CheckOutActivity extends AppCompatActivity {
                                     if (snap.hasChild(item2)) {
                                         item1 = snap.getKey();
                                     }
+                                    quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
+                                    myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase-quantitydb);
                                 }
-                                quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
-                                myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase-quantitydb);
+
                             }
                         }
 

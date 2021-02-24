@@ -41,7 +41,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
-    public String language,item1,item2,supermarket;
+    public String language,item1,item2,supermarket, notItem;
     public double price, tprice;
     public Locale locale;
     SQLiteDatabase db;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     int quantitydb;
     Button bloginout;
     int quantityFirebase;
+
 
     public void login(View view) {
         if (cuser == null) {
@@ -175,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
     public void toCheckOut(View view) {
+        ArrayList<String> itemlist=new ArrayList<>();
         if (cuser != null) {
             price = 0.0;
             Cursor cursor = db.rawQuery("SELECT * FROM cart", null);
@@ -193,15 +195,22 @@ public class MainActivity extends AppCompatActivity {
                             }
                             price = price + (quantitydb * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
                             quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
+                            if (quantityFirebase-quantitydb<0) itemlist.add(item2+" in "+supermarket+", ");
+                        }
+                        if (itemlist != null){
+                            StringBuilder builder = new StringBuilder();
+                            for (int i=0;i<itemlist.size();i++) builder.append(itemlist.get(i));
+                            notItem=builder.toString();
+
                         }
                         //Toast.makeText(MainActivity.this,String.valueOf(price), Toast.LENGTH_LONG).show();
-                        if(quantityFirebase-quantitydb>=0) {
+                        if(itemlist==null) {
                             Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
                             intent.putExtra("price", price);
                             startActivity(intent);
                         }
                         else{
-                            Toast.makeText(MainActivity.this,"The quantity of "+ item2 +" from "+ supermarket + " is not available any more", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" is not available any more", Toast.LENGTH_LONG).show();
                         }
                     }
 
