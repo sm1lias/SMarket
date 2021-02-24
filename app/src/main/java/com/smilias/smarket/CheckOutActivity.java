@@ -118,12 +118,12 @@ public class CheckOutActivity extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
-                }else{
-                    db.execSQL("DROP TABLE cart ");
-                    Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(CheckOutActivity.this, MainActivity.class);
-                    startActivity(intent);
                 }
+                db.execSQL("DROP TABLE cart ");
+                db.close();
+                Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
+                Intent intent1= new Intent(CheckOutActivity.this,MainActivity.class);
+                startActivity(intent1);
         }
     }
 
