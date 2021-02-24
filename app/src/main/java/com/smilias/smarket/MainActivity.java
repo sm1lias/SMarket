@@ -26,6 +26,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db;
     DatabaseReference myRef;
     FirebaseDatabase database;
+    FirebaseUser cuser;
     int quantity;
     public void login(View view) {
         Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        cuser = FirebaseAuth.getInstance().getCurrentUser();
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
@@ -152,34 +157,36 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage(message)
                 .show();
     }
-    public void toCheckOut(View view){
-        price=0.0;
-        Cursor cursor = db.rawQuery("SELECT * FROM cart",null);
-        if (cursor.getCount()>0) {
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot MainSnapshot) {
-                    while (cursor.moveToNext()) {
-                        item2 = cursor.getString(0);
-                        supermarket = cursor.getString(1);
-                        quantity = cursor.getInt(2);
-                        for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
-                            if (snap.hasChild(item2)) {
-                                item1 = snap.getKey();
+    public void toCheckOut(View view) {
+        if (cuser != null) {
+            price = 0.0;
+            Cursor cursor = db.rawQuery("SELECT * FROM cart", null);
+            if (cursor.getCount() > 0) {
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot MainSnapshot) {
+                        while (cursor.moveToNext()) {
+                            item2 = cursor.getString(0);
+                            supermarket = cursor.getString(1);
+                            quantity = cursor.getInt(2);
+                            for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
+                                if (snap.hasChild(item2)) {
+                                    item1 = snap.getKey();
+                                }
                             }
+                            price = price + (quantity * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
                         }
-                        price = price + (quantity * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
+                        //Toast.makeText(MainActivity.this,String.valueOf(price), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
+                        intent.putExtra("price", price);
+                        startActivity(intent);
                     }
-                    //Toast.makeText(MainActivity.this,String.valueOf(price), Toast.LENGTH_LONG).show();
-                    Intent intent= new Intent(MainActivity.this, CheckOutActivity.class);
-                    intent.putExtra("price",price);
-                    startActivity(intent);
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            } else Toast.makeText(this, "sdggag", Toast.LENGTH_LONG).show();
         }
-        else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
     }
 }
