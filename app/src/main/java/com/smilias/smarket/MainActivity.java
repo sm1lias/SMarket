@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseUser cuser;
     int quantity;
+    Button bloginout;
 
     public void login(View view) {
         if (cuser == null) {
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         cuser = FirebaseAuth.getInstance().getCurrentUser();
+        bloginout=findViewById(R.id.bLogInOut);
 
 
         database = FirebaseDatabase.getInstance();
