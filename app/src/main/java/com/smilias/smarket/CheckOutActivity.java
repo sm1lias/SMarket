@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,17 +18,23 @@ public class CheckOutActivity extends AppCompatActivity {
     EditText editTextTextPersonName,editTextNumber,editTextDate,editTextCCV;
     String PersonName,Number,Date,CCV;
 
-    boolean validateCardExpiryDate(String expiryDate) {
-        return expiryDate.matches("(?:0[1-9]|1[0-2])/[0-9]{2}");
-    }
-
-    public void finish(View view){
+    public void finish(View view) throws ParseException {
         PersonName = editTextTextPersonName.getText().toString();
         Number = editTextNumber.getText().toString();
         Date = editTextDate.getText().toString();
         CCV = editTextCCV.getText().toString();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yy");
+        simpleDateFormat.setLenient(false);
+        Date expiry = simpleDateFormat.parse(Date);
+        boolean expired = expiry.before(new Date());
+
         if(PersonName.isEmpty()){
             editTextTextPersonName.setError("Name is required");
+            editTextTextPersonName.requestFocus();
+            return;
+        }else if(!PersonName.matches("^((?:[A-Z]+ ?){1,3})$")){
+            editTextTextPersonName.setError("Name is wrong");
             editTextTextPersonName.requestFocus();
             return;
         }
@@ -44,9 +51,13 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextDate.setError("Expiration Date is required");
             editTextDate.requestFocus();
             return;
-        }else if (validateCardExpiryDate(Date)) {
-            editTextNumber.setError("Card has already expired");
-            editTextNumber.requestFocus();
+        }else if (!Date.matches("(?:0[1-9]|1[0-2])/[0-9]{2}")) {
+            editTextDate.setError("Card date is wrong");
+            editTextDate.requestFocus();
+            return;
+        }else if(expired){
+            editTextDate.setError("Card has already expired");
+            editTextDate.requestFocus();
             return;
         }
         if (CCV.isEmpty()) {
