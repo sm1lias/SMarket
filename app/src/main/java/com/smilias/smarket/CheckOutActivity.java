@@ -17,6 +17,8 @@ public class CheckOutActivity extends AppCompatActivity {
     TextView textViewPrice;
     EditText editTextTextPersonName,editTextNumber,editTextDate,editTextCCV;
     String PersonName,Number,Date,CCV;
+    Date expiry;
+    boolean expired;
 
     public void finish(View view) throws ParseException {
         PersonName = editTextTextPersonName.getText().toString();
@@ -26,8 +28,15 @@ public class CheckOutActivity extends AppCompatActivity {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yy");
         simpleDateFormat.setLenient(false);
-        Date expiry = simpleDateFormat.parse(Date);
-        boolean expired = expiry.before(new Date());
+
+        try {
+            expiry = simpleDateFormat.parse(Date);
+            expired = expiry.before(new Date());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         if(PersonName.isEmpty()){
             editTextTextPersonName.setError("Name is required");
@@ -51,7 +60,7 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextDate.setError("Expiration Date is required");
             editTextDate.requestFocus();
             return;
-        }else if (!Date.matches("(?:0[1-9]|1[0-2])/[0-9]{2}")) {
+        }else if (!Date.matches("^((0[1-9])|(1[0-2]))[\\/\\.\\-]*((0[8-9])|(1[1-9]))$")) {
             editTextDate.setError("Card date is wrong, right format MM/YY");
             editTextDate.requestFocus();
             return;
