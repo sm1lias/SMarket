@@ -48,8 +48,8 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
         supermarket= mSupermarket.get(position);
         quantity=mQuantity.get(position);
         holder.textViewQuantity.setText(String.valueOf(quantity));
-        holder.myTextView2.setText("SUPERMARKET: "+item);
-        holder.myTextView1.setText("PRICE: "+supermarket);
+        holder.myTextView2.setText("ITEM: "+item);
+        holder.myTextView1.setText("SUPERMARKET: "+supermarket);
     }
 
     // total number of rows
