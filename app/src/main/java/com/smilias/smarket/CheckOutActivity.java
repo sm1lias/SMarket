@@ -52,7 +52,7 @@ public class CheckOutActivity extends AppCompatActivity {
             editTextDate.requestFocus();
             return;
         }else if (!Date.matches("(?:0[1-9]|1[0-2])/[0-9]{2}")) {
-            editTextDate.setError("Card date is wrong it must, format MM/YY");
+            editTextDate.setError("Card date is wrong, right format MM/YY");
             editTextDate.requestFocus();
             return;
         }else if(expired){
