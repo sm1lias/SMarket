@@ -51,9 +51,18 @@ public class MainActivity extends AppCompatActivity {
     int quantity;
 
     public void login(View view) {
-        Intent intent2= new Intent(MainActivity.this,LogInActivity.class);
-        startActivity(intent2);
+        if (cuser == null) {
+            Intent intent2 = new Intent(MainActivity.this, LogInActivity.class);
+            startActivity(intent2);
+        }
+        else{
+            FirebaseAuth.getInstance().signOut();
+            this.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.flFragment, new LoginFragment(), "findThisFragment")
+                    .commit();
+        }
     }
+
 
     public void lang_change(View view){
         SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
