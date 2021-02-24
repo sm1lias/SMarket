@@ -62,11 +62,6 @@ public class LoginFragment extends Fragment {
         }
 
         cuser = FirebaseAuth.getInstance().getCurrentUser();
-
-
-
-
-
     }
 
     @Override
@@ -75,10 +70,8 @@ public class LoginFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         // Inflate the layout for this fragment
         bLogInOut=v.findViewById(R.id.bLogInOut);
-        if (cuser != null) {
-            bLogInOut.setText("SIGN OUT");
-        }
+        if (cuser != null)  bLogInOut.setText("SIGN OUT");
+        else bLogInOut.setText("LOG IN");
         return v;
-
     }
 }

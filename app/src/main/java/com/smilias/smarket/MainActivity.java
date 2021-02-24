@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             FirebaseAuth.getInstance().signOut();
+            cuser=null;
             this.getSupportFragmentManager().beginTransaction()
                     .replace(R.id.flFragment, new LoginFragment(), "findThisFragment")
                     .commit();
