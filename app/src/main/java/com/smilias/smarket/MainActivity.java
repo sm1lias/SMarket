@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
-            } else Toast.makeText(this, "sdggag", Toast.LENGTH_LONG).show();
-        }
+            } else Toast.makeText(this, "YOUR CART IS EMPTY", Toast.LENGTH_LONG).show();
+        } else Toast.makeText(this, "PLEASE LOG IN", Toast.LENGTH_LONG).show();
     }
 }
