@@ -50,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser cuser;
     int quantitydb;
     Button bloginout;
-    int quantityFirebase;
+    //int quantityFirebase;
+    boolean b;
+    ArrayList<Integer> quantityFirebase= new ArrayList<>();
 
 
     public void login(View view) {
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
     public void toCheckOut(View view) {
+        b=true;
         ArrayList<String> itemlist=new ArrayList<>();
         if (cuser != null) {
             price = 0.0;
@@ -194,21 +197,22 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             price = price + (quantitydb * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
-                            quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
-                            if (quantityFirebase-quantitydb<0) itemlist.add(item2+" in "+supermarket+", ");
+                            quantityFirebase.add(MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class));
                         }
-                        if (!itemlist.isEmpty()){
-                            StringBuilder builder = new StringBuilder();
-                            for (int i=0;i<itemlist.size();i++) builder.append(itemlist.get(i));
-                            notItem=builder.toString();
-                            if (itemlist.size()==1)
-                            Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" is not available any more", Toast.LENGTH_LONG).show();
-                            else Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" are not available any more", Toast.LENGTH_LONG).show();
-                        }else {
+                        for( int i=0; i<quantityFirebase.size(); i++) {
+                            if (quantityFirebase.get(i) - quantitydb < 0) {
+                                b=false;
+                                StringBuilder builder = new StringBuilder();
+                                builder.append(item2+" "+ " " + supermarket);
+                                notItem=builder.toString();
+                            }
+                        }
+                        if(b){
                             Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
                             intent.putExtra("price", price);
                             startActivity(intent);
-                            finish();
+                        }else{
+                            Toast.makeText(MainActivity.this, "The quantity of " +notItem+ " is not available any more", Toast.LENGTH_LONG).show();
                         }
                     }
 

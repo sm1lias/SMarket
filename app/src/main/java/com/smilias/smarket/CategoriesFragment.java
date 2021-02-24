@@ -118,7 +118,6 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
         return rootView;
     }
 }

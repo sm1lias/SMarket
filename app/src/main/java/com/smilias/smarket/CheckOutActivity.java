@@ -29,10 +29,9 @@ public class CheckOutActivity extends AppCompatActivity {
     double pr;
     TextView textViewPrice;
     EditText editTextTextPersonName,editTextNumber,editTextDate,editTextCCV;
-    String PersonName,Number,Date,CCV;
+    String PersonName,Number,Date,CCV,item1,item2,supermarket;
     Date expiry;
     boolean expired;
-    String item1,item2,supermarket;
     SQLiteDatabase db;
     DatabaseReference myRef;
     FirebaseDatabase database;
@@ -112,7 +111,7 @@ public class CheckOutActivity extends AppCompatActivity {
                                 }
                             }
                             quantityFirebase = MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
-                            myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase - quantitydb);
+                            //myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase - quantitydb);
                         }
                     }
 
@@ -124,15 +123,9 @@ public class CheckOutActivity extends AppCompatActivity {
             db.execSQL("DROP TABLE cart ");
             db.close();
             Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
-//            Intent intent1= new Intent(this,MainActivity.class);
+            Intent intent1= new Intent(this,MainActivity.class);
 //            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent1);
-            Intent mStartActivity = new Intent(this, MainActivity.class);
-            int mPendingIntentId = 123456;
-            PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-            AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-            System.exit(0);
+            startActivity(intent1);
 
         }
     }
