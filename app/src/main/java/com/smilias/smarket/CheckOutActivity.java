@@ -111,7 +111,7 @@ public class CheckOutActivity extends AppCompatActivity {
                                 }
                             }
                             quantityFirebase = MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
-                            //myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase - quantitydb);
+                            myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase - quantitydb);
                         }
                     }
 
@@ -120,12 +120,12 @@ public class CheckOutActivity extends AppCompatActivity {
                     }
                 });
             }
-            db.execSQL("DROP TABLE cart ");
-            db.close();
+            //db.execSQL("DROP TABLE cart ");
+            //db.close();
             Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
-            Intent intent1= new Intent(this,MainActivity.class);
+            Intent intent= new Intent(,MainActivity.class);
 //            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent1);
+            startActivity(intent);
 
         }
     }
