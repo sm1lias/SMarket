@@ -16,13 +16,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
+    private Location mLastLocation;
+    private Marker marker,first_marker;
     private GoogleMap mMap;
     LocationManager locationManager;
     Double x,y;
+    int i=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +68,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
+        mLastLocation = location;
+        if (marker != null){
+            marker.remove();
+        }
         x = location.getLatitude();
         y = location.getLongitude();
-        LatLng youAreHere=new LatLng(x,y);
-        mMap.addMarker(new MarkerOptions().position(youAreHere).title("youAreHere"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(youAreHere));
+        LatLng My_Location = new LatLng(x, y);
+        //
+        if(i==0){
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(x, y), 10));
+        }
+        marker = mMap.addMarker(new MarkerOptions().position(new LatLng(x, y))
+                .title("My Location").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        i++;
     }
 
     @Override
