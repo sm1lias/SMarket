@@ -54,7 +54,6 @@ public class CheckOutActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         if(PersonName.isEmpty()){
             editTextTextPersonName.setError("Name is required");
             editTextTextPersonName.requestFocus();

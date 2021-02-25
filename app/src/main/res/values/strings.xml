@@ -28,6 +28,7 @@
     <string name="button_have_vemail">"I have already received a verification email"</string>
     <string name="button_language">To Greek</string>
     <string name="lan_change">ΕΛΛΗΝΙΚΑ</string>
+    <string name="title_activity_maps">Map</string>
     <string-array name="languages">
         <item>English</item>
         <item>Ελληνικά</item>

@@ -153,18 +153,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void testdb(View view ){
-        Cursor cursor = db.rawQuery("SELECT * FROM cart",null);
-        if (cursor.getCount()>0){
-            StringBuilder builder = new StringBuilder();
-            while (cursor.moveToNext()){
-                builder.append("ITEM:").append(cursor.getString(0)).append("\n");
-                builder.append("SUPERMARKET:").append(cursor.getString(1)).append("\n");
-                builder.append("QUANTITY:").append(cursor.getString(2)).append("\n");
-                builder.append("-----------------------------------\n");
-            }
-            showMessage("CART",builder.toString());
-        }
-        else Toast.makeText(this,"sdggag", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
     }
     public void showMessage(String title, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
