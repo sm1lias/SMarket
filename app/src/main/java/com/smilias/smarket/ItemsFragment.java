@@ -90,6 +90,24 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+            if (con == false) {
+                adapter = new MyRecyclerViewAdapter(getActivity(), items);
+                adapter.setClickListener(ItemsFragment.this::onItemClick);
+                recyclerView.setAdapter(adapter);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
         if(con) {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -101,9 +119,14 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
 //                    categories.add(snapshot.getValue(String.class).toString());
                         categories.add(snapshot.getKey());
                     }
-                    adapter = new MyRecyclerViewAdapter(getActivity(), categories);
-                    adapter.setClickListener(ItemsFragment.this::onItemClick);
-                    recyclerView.setAdapter(adapter);
+                    try {
+                        adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                        adapter.setClickListener(ItemsFragment.this::onItemClick);
+                        recyclerView.setAdapter(adapter);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
                 @Override
@@ -111,15 +134,6 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
 
                 }
             });
-        }
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(con==false) {
-            adapter = new MyRecyclerViewAdapter(getActivity(), items);
-            adapter.setClickListener(ItemsFragment.this::onItemClick);
-            recyclerView.setAdapter(adapter);
         }
     }
 
@@ -135,6 +149,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
         recyclerView.setLayoutManager(layoutManager);
         return rootView;
     }
+
 
     @Override
     public void onItemClick(View view, int position) {

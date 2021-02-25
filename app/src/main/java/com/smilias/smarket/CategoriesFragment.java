@@ -86,19 +86,29 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        myRef.addValueEventListener (new ValueEventListener() {
+
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot MainSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").getChildren()){
+                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").getChildren()) {
 
 //                    categories.add(snapshot.getValue(String.class).toString());
                     categories.add(snapshot.getKey());
                 }
-                adapter = new MyRecyclerViewAdapter(getActivity(), categories);
-                adapter.setClickListener(CategoriesFragment.this::onItemClick);
-                recyclerView.setAdapter(adapter);
+                try {
+                    adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                    adapter.setClickListener(CategoriesFragment.this::onItemClick);
+                    recyclerView.setAdapter(adapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -106,7 +116,6 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 
             }
         });
-
     }
 
     @Override
@@ -120,4 +129,5 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
         recyclerView.setLayoutManager(layoutManager);
         return rootView;
     }
+
 }

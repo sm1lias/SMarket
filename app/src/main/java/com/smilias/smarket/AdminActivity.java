@@ -21,7 +21,7 @@ public class AdminActivity extends AppCompatActivity {
 //         as soon as the application opens the first
 //         fragment should be shown to the user
 //         in this case it is algorithm fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.adminFragment, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.adminFragment, new AddFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -32,17 +32,14 @@ public class AdminActivity extends AppCompatActivity {
             // by using there id.
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
-                case R.id.menuHome:
-                    selectedFragment = new HomeFragment();
+                case R.id.menuAdd:
+                    selectedFragment = new AddFragment();
                     break;
                 case R.id.menuDelete:
-                    selectedFragment = new CartFragment();
+                    selectedFragment = new DeleteFragment();
                     break;
                 case R.id.menuLogOut:
-                    selectedFragment = new LoginFragment();
-                    break;
-                case R.id.menuAdd:
-                    selectedFragment= new CategoriesFragment();
+                    selectedFragment = new LogOutFragment();
                     break;
             }
             // It will help to replace the

@@ -102,6 +102,7 @@ public class CartFragment extends Fragment implements MyRecyclerViewAdapterCart.
         return rootView;
     }
 
+
     @Override
     public void onItemClick(View view, int position) {
         getActivity().getSupportFragmentManager().beginTransaction()

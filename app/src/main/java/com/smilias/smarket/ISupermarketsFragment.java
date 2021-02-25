@@ -89,6 +89,11 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
         db = getActivity().openOrCreateDatabase("cartDb", Context.MODE_PRIVATE,null);
         db.execSQL("CREATE TABLE IF NOT EXISTS cart(item TEXT,supermarket TEXT, quantity INT)");
 
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
         myRef.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot MainSnapshot) {
@@ -106,9 +111,14 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
                     prices.add(snapshot.child("PRICE").getValue(double.class).toString());
                     quantity.add(snapshot.child("QUANTITY").getValue(Integer.class));
                 }
-                adapter = new MyRecyclerViewAdapterImage(getActivity(), categories, prices, quantity, item2, db);
-                adapter.setClickListener(ISupermarketsFragment.this::onItemClick);
-                recyclerView.setAdapter(adapter);
+                try {
+                    adapter = new MyRecyclerViewAdapterImage(getActivity(), categories, prices, quantity, item2, db);
+                    adapter.setClickListener(ISupermarketsFragment.this::onItemClick);
+                    recyclerView.setAdapter(adapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -130,6 +140,8 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
 
         return rootView;
     }
+
+
 
     @Override
     public void onItemClick(View view, int position) {
