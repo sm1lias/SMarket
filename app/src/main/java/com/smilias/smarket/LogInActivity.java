@@ -54,6 +54,7 @@ public class LogInActivity extends AppCompatActivity {
             if(email.equals( adminEmail[i])){
                 if(password.equals( adminPass[i])){
                     Intent intent1= new Intent(LogInActivity.this,AdminActivity.class);
+                    intent1.putExtra("email",email);
                     startActivity(intent1);
                     break;
                 }else{
