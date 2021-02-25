@@ -42,17 +42,14 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     public String language,item1,item2,supermarket, notItem;
-    public double price, tprice;
+    public double price;
     public Locale locale;
     SQLiteDatabase db;
     DatabaseReference myRef;
     FirebaseDatabase database;
     FirebaseUser cuser;
-    int quantitydb;
+    int quantitydb,quantityFirebase;
     Button bloginout;
-    //int quantityFirebase;
-    boolean b;
-    ArrayList<Integer> quantityFirebase= new ArrayList<>();
 
 
     public void login(View view) {
@@ -178,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
     public void toCheckOut(View view) {
-        b=false;
         ArrayList<String> itemlist=new ArrayList<>();
         if (cuser != null) {
             price = 0.0;
@@ -197,10 +193,21 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             price = price + (quantitydb * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
+                            quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
+                            if (quantityFirebase-quantitydb<0) itemlist.add(item2+" in "+supermarket+", ");
                         }
+                        if (!itemlist.isEmpty()){
+                            StringBuilder builder = new StringBuilder();
+                            for (int i=0;i<itemlist.size();i++) builder.append(itemlist.get(i));
+                            notItem=builder.toString();
+                            if (itemlist.size()==1)
+                                Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" is not available any more", Toast.LENGTH_LONG).show();
+                            else Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" are not available any more", Toast.LENGTH_LONG).show();
+                        }else {
                             Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
                             intent.putExtra("price", price);
                             startActivity(intent);
+                        }
                     }
 
                     @Override

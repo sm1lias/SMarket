@@ -120,11 +120,10 @@ public class CheckOutActivity extends AppCompatActivity {
                     }
                 });
             }
-            //db.execSQL("DROP TABLE cart ");
-            //db.close();
+            db.execSQL("DROP TABLE cart ");
+            db.close();
             Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
-            Intent intent= new Intent(,MainActivity.class);
-//            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            Intent intent= new Intent(this,MainActivity.class);
             startActivity(intent);
 
         }
