@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity  {
         }
     };
 
-    public void testdb(View view ){
+    public void toMaps(View view ){
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(intent);
     }

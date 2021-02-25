@@ -74,8 +74,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         x = location.getLatitude();
         y = location.getLongitude();
-        LatLng My_Location = new LatLng(x, y);
-        //
         if(i==0){
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(x, y), 10));
         }
