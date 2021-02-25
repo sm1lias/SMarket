@@ -36,6 +36,7 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
     ArrayList<String> categories= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
+    String supermarket="consumer";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,6 +49,11 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 
     public CategoriesFragment() {
         // Required empty public constructor
+    }
+
+    public CategoriesFragment(String passedsupermarket) {
+        // Required empty public constructor
+        supermarket=passedsupermarket;
     }
 
     /**
@@ -70,9 +76,15 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 
     @Override
     public void onItemClick(View view, int position) {
+        if(supermarket.equals("consumer")){
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.flFragment, new ItemsFragment(adapter.getItem(position)), "findThisFragment")
                 .commit();
+        }else{
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.adminFragment, new ItemsFragment(supermarket,adapter.getItem(position)), "findThisFragment")
+                    .commit();
+        }
     }
 
     @Override

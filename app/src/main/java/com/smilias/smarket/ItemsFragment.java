@@ -34,7 +34,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     ArrayList<String> items= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
-    String item;
+    String item,supermarket="consumer";
     boolean con,con2;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -57,6 +57,13 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
 
     public ItemsFragment(String passedString) {
         // Required empty public constructor
+        item=passedString;
+        con=true;
+    }
+
+    public ItemsFragment(String passedSupermarket,String passedString) {
+        // Required empty public constructor
+        supermarket=passedSupermarket;
         item=passedString;
         con=true;
     }
@@ -153,8 +160,11 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
 
     @Override
     public void onItemClick(View view, int position) {
+        if(supermarket.equals("consumer")){
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.flFragment, new ISupermarketsFragment(/*item,*/adapter.getItem(position)), "findThisFragment")
                 .commit();
+        }else{
+        }
     }
 }

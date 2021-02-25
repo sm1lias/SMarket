@@ -29,6 +29,7 @@ public class LogInActivity extends AppCompatActivity {
     private static final String TAG = "LogInActivity";
     String[] adminEmail = {"skadmin","metroadmin","abadmin","lidladmin","myadmin"};
     String[] adminPass = {"skadmin","metroadmin","abadmin","lidladmin","myadmin"};
+    String[] supermarket = {"SKLAVENITIS","METRO","AB VASILOPOYLOS","LILD","MY MARKET"};
 
     public void bSignUp(View view){
         Intent intent = new Intent(this,SignUpActivity.class);
@@ -54,7 +55,7 @@ public class LogInActivity extends AppCompatActivity {
             if(email.equals( adminEmail[i])){
                 if(password.equals( adminPass[i])){
                     Intent intent1= new Intent(LogInActivity.this,AdminActivity.class);
-                    intent1.putExtra("email",email);
+                    intent1.putExtra("supermarket",supermarket[i]);
                     startActivity(intent1);
                     break;
                 }else{

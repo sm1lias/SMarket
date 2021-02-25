@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AdminActivity extends AppCompatActivity {
+    public String supermarket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +19,13 @@ public class AdminActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
+        Bundle extras = getIntent().getExtras();
+        supermarket = extras.getString("supermarket");
+
 //         as soon as the application opens the first
 //         fragment should be shown to the user
 //         in this case it is algorithm fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.adminFragment, new AddFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.adminFragment, new CategoriesFragment(supermarket)).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -33,7 +37,7 @@ public class AdminActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.menuAdd:
-                    selectedFragment = new AddFragment();
+                    selectedFragment = new CategoriesFragment(supermarket);
                     break;
                 case R.id.menuDelete:
                     selectedFragment = new DeleteFragment();
