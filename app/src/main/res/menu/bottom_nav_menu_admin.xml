@@ -5,15 +5,15 @@
         android:icon="@drawable/ic_home_foreground"
         android:title="Home" />
     <item
-        android:id="@+id/menuCategories"
+        android:id="@+id/menuAdd"
         android:icon="@drawable/ic_categories_foreground"
         android:title="Add" />
     <item
-        android:id="@+id/menuCart"
+        android:id="@+id/menuDelete"
         android:icon="@drawable/ic_cart_foreground"
         android:title="Delete" />
     <item
-        android:id="@+id/menuLogin"
+        android:id="@+id/menuLogOut"
         android:icon="@drawable/ic_login_foreground"
         android:title="LogOut" />
 </menu>

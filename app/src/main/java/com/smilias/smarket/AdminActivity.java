@@ -35,13 +35,13 @@ public class AdminActivity extends AppCompatActivity {
                 case R.id.menuHome:
                     selectedFragment = new HomeFragment();
                     break;
-                case R.id.menuCart:
+                case R.id.menuDelete:
                     selectedFragment = new CartFragment();
                     break;
-                case R.id.menuLogin:
+                case R.id.menuLogOut:
                     selectedFragment = new LoginFragment();
                     break;
-                case R.id.menuCategories:
+                case R.id.menuAdd:
                     selectedFragment= new CategoriesFragment();
                     break;
             }

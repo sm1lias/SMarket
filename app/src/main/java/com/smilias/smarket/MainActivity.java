@@ -9,22 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.LocationListener;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -133,13 +123,13 @@ public class MainActivity extends AppCompatActivity  {
                 case R.id.menuHome:
                     selectedFragment = new HomeFragment();
                     break;
-                case R.id.menuCart:
+                case R.id.menuDelete:
                     selectedFragment = new CartFragment();
                     break;
-                case R.id.menuLogin:
+                case R.id.menuLogOut:
                     selectedFragment = new LoginFragment();
                     break;
-                case R.id.menuCategories:
+                case R.id.menuAdd:
                     selectedFragment= new CategoriesFragment();
                     break;
             }
