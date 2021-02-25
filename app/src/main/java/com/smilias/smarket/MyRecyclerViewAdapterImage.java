@@ -21,7 +21,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     private List<Integer> mQuantity;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private int quantity=0,quan;
+    private int quantity=0,quan,quantitys;
     SQLiteDatabase db;
     Context context;
     String item, price, pitem;
@@ -50,9 +50,11 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     public void onBindViewHolder(ViewHolder holder, int position) {
         item = mData.get(position);
         price= mPrice.get(position);
+        quantitys = mQuantity.get(position);
         holder.myTextView2.setText("SUPERMARKET: "+item);
         holder.myTextView1.setText("PRICE: "+price);
         holder.textViewQuantity.setText("1");
+        holder.textViewSQ.setText("IN SUPERMARKET: "+quantitys);
     }
 
     // total number of rows
@@ -64,13 +66,14 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView1, myTextView2, textViewQuantity;
+        TextView myTextView1, myTextView2, textViewQuantity,textViewSQ;
         Button button,buttonAdd,buttonDelete;
 
 
         ViewHolder(View itemView) {
             super(itemView);
 
+            textViewSQ = itemView.findViewById(R.id.textViewSQ);
             myTextView1 = itemView.findViewById(R.id.price);
             myTextView2 = itemView.findViewById(R.id.category);
             textViewQuantity = itemView.findViewById(R.id.textViewQ);

@@ -73,4 +73,14 @@
         app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textViewSQ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="244dp"
+        android:layout_marginBottom="64dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/textViewQ"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
