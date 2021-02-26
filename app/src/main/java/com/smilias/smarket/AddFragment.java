@@ -86,13 +86,10 @@ public class AddFragment extends Fragment {
                         category=snap.getKey();
                     }
                 }
-                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(category).child(item).getChildren()){  //testing
-                    String sup=snapshot.getKey();
-                    if(sup.equals(supermarket)) {
-                        price = snapshot.child("PRICE").getValue(double.class);
-                        quantity = snapshot.child("QUANTITY").getValue(int.class);
-                    }
-                }
+                try {
+                    price = MainSnapshot.child("CATEGORIES").child(category).child(item).child(supermarket).child("PRICE").getValue(double.class);
+                    quantity = MainSnapshot.child("CATEGORIES").child(category).child(item).child(supermarket).child("QUANTITY").getValue(int.class);
+                }catch (Exception e){}
                 textViewPr.setText(String.valueOf(price));
                 textViewQuantity.setText(String.valueOf(quantity));
             }
