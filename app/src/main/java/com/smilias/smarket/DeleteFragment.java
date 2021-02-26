@@ -103,15 +103,12 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
     public void onResume() {
         i=0;
         super.onResume();
-
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot MainSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-
                         for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()) {
-
 //                    categories.add(snapshot.getValue(String.class).toString());
                             if(snapshot.hasChild(supermarket)) {
                                 String key=snapshot.getKey();
@@ -143,6 +140,8 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
 
     @Override
     public void onItemClick(View view, int position) {
-
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.adminFragment, new DeleteFragment(supermarket,item), "findThisFragment")
+                .commit();
     }
 }

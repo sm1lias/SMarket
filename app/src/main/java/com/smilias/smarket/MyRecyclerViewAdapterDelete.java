@@ -83,7 +83,8 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
             if (view.getId()==button.getId()){
                 int i=getAdapterPosition();
-                myRef.child("CATEGORIES").child(category).child(mItem.get(i)).child(supermarket).removeValue();
+                myRef.child("CATEGORIES").child(category).child(mItem.get(i)).child(supermarket).child("PRICE").removeValue();
+                myRef.child("CATEGORIES").child(category).child(mItem.get(i)).child(supermarket).child("QUANTITY").removeValue();
 //                db.execSQL("DELETE FROM cart WHERE item=?  AND supermarket =?", new String[]{mItem.get(i), mSupermarket.get(i)});
                 //setItems(mItem,mSupermarket,mQuantity);
             }
