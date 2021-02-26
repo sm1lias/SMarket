@@ -7,27 +7,35 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecyclerViewAdapterDelete.ViewHolder> {
 
+    private final DatabaseReference myRef;
     private String q;
     private List<String> mItem;
     private List<Integer> mQuantity;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private int quantity=0;
+    private String category;
+    private String supermarket;
 
-    String item, supermarket;
+    String item;
 
 
     // data is passed into the constructor
-        MyRecyclerViewAdapterDelete(Context context, List<String> item, List<Integer> quantitylist) {
+        MyRecyclerViewAdapterDelete(Context context, List<String> item, List<Integer> quantitylist, String cat, String smarket, DatabaseReference myRf) {
             this.mInflater = LayoutInflater.from(context);
             this.mItem = item;
             this.mQuantity = quantitylist;
+            this.myRef=myRf;
+            this.supermarket=smarket;
+            this.category = cat;
         }
 
         // inflates the row layout from xml when needed
@@ -75,6 +83,7 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
             if (view.getId()==button.getId()){
                 int i=getAdapterPosition();
+                myRef.child("CATEGORIES").child(category).child(mItem.get(i)).child(supermarket).removeValue();
 //                db.execSQL("DELETE FROM cart WHERE item=?  AND supermarket =?", new String[]{mItem.get(i), mSupermarket.get(i)});
                 //setItems(mItem,mSupermarket,mQuantity);
             }

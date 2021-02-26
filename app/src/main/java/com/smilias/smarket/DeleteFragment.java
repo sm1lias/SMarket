@@ -122,7 +122,7 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
 
                     try {
                         if(i==0) {
-                            adapter2 = new MyRecyclerViewAdapterDelete(getActivity(), categories, quantity);
+                            adapter2 = new MyRecyclerViewAdapterDelete(getActivity(), categories, quantity,item,supermarket, myRef);
                             adapter2.setClickListener(DeleteFragment.this::onItemClick);
                             recyclerView.setAdapter(adapter2);
                         }
