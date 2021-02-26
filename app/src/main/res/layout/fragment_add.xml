@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
+        android:onClick="setQuantity"
         android:text="SET QUANTITY"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextQuantity"
         app:layout_constraintEnd_toStartOf="@+id/editTextQuantity"
@@ -72,4 +73,14 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonPr"
         app:layout_constraintEnd_toStartOf="@+id/editTextQuantity"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="22dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

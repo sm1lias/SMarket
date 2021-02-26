@@ -1,5 +1,6 @@
 package com.smilias.smarket;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,7 +37,7 @@ public class AddFragment extends Fragment {
     int quantity=0, newQuantity;
     double price=0.0, newPrice;
     Button buttonQuantity,buttonPr;
-    TextView textViewQuantity,textViewPr;
+    TextView textViewQuantity,textViewPr,TextViewItem;
     EditText editTextQuantity,editTextPr;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -94,7 +96,6 @@ public class AddFragment extends Fragment {
                 textViewQuantity.setText(String.valueOf(quantity));
             }
 
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -119,9 +120,31 @@ public class AddFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_add, container, false);
         buttonQuantity=rootView.findViewById(R.id.buttonQuantity);
+        buttonQuantity.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                String et=editTextQuantity.getText().toString();
+                if(!et.isEmpty())
+                    myRef.child("CATEGORIES").child(category).child(item).child(supermarket).child("QUANTITY").setValue(Integer.parseInt(et));
+                else Toast.makeText(getActivity(),"Quantity is empty", Toast.LENGTH_LONG).show();
+            }
+        });
         buttonPr=rootView.findViewById(R.id.buttonPr);
+        buttonPr.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                String et=editTextPr.getText().toString();
+                if(!et.isEmpty())
+                    myRef.child("CATEGORIES").child(category).child(item).child(supermarket).child("PRICE").setValue(Double.parseDouble(et));
+                else Toast.makeText(getActivity(),"Price is empty", Toast.LENGTH_LONG).show();
+            }
+        });
         textViewQuantity=rootView.findViewById(R.id.textViewQuantity);
         textViewPr=rootView.findViewById(R.id.textViewPr);
+        TextViewItem=rootView.findViewById(R.id.textViewItem);
+        TextViewItem.setText(item);
         editTextQuantity=rootView.findViewById(R.id.editTextQuantity);
         editTextPr=rootView.findViewById(R.id.editTextPr);
         //textViewPr.setText(item);
