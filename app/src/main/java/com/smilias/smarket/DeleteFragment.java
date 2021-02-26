@@ -2,6 +2,7 @@ package com.smilias.smarket;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,15 +11,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DeleteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DeleteFragment extends Fragment {
-    String supermarket, position;
-    LinearLayoutManager layoutManager;
+public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDelete.ItemClickListener {
+    DatabaseReference myRef;
     RecyclerView recyclerView;
+    FirebaseDatabase database;
+    ArrayList<Integer> quantity= new ArrayList<>();
+    ArrayList<String> categories= new ArrayList<>();
+    ArrayList<String> items= new ArrayList<>();
+    LinearLayoutManager layoutManager;
+    MyRecyclerViewAdapterDelete adapter2;
+    String item,supermarket;
+    boolean con,con2;
+    boolean from=true;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,8 +51,9 @@ public class DeleteFragment extends Fragment {
     }
 
 
-
-    public DeleteFragment(String item) {
+    public DeleteFragment(String sp, String itm) {
+        supermarket=sp;
+        item=itm;
 
     }
 
@@ -64,6 +82,8 @@ public class DeleteFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
     }
 
     @Override
@@ -72,9 +92,53 @@ public class DeleteFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_delete, container, false);
 
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView2);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot MainSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+
+                        for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()) {
+
+//                    categories.add(snapshot.getValue(String.class).toString());
+                            if(snapshot.hasChild(supermarket)) {
+                                String key=snapshot.getKey();
+                                categories.add(key);
+                                quantity.add(snapshot.child(supermarket).child("QUANTITY").getValue(Integer.class));
+                            }
+                        }
+
+                    try {
+                            adapter2 = new MyRecyclerViewAdapterDelete(getActivity(), categories, quantity);
+                            adapter2.setClickListener(DeleteFragment.this::onItemClick);
+                            recyclerView.setAdapter(adapter2);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
     }
 }
