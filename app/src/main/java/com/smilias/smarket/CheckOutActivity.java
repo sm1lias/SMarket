@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CheckOutActivity extends AppCompatActivity {
@@ -35,9 +36,12 @@ public class CheckOutActivity extends AppCompatActivity {
     SQLiteDatabase db;
     DatabaseReference myRef;
     FirebaseDatabase database;
-    int quantitydb,quantityFirebase;
+    int quantitydb,i;
+    ArrayList<Integer> quantityfirebase= new ArrayList<>();
+    ArrayList<String> category= new ArrayList<>();
 
     public void finish(View view) throws ParseException {
+        i=0;
         PersonName = editTextTextPersonName.getText().toString();
         Number = editTextNumber.getText().toString();
         Date = editTextDate.getText().toString();
@@ -97,35 +101,20 @@ public class CheckOutActivity extends AppCompatActivity {
         else {
             Cursor cursor = db.rawQuery("SELECT * FROM cart", null);
             if (cursor.getCount() > 0) {
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot MainSnapshot) {
-                        while (cursor.moveToNext()) {
-                            item2 = cursor.getString(0);
-                            supermarket = cursor.getString(1);
-                            quantitydb = cursor.getInt(2);
-                            for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
-                                if (snap.hasChild(item2)) {
-                                    item1 = snap.getKey();
-                                }
-                            }
-                            quantityFirebase = MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
-                            myRef.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").setValue(quantityFirebase - quantitydb);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
+                while (cursor.moveToNext()) {
+                    item2 = cursor.getString(0);
+                    supermarket = cursor.getString(1);
+                    quantitydb = cursor.getInt(2);
+                    myRef.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("QUANTITY").setValue(quantityfirebase.get(i) - quantitydb);
+                    i++;
+                }
             }
-            db.execSQL("DROP TABLE cart ");
-            db.close();
-            Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
-            Intent intent= new Intent(this,MainActivity.class);
-            startActivity(intent);
-
         }
+        db.execSQL("DROP TABLE cart ");
+        db.close();
+        Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
+        Intent intent2= new Intent(this,MainActivity.class);
+        startActivity(intent2);
     }
 
     @Override
@@ -144,6 +133,8 @@ public class CheckOutActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         pr= extras.getDouble("price");
+        quantityfirebase = extras.getIntegerArrayList("quantityfirebase");
+        category = extras.getStringArrayList("category");
         textViewPrice=findViewById(R.id.textViewPrice);
         textViewPrice.setText("price: "+ String.valueOf(pr) +" €");
     }

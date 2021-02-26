@@ -39,8 +39,10 @@ public class MainActivity extends AppCompatActivity  {
     DatabaseReference myRef;
     FirebaseDatabase database;
     FirebaseUser cuser;
-    int quantitydb,quantityFirebase;
+    int quantitydb,i;
     Button bloginout;
+    ArrayList<Integer> quantityfirebase= new ArrayList<>();
+    ArrayList<String> category= new ArrayList<>();
 
 
     public void login(View view) {
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity  {
                 .show();
     }
     public void toCheckOut(View view) {
+        i=0;
         ArrayList<String> itemlist=new ArrayList<>();
         if (cuser != null) {
             price = 0.0;
@@ -170,12 +173,13 @@ public class MainActivity extends AppCompatActivity  {
                             quantitydb = cursor.getInt(2);
                             for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
                                 if (snap.hasChild(item2)) {
-                                    item1 = snap.getKey();
+                                    category.add(snap.getKey());
                                 }
                             }
-                            price = price + (quantitydb * MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("PRICE").getValue(double.class));
-                            quantityFirebase=MainSnapshot.child("CATEGORIES").child(item1).child(item2).child(supermarket).child("QUANTITY").getValue(int.class);
-                            if (quantityFirebase-quantitydb<0) itemlist.add(item2+" in "+supermarket+", ");
+                            price = price + (quantitydb * MainSnapshot.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("PRICE").getValue(double.class));
+                            quantityfirebase.add(MainSnapshot.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("QUANTITY").getValue(int.class));
+                            if (quantityfirebase.get(i)-quantitydb<0) itemlist.add(item2+" in "+supermarket+", ");
+                            i++;
                         }
                         if (!itemlist.isEmpty()){
                             StringBuilder builder = new StringBuilder();
@@ -185,16 +189,22 @@ public class MainActivity extends AppCompatActivity  {
                                 Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" is not available any more", Toast.LENGTH_LONG).show();
                             else Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" are not available any more", Toast.LENGTH_LONG).show();
                         }else {
+                            if(i>0){
                             Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
                             intent.putExtra("price", price);
+                            intent.putExtra("quantityfirebase",quantityfirebase);
+                            intent.putExtra("category",category);
                             startActivity(intent);
+                            }
                         }
+                        i=0;
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
+
             } else Toast.makeText(this, "YOUR CART IS EMPTY", Toast.LENGTH_LONG).show();
         } else Toast.makeText(this, "PLEASE LOG IN", Toast.LENGTH_LONG).show();
     }
