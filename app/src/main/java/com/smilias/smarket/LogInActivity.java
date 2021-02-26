@@ -29,7 +29,7 @@ public class LogInActivity extends AppCompatActivity {
     private static final String TAG = "LogInActivity";
     String[] adminEmail = {"skadmin","metroadmin","abadmin","lidladmin","myadmin"};
     String[] adminPass = {"skadmin","metroadmin","abadmin","lidladmin","myadmin"};
-    String[] supermarket = {"SKLAVENITIS","METRO","AB VASILOPOYLOS","LILD","MY MARKET"};
+    String[] supermarket = {"SKLAVENITIS","METRO","AB VASILOPOYLOS","LIDL","MY MARKET"};
 
     public void bSignUp(View view){
         Intent intent = new Intent(this,SignUpActivity.class);

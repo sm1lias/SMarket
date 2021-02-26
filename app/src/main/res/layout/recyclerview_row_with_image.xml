@@ -49,11 +49,11 @@
         android:layout_marginBottom="22dp"
         android:text="placeholder"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/price"
-        app:layout_constraintStart_toStartOf="@+id/price" />
+        app:layout_constraintBottom_toTopOf="@+id/priceTextView"
+        app:layout_constraintStart_toStartOf="@+id/priceTextView" />
 
     <TextView
-        android:id="@+id/price"
+        android:id="@+id/priceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"

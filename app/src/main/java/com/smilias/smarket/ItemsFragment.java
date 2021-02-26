@@ -25,17 +25,20 @@ import java.util.zip.Inflater;
  * Use the {@link ItemsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
+public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, MyRecyclerViewAdapterDelete.ItemClickListener {
 
     DatabaseReference myRef;
     RecyclerView recyclerView;
     FirebaseDatabase database;
+    ArrayList<Integer> quantity= new ArrayList<>();
     ArrayList<String> categories= new ArrayList<>();
     ArrayList<String> items= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
+    MyRecyclerViewAdapterDelete adapter2;
     String item,supermarket="consumer";
     boolean con,con2;
+    boolean from=true;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,9 +66,16 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
 
     public ItemsFragment(String passedSupermarket,String passedString) {
         // Required empty public constructor
+        item=passedString;
+        supermarket=passedSupermarket;
+        con=true;
+    }
+
+    public ItemsFragment(String passedSupermarket,String passedString, boolean b) {
         supermarket=passedSupermarket;
         item=passedString;
         con=true;
+        from=b;
     }
 
     /**
@@ -121,15 +131,35 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
                 public void onDataChange(DataSnapshot MainSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()) {
+                    if (!from){
+                        for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()) {
 
 //                    categories.add(snapshot.getValue(String.class).toString());
-                        categories.add(snapshot.getKey());
+                            if(snapshot.hasChild(supermarket)) {
+                                String key=snapshot.getKey();
+                                categories.add(key);
+                                quantity.add(snapshot.child(supermarket).child("QUANTITY").getValue(Integer.class));
+                            }
+                        }
+                    }
+                    else {
+                        for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()) {
+
+//                    categories.add(snapshot.getValue(String.class).toString());
+                            categories.add(snapshot.getKey());
+                        }
                     }
                     try {
-                        adapter = new MyRecyclerViewAdapter(getActivity(), categories);
-                        adapter.setClickListener(ItemsFragment.this::onItemClick);
-                        recyclerView.setAdapter(adapter);
+                        if (!from){
+                            adapter2 = new MyRecyclerViewAdapterDelete(getActivity(), categories, quantity);
+                            adapter2.setClickListener(ItemsFragment.this::onItemClick);
+                            recyclerView.setAdapter(adapter2);
+                        }
+                        else {
+                            adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                            adapter.setClickListener(ItemsFragment.this::onItemClick);
+                            recyclerView.setAdapter(adapter);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -165,6 +195,10 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
                 .replace(R.id.flFragment, new ISupermarketsFragment(/*item,*/adapter.getItem(position)), "findThisFragment")
                 .commit();
         }else{
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.adminFragment, new AddFragment(supermarket,adapter.getItem(position)), "findThisFragment")
+                    .commit();
+
         }
     }
 }

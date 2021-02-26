@@ -74,7 +74,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
             super(itemView);
 
             textViewSQ = itemView.findViewById(R.id.textViewSQ);
-            myTextView1 = itemView.findViewById(R.id.price);
+            myTextView1 = itemView.findViewById(R.id.priceTextView);
             myTextView2 = itemView.findViewById(R.id.category);
             textViewQuantity = itemView.findViewById(R.id.textViewQ);
             button = itemView.findViewById(R.id.button3);

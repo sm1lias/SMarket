@@ -37,10 +37,10 @@ public class AdminActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.menuAdd:
-                    selectedFragment = new CategoriesFragment(supermarket);
+                    selectedFragment = new CategoriesFragment(supermarket, true);
                     break;
                 case R.id.menuDelete:
-                    selectedFragment = new DeleteFragment();
+                    selectedFragment = new CategoriesFragment(supermarket, false);
                     break;
                 case R.id.menuLogOut:
                     selectedFragment = new LogOutFragment();

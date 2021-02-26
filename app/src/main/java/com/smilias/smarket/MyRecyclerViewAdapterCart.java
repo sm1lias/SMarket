@@ -1,7 +1,6 @@
 package com.smilias.smarket;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +67,7 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
         ViewHolder(View itemView) {
             super(itemView);
 
-            myTextView1 = itemView.findViewById(R.id.price);
+            myTextView1 = itemView.findViewById(R.id.priceTextView);
             myTextView2 = itemView.findViewById(R.id.category);
             textViewQuantity = itemView.findViewById(R.id.textViewQ);
             button = itemView.findViewById(R.id.button3);
