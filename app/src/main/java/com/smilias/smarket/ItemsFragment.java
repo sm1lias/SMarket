@@ -36,6 +36,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     MyRecyclerViewAdapter adapter;
     String item,supermarket="consumer";
     boolean con,con2;
+    int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -115,6 +116,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     }
     @Override
     public void onResume() {
+        i=0;
         super.onResume();
         if(con) {
             myRef.addValueEventListener(new ValueEventListener() {
@@ -130,14 +132,16 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
                         }
 
                     try {
-                        adapter = new MyRecyclerViewAdapter(getActivity(), categories);
-                        adapter.setClickListener(ItemsFragment.this::onItemClick);
-                        recyclerView.setAdapter(adapter);
+                        if(i==0) {
+                            adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                            adapter.setClickListener(ItemsFragment.this::onItemClick);
+                            recyclerView.setAdapter(adapter);
+                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
+                    i++;
                 }
 
                 @Override

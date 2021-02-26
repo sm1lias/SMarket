@@ -38,6 +38,7 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
     MyRecyclerViewAdapter adapter;
     String supermarket="consumer";
     boolean b=true;
+    int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -112,32 +113,37 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 
     }
     @Override
-    public void onResume() {
-        super.onResume();
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot MainSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").getChildren()) {
+    public void onStart() {
+        i=0;
+        super.onStart();
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot MainSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").getChildren()) {
 
 //                    categories.add(snapshot.getValue(String.class).toString());
-                    categories.add(snapshot.getKey());
+                        categories.add(snapshot.getKey());
+                    }
+                    try {
+                        if(i==0){
+                        adapter = new MyRecyclerViewAdapter(getActivity(), categories);
+                        adapter.setClickListener(CategoriesFragment.this::onItemClick);
+                        recyclerView.setAdapter(adapter);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    i++;
                 }
-                try {
-                    adapter = new MyRecyclerViewAdapter(getActivity(), categories);
-                    adapter.setClickListener(CategoriesFragment.this::onItemClick);
-                    recyclerView.setAdapter(adapter);
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+            });
     }
 
     @Override

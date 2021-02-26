@@ -38,6 +38,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
     MyRecyclerViewAdapterImage adapter;
     String item1, item2;
     SQLiteDatabase db;
+    int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,6 +94,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
     }
     @Override
     public void onResume(){
+        i=0;
         super.onResume();
         myRef.addValueEventListener (new ValueEventListener() {
             @Override
@@ -112,13 +114,15 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
                     quantity.add(snapshot.child("QUANTITY").getValue(Integer.class));
                 }
                 try {
-                    adapter = new MyRecyclerViewAdapterImage(getActivity(), categories, prices, quantity, item2, db);
-                    adapter.setClickListener(ISupermarketsFragment.this::onItemClick);
-                    recyclerView.setAdapter(adapter);
+                    if(i==0) {
+                        adapter = new MyRecyclerViewAdapterImage(getActivity(), categories, prices, quantity, item2, db);
+                        adapter.setClickListener(ISupermarketsFragment.this::onItemClick);
+                        recyclerView.setAdapter(adapter);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
+                i++;
             }
 
             @Override

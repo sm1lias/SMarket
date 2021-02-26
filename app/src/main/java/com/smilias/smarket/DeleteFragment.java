@@ -36,6 +36,7 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
     String item,supermarket;
     boolean con,con2;
     boolean from=true;
+    int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -100,6 +101,7 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
 
     @Override
     public void onResume() {
+        i=0;
         super.onResume();
 
             myRef.addValueEventListener(new ValueEventListener() {
@@ -119,14 +121,16 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
                         }
 
                     try {
+                        if(i==0) {
                             adapter2 = new MyRecyclerViewAdapterDelete(getActivity(), categories, quantity);
                             adapter2.setClickListener(DeleteFragment.this::onItemClick);
                             recyclerView.setAdapter(adapter2);
+                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
+                    i++;
                 }
 
                 @Override
