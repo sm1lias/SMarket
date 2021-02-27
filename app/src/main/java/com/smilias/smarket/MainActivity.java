@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,13 +29,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity  {
     SharedPreferences preferences;
-    public String language,item1,item2,supermarket, notItem;
+    public String language,item,item2,supermarket, notItem;
     public double price;
     public Locale locale;
     SQLiteDatabase db;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity  {
     ArrayList<Integer> quantityorders= new ArrayList<>();
     ArrayList<String> category= new ArrayList<>();
     FirebaseUser currentFirebaseUser;
+    TextToSpeech tts;
     private static final int REC_RESULT = 653;
 
 
@@ -89,6 +92,12 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+
+            }
+        });
 
         cuser = FirebaseAuth.getInstance().getCurrentUser();
         bloginout=findViewById(R.id.bLogInOut);
@@ -150,6 +159,14 @@ public class MainActivity extends AppCompatActivity  {
         }
     };
 
+    public void speech(View view){
+        tts.setLanguage(Locale.US);
+        tts.setSpeechRate((float) 0.5);
+        if (cuser != null)
+        tts.speak(FirebaseAuth.getInstance().getCurrentUser().getUid(), TextToSpeech.QUEUE_ADD, null);
+        else Toast.makeText(MainActivity.this,"Please LogIn", Toast.LENGTH_LONG).show();
+    }
+
     //gia tin anagnwrisi tis fwnis
     public void recognize(View view){
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -189,8 +206,8 @@ public class MainActivity extends AppCompatActivity  {
     public void showMessage(String s){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-        if (language.equals("el")) builder.setTitle("ΚΩΔΙΚΟΣ ΠΑΡΑΓΓΕΛΙΑΣ");
-        else builder.setTitle("ORDER ID");
+        if (language.equals("el")) builder.setTitle("ΠΑΡΑΓΓΕΛΙΑ");
+        else builder.setTitle("ORDER");
         builder.setMessage(s);
         builder.show();
     }
