@@ -21,18 +21,21 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link IdFragment#newInstance} factory method to
+ * Use the {@link OrdersFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IdFragment extends Fragment {
+public class OrdersFragment extends Fragment {
     DatabaseReference myRef;
     RecyclerView recyclerView;
     FirebaseDatabase database;
-    ArrayList<String> uid= new ArrayList<>();
+    ArrayList<Integer> quantity= new ArrayList<>();
+    ArrayList<String> categories= new ArrayList<>();
+    ArrayList<String> items= new ArrayList<>();
     LinearLayoutManager layoutManager;
-    MyRecyclerViewAdapter adapter;
-    String supermarket="consumer";
-    boolean b=true;
+    MyRecyclerViewAdapterOrdersDelete adapter;
+    String uid,supermarket;
+    boolean con,con2;
+    boolean from=true;
     int i;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -44,12 +47,14 @@ public class IdFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public IdFragment() {
+    public OrdersFragment() {
         // Required empty public constructor
     }
-    public IdFragment(String passedsupermarket) {
-        // Required empty public constructor
-        supermarket=passedsupermarket;
+
+    public OrdersFragment(String passedSupermarket, String passedUId) {
+        supermarket=passedSupermarket;
+        uid=passedUId;
+
     }
 
     /**
@@ -58,11 +63,11 @@ public class IdFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment IdFragment.
+     * @return A new instance of fragment OrdersFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static IdFragment newInstance(String param1, String param2) {
-        IdFragment fragment = new IdFragment();
+    public static OrdersFragment newInstance(String param1, String param2) {
+        OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -71,25 +76,26 @@ public class IdFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
+    public void onResume() {
         i=0;
-        super.onStart();
+        super.onResume();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot MainSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                for (DataSnapshot snapshot : MainSnapshot.child("ORDERS").getChildren()) {
-
-//                    categories.add(snapshot.getValue(String.class).toString());
-                    uid.add(snapshot.getKey());
+                for (DataSnapshot snapshot : MainSnapshot.child("ORDERS").child(uid).child(supermarket).getChildren()) {
+                    String key=snapshot.getKey();
+                    items.add(key);
+                    quantity.add(snapshot.child("QUANTITY").getValue(Integer.class));
                 }
                 try {
-                    if(i==0){
-                        adapter = new MyRecyclerViewAdapter(getActivity(), uid);
-                        adapter.setClickListener(IdFragment.this::onItemClick);
+                    if(i==0) {
+                        adapter = new MyRecyclerViewAdapterOrdersDelete(getActivity(), items, quantity,uid,supermarket, myRef);
+                        adapter.setClickListener(OrdersFragment.this::onItemClick);
                         recyclerView.setAdapter(adapter);
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -98,14 +104,14 @@ public class IdFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-            }
 
+            }
         });
     }
 
-    private void onItemClick(View view, int position) {
+    private void onItemClick(View view, int i) {
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.adminFragment, new OrdersFragment(supermarket, adapter.getItem(position)), "findThisFragment")
+                .replace(R.id.adminFragment, new OrdersFragment(supermarket,uid), "findThisFragment")
                 .commit();
     }
 
@@ -124,9 +130,8 @@ public class IdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_id, container, false);
-
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
+        View rootView = inflater.inflate(R.layout.fragment_orders, container, false);
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView2);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         return rootView;
