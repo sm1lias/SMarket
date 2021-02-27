@@ -1,6 +1,7 @@
 package com.smilias.smarket;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity  {
     ArrayList<Integer> quantityorders= new ArrayList<>();
     ArrayList<String> category= new ArrayList<>();
     FirebaseUser currentFirebaseUser;
+    private static final int REC_RESULT = 653;
 
 
     public void login(View view) {
@@ -146,6 +149,51 @@ public class MainActivity extends AppCompatActivity  {
             return true;
         }
     };
+
+    //gia tin anagnwrisi tis fwnis
+    public void recognize(View view){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        if (language.equals("el")) {
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "el-rGr");
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Παρακαλώ πείτε: παραγγελία");
+        }else{
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Please say: order");
+        }
+        startActivityForResult(intent,REC_RESULT);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        StringBuffer buffer = new StringBuffer();
+        super.onActivityResult(requestCode, resultCode, data);
+        if (cuser != null) {
+            if (requestCode==REC_RESULT && resultCode==RESULT_OK){
+                ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                if (language.equals("el")) {
+                    if(matches.contains("παραγγελία")){
+                        buffer.append("κωδικός: " + FirebaseAuth.getInstance().getCurrentUser().getUid() + "\n");
+                        buffer.append("---------------------------------\n");
+                        showMessage(buffer.toString());
+                    }else Toast.makeText(MainActivity.this,"Παρακαλώ πείτε: παραγγελία", Toast.LENGTH_LONG).show();
+                }else {
+                    if (matches.contains("order")) {
+                        buffer.append("id: " + FirebaseAuth.getInstance().getCurrentUser().getUid() + "\n");
+                        buffer.append("---------------------------------\n");
+                        showMessage(buffer.toString());
+                    } else Toast.makeText(MainActivity.this, "Say order", Toast.LENGTH_LONG).show();
+                }
+            }
+        }else Toast.makeText(MainActivity.this,"Please LogIn", Toast.LENGTH_LONG).show();
+    }
+    //gia to showMessage
+    public void showMessage(String s){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        if (language.equals("el")) builder.setTitle("ΚΩΔΙΚΟΣ ΠΑΡΑΓΓΕΛΙΑΣ");
+        else builder.setTitle("ORDER ID");
+        builder.setMessage(s);
+        builder.show();
+    }
 
     public void toMaps(View view ){
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
