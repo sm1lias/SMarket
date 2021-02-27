@@ -116,7 +116,6 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
                                 quantity.add(snapshot.child(supermarket).child("QUANTITY").getValue(Integer.class));
                             }
                         }
-
                     try {
                         if(i==0) {
                             adapter2 = new MyRecyclerViewAdapterDelete(getActivity(), categories, quantity,item,supermarket, myRef);
@@ -135,7 +134,6 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
 
                 }
             });
-
     }
 
     @Override

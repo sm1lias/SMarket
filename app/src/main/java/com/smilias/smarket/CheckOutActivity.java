@@ -40,8 +40,10 @@ public class CheckOutActivity extends AppCompatActivity {
     FirebaseDatabase database;
     int quantitydb,i;
     ArrayList<Integer> quantityfirebase= new ArrayList<>();
+    ArrayList<Integer> quantityorders= new ArrayList<>();
     ArrayList<String> category= new ArrayList<>();
     private FirebaseAuth mAuth;
+    FirebaseUser currentFirebaseUser;
 
     public void finish(View view) throws ParseException {
         i=0;
@@ -109,6 +111,7 @@ public class CheckOutActivity extends AppCompatActivity {
                     supermarket = cursor.getString(1);
                     quantitydb = cursor.getInt(2);
                     myRef.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("QUANTITY").setValue(quantityfirebase.get(i) - quantitydb);
+                    myRef.child("ORDERS").child(currentFirebaseUser.getUid()).child(supermarket).child(item2).child("QUANTITY").setValue(quantitydb + quantityorders.get(i));
                     i++;
                 }
             }
@@ -125,6 +128,7 @@ public class CheckOutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out);
 
+        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         db = openOrCreateDatabase("cartDb", Context.MODE_PRIVATE,null);
@@ -137,6 +141,7 @@ public class CheckOutActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         pr= extras.getDouble("price");
         quantityfirebase = extras.getIntegerArrayList("quantityfirebase");
+        quantityorders = extras.getIntegerArrayList("quantityorders");
         category = extras.getStringArrayList("category");
         textViewPrice=findViewById(R.id.textViewPrice);
         textViewPrice.setText("price: "+ String.valueOf(pr) +" €");

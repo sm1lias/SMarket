@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity  {
     int quantitydb,i;
     Button bloginout;
     ArrayList<Integer> quantityfirebase= new ArrayList<>();
+    ArrayList<Integer> quantityorders= new ArrayList<>();
     ArrayList<String> category= new ArrayList<>();
+    FirebaseUser currentFirebaseUser;
 
 
     public void login(View view) {
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity  {
                 .show();
     }
     public void toCheckOut(View view) {
+        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
         i=0;
         ArrayList<String> itemlist=new ArrayList<>();
         if (cuser != null) {
@@ -178,6 +181,7 @@ public class MainActivity extends AppCompatActivity  {
                             }
                             price = price + (quantitydb * MainSnapshot.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("PRICE").getValue(double.class));
                             quantityfirebase.add(MainSnapshot.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("QUANTITY").getValue(int.class));
+                            quantityorders.add(MainSnapshot.child("ORDERS").child(currentFirebaseUser.getUid()).child(supermarket).child(item2).child("QUANTITY").getValue(int.class));
                             if (quantityfirebase.get(i)-quantitydb<0) itemlist.add(item2+" in "+supermarket+", ");
                             i++;
                         }
@@ -194,6 +198,7 @@ public class MainActivity extends AppCompatActivity  {
                             intent.putExtra("price", price);
                             intent.putExtra("quantityfirebase",quantityfirebase);
                             intent.putExtra("category",category);
+                            intent.putExtra("quantityorders",quantityorders);
                             startActivity(intent);
                             }
                         }
