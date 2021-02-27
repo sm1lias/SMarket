@@ -9,6 +9,10 @@
         android:icon="@android:drawable/ic_menu_delete"
         android:title="Delete" />
     <item
+        android:id="@+id/menuOrders"
+        android:icon="@drawable/ic_cart_foreground"
+        android:title="Orders" />
+    <item
         android:id="@+id/menuLogOut"
         android:icon="@drawable/ic_login_foreground"
         android:title="LogOut" />

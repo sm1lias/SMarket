@@ -111,7 +111,9 @@ public class CheckOutActivity extends AppCompatActivity {
                     supermarket = cursor.getString(1);
                     quantitydb = cursor.getInt(2);
                     myRef.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("QUANTITY").setValue(quantityfirebase.get(i) - quantitydb);
+                    if(quantityorders.get(i)!=null)
                     myRef.child("ORDERS").child(currentFirebaseUser.getUid()).child(supermarket).child(item2).child("QUANTITY").setValue(quantitydb + quantityorders.get(i));
+                    else myRef.child("ORDERS").child(currentFirebaseUser.getUid()).child(supermarket).child(item2).child("QUANTITY").setValue(quantitydb);
                     i++;
                 }
             }

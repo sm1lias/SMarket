@@ -45,6 +45,9 @@ public class AdminActivity extends AppCompatActivity {
                 case R.id.menuDelete:
                     selectedFragment = new CategoriesFragment(supermarket, false);
                     break;
+                case R.id.menuOrders:
+                    selectedFragment = new IdFragment(supermarket);
+                    break;
                 case R.id.menuLogOut:
                     selectedFragment = new LogOutFragment();
                     break;
