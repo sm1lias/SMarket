@@ -1,10 +1,7 @@
 package com.smilias.smarket;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,11 +14,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,11 +52,9 @@ public class CheckOutActivity extends AppCompatActivity {
         try {
             expiry = simpleDateFormat.parse(Date);
             expired = expiry.before(new Date());
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         if(PersonName.isEmpty()){
             editTextTextPersonName.setError("Name is required");
             editTextTextPersonName.requestFocus();

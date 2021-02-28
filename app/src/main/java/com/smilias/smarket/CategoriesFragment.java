@@ -4,17 +4,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,11 +49,10 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
     }
 
     public CategoriesFragment(String passedsupermarket) {
-        // Required empty public constructor
         supermarket=passedsupermarket;
     }
+
     public CategoriesFragment(String passedsupermarket, boolean passedb) {
-        // Required empty public constructor
         supermarket=passedsupermarket;
         b = passedb;
     }
@@ -83,15 +77,15 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
 
     @Override
     public void onItemClick(View view, int position) {
-        if(supermarket.equals("consumer")){
+        if(supermarket.equals("consumer")){ //apo main
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.flFragment, new ItemsFragment(adapter.getItem(position)), "findThisFragment")
                     .commit();
-        }else if(b) {
+        }else if(b) { //apo add
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.adminFragment, new ItemsFragment(supermarket,adapter.getItem(position)), "findThisFragment")
                     .commit();
-        }else{
+        }else{ //apo delete
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.adminFragment, new DeleteFragment(supermarket,adapter.getItem(position)), "findThisFragment")
                     .commit();
@@ -105,13 +99,11 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
-
-
-
     }
+
+    //xrisimopoiw to i gia na trexei to adapter mono ti 1 fora kai oxi kathe fora pou akouei allagi sto firebase database
     @Override
     public void onStart() {
         i=0;
@@ -122,8 +114,6 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
                     for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").getChildren()) {
-
-//                    categories.add(snapshot.getValue(String.class).toString());
                         categories.add(snapshot.getKey());
                     }
                     try {
@@ -137,12 +127,10 @@ public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapte
                     }
                     i++;
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-
             });
     }
 

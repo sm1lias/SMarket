@@ -24,7 +24,6 @@ public class MyRecyclerViewAdapterOrdersDelete extends RecyclerView.Adapter<MyRe
     private int quantity=0;
     private String uid;
     private String supermarket;
-
     String item;
 
 
@@ -60,12 +59,10 @@ public class MyRecyclerViewAdapterOrdersDelete extends RecyclerView.Adapter<MyRe
         return mItem.size();
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextViewItem, textViewQuantity;
         Button button;
-
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -85,8 +82,6 @@ public class MyRecyclerViewAdapterOrdersDelete extends RecyclerView.Adapter<MyRe
             if (view.getId()==button.getId()){
                 int i=getAdapterPosition();
                 myRef.child("ORDERS").child(uid).child(supermarket).child(mItem.get(i)).child("QUANTITY").removeValue();
-//                db.execSQL("DELETE FROM cart WHERE item=?  AND supermarket =?", new String[]{mItem.get(i), mSupermarket.get(i)});
-                //setItems(mItem,mSupermarket,mQuantity);
             }
         }
     }

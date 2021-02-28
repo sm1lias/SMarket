@@ -53,9 +53,7 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
         // Required empty public constructor
     }
 
-    public ISupermarketsFragment(/*String passedString1*/String passedString2) {
-        // Required empty public constructor
-        //item1=passedString1;
+    public ISupermarketsFragment(String passedString2) {
         item2=passedString2;
     }
 
@@ -107,8 +105,6 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
                     }
                 }
                 for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item1).child(item2).getChildren()){  //testing
-
-//                    categories.add(snapshot.getValue(String.class).toString());
                     categories.add(snapshot.getKey());
                     prices.add(snapshot.child("PRICE").getValue(double.class).toString());
                     quantity.add(snapshot.child("QUANTITY").getValue(Integer.class));
@@ -124,7 +120,6 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
                 }
                 i++;
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -144,8 +139,6 @@ public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAda
 
         return rootView;
     }
-
-
 
     @Override
     public void onItemClick(View view, int position) {

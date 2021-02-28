@@ -30,12 +30,9 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
     FirebaseDatabase database;
     ArrayList<Integer> quantity= new ArrayList<>();
     ArrayList<String> categories= new ArrayList<>();
-    ArrayList<String> items= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapterDelete adapter2;
     String item,supermarket;
-    boolean con,con2;
-    boolean from=true;
     int i;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -51,11 +48,9 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
         // Required empty public constructor
     }
 
-
     public DeleteFragment(String sp, String itm) {
         supermarket=sp;
         item=itm;
-
     }
 
     /**
@@ -109,7 +104,6 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
                         for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()) {
-//                    categories.add(snapshot.getValue(String.class).toString());
                             if(snapshot.hasChild(supermarket)) {
                                 String key=snapshot.getKey();
                                 categories.add(key);
@@ -122,7 +116,6 @@ public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDel
                             adapter2.setClickListener(DeleteFragment.this::onItemClick);
                             recyclerView.setAdapter(adapter2);
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

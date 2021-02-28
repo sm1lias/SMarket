@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerViewAdapterImage.ViewHolder> {
 
     private String q;
-    private List<String> mData,mPrice,mQuanString;
+    private List<String> mData,mPrice;
     private List<Integer> mQuantity;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
@@ -25,7 +25,6 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     SQLiteDatabase db;
     Context context;
     String item, price, pitem;
-
 
     // data is passed into the constructor
     MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices, List<Integer> quantitylist, String pitem, SQLiteDatabase db) {
@@ -63,12 +62,10 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
         return mData.size();
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView1, myTextView2, textViewQuantity,textViewSQ;
         Button button,buttonAdd,buttonDelete;
-
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -101,7 +98,6 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                 }
                 if((quan+quantity)>mQuantity.get(i)){
                     Toast.makeText(context," Can't be completed", Toast.LENGTH_SHORT).show();
-
                 }else {
                     Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
                     if (cursor.getCount() > 0) {
@@ -109,6 +105,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                     } else {
                         db.execSQL("INSERT INTO cart VALUES('" + pitem + "','" + mData.get(i) + "','" + quantity + "')");
                     }
+                    Toast.makeText(context,"ADDED!", Toast.LENGTH_SHORT).show();
                 }
             } else if(view.getId()==buttonAdd.getId()){
                 q=textViewQuantity.getText().toString();
@@ -121,7 +118,6 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                 if(quantity > 1) quantity=quantity-1;
                 textViewQuantity.setText(String.valueOf(quantity));
             }
-
         }
     }
 

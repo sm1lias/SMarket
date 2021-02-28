@@ -29,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity  {
                     .commit();
         }
     }
-
 
     public void lang_change(View view){
         SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
@@ -179,6 +177,7 @@ public class MainActivity extends AppCompatActivity  {
         }
         startActivityForResult(intent,REC_RESULT);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         StringBuffer buffer = new StringBuffer();
@@ -202,6 +201,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         }else Toast.makeText(MainActivity.this,"Please LogIn", Toast.LENGTH_LONG).show();
     }
+
     //gia to showMessage
     public void showMessage(String s){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -216,14 +216,7 @@ public class MainActivity extends AppCompatActivity  {
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(intent);
     }
-    public void showMessage(String title, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setCancelable(true)
-                .setTitle(title)
-                .setMessage(message)
-                .show();
-    }
     public void toCheckOut(View view) {
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
         i=0;

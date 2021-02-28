@@ -18,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +34,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapter adapter;
     String item,supermarket="consumer";
-    boolean con,con2;
+    boolean con;
     int i;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -51,19 +50,16 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
         // Required empty public constructor
     }
     public ItemsFragment(ArrayList<String> itemsPassed) {
-        // Required empty public constructor
         items=itemsPassed;
         con=false;
     }
 
     public ItemsFragment(String passedString) {
-        // Required empty public constructor
         item=passedString;
         con=true;
     }
 
     public ItemsFragment(String passedSupermarket,String passedString) {
-        // Required empty public constructor
         item=passedString;
         supermarket=passedSupermarket;
         con=true;
@@ -95,12 +91,10 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
-
-
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -126,8 +120,6 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
                     // whenever data at this location is updated.
 
                         for (DataSnapshot snapshot : MainSnapshot.child("CATEGORIES").child(item).getChildren()) {
-
-//                    categories.add(snapshot.getValue(String.class).toString());
                             categories.add(snapshot.getKey());
                         }
 
@@ -170,7 +162,7 @@ public class ItemsFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     public void onItemClick(View view, int position) {
         if(supermarket.equals("consumer")){
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.flFragment, new ISupermarketsFragment(/*item,*/adapter.getItem(position)), "findThisFragment")
+                .replace(R.id.flFragment, new ISupermarketsFragment(adapter.getItem(position)), "findThisFragment")
                 .commit();
         }else{
             getActivity().getSupportFragmentManager().beginTransaction()

@@ -1,12 +1,9 @@
 package com.smilias.smarket;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,8 +30,8 @@ public class AddFragment extends Fragment {
     String item,supermarket,category;
     DatabaseReference myRef;
     FirebaseDatabase database;
-    int quantity=0, newQuantity;
-    double price=0.0, newPrice;
+    int quantity=0;
+    double price=0.0;
     Button buttonQuantity,buttonPr;
     TextView textViewQuantity,textViewPr,TextViewItem;
     EditText editTextQuantity,editTextPr;
@@ -147,9 +143,6 @@ public class AddFragment extends Fragment {
         TextViewItem.setText(item);
         editTextQuantity=rootView.findViewById(R.id.editTextQuantity);
         editTextPr=rootView.findViewById(R.id.editTextPr);
-        //textViewPr.setText(item);
-        //textViewQuantity.setText(String.valueOf(quantity));
-        //textViewPr.setText(String.valueOf(price));
 
         return rootView;
     }

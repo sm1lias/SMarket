@@ -21,8 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
-    private Location mLastLocation;
-    private Marker marker,first_marker;
+    private Marker marker;
     private GoogleMap mMap;
     LocationManager locationManager;
     Double x,y;
@@ -53,7 +52,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         LatLng SKLAVENITIS = new LatLng(37.9282742, 23.7613769);
         LatLng LIDL = new LatLng(37.9270036, 23.7170961);
         LatLng METRO = new LatLng(37.9297351, 23.7370946);
@@ -68,7 +66,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        mLastLocation = location;
         if (marker != null){
             marker.remove();
         }
@@ -97,6 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onProviderDisabled(String s) {
 
     }
+
     public void permission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

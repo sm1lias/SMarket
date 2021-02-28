@@ -47,8 +47,8 @@ public class IdFragment extends Fragment {
     public IdFragment() {
         // Required empty public constructor
     }
+
     public IdFragment(String passedsupermarket) {
-        // Required empty public constructor
         supermarket=passedsupermarket;
     }
 
@@ -80,8 +80,6 @@ public class IdFragment extends Fragment {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (DataSnapshot snapshot : MainSnapshot.child("ORDERS").getChildren()) {
-
-//                    categories.add(snapshot.getValue(String.class).toString());
                     uid.add(snapshot.getKey());
                 }
                 try {
@@ -98,8 +96,8 @@ public class IdFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-            }
 
+            }
         });
     }
 

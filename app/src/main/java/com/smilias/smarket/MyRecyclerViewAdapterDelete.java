@@ -27,7 +27,6 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
 
     String item;
 
-
     // data is passed into the constructor
         MyRecyclerViewAdapterDelete(Context context, List<String> item, List<Integer> quantitylist, String cat, String smarket, DatabaseReference myRf) {
             this.mInflater = LayoutInflater.from(context);
@@ -60,12 +59,10 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
         return mItem.size();
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextViewItem, textViewQuantity;
         Button button;
-
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -85,8 +82,6 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
                 int i=getAdapterPosition();
                 myRef.child("CATEGORIES").child(category).child(mItem.get(i)).child(supermarket).child("PRICE").removeValue();
                 myRef.child("CATEGORIES").child(category).child(mItem.get(i)).child(supermarket).child("QUANTITY").removeValue();
-//                db.execSQL("DELETE FROM cart WHERE item=?  AND supermarket =?", new String[]{mItem.get(i), mSupermarket.get(i)});
-                //setItems(mItem,mSupermarket,mQuantity);
             }
         }
     }

@@ -14,7 +14,6 @@ import java.util.List;
 
 public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerViewAdapterCart.ViewHolder> {
 
-    private String q;
     private List<String> mItem,mSupermarket;
     private List<Integer> mQuantity;
     private LayoutInflater mInflater;
@@ -47,8 +46,8 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
         supermarket= mSupermarket.get(position);
         quantity=mQuantity.get(position);
         holder.textViewQuantity.setText(String.valueOf(quantity));
-        holder.myTextView2.setText("ITEM: "+item);
-        holder.myTextView1.setText("SUPERMARKET: "+supermarket);
+        holder.myTextView2.setText("ITEM: "+ item);
+        holder.myTextView1.setText("SUPERMARKET: "+ supermarket);
     }
 
     // total number of rows
@@ -57,12 +56,10 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
         return mItem.size();
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView1, myTextView2, textViewQuantity;
         Button button;
-
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -82,7 +79,6 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
             if (view.getId()==button.getId()){
                 int i=getAdapterPosition();
                 db.execSQL("DELETE FROM cart WHERE item=?  AND supermarket =?", new String[]{mItem.get(i), mSupermarket.get(i)});
-                //setItems(mItem,mSupermarket,mQuantity);
             }
         }
     }

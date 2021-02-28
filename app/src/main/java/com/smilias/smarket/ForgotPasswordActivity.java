@@ -35,7 +35,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Toast.makeText(ForgotPasswordActivity.this, email + " does not exist", Toast.LENGTH_LONG).show();
-
                 }
             }
         });

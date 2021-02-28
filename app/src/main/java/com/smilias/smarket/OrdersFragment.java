@@ -29,13 +29,10 @@ public class OrdersFragment extends Fragment {
     RecyclerView recyclerView;
     FirebaseDatabase database;
     ArrayList<Integer> quantity= new ArrayList<>();
-    ArrayList<String> categories= new ArrayList<>();
     ArrayList<String> items= new ArrayList<>();
     LinearLayoutManager layoutManager;
     MyRecyclerViewAdapterOrdersDelete adapter;
     String uid,supermarket;
-    boolean con,con2;
-    boolean from=true;
     int i;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -54,7 +51,6 @@ public class OrdersFragment extends Fragment {
     public OrdersFragment(String passedSupermarket, String passedUId) {
         supermarket=passedSupermarket;
         uid=passedUId;
-
     }
 
     /**
@@ -95,13 +91,11 @@ public class OrdersFragment extends Fragment {
                         adapter.setClickListener(OrdersFragment.this::onItemClick);
                         recyclerView.setAdapter(adapter);
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 i++;
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

@@ -22,7 +22,6 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
-    private String userId;
     private static final String TAG = "SignUpActivity";
 
     public void signUp2(View view) {
@@ -75,8 +74,6 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 });
     }
