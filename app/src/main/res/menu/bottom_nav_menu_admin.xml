@@ -3,17 +3,17 @@
     <item
         android:id="@+id/menuAdd"
         android:icon="@android:drawable/ic_input_add"
-        android:title="Add" />
+        android:title="@string/add" />
     <item
         android:id="@+id/menuDelete"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="Delete" />
+        android:title="@string/delete" />
     <item
         android:id="@+id/menuOrders"
         android:icon="@drawable/ic_cart_foreground"
-        android:title="Orders" />
+        android:title="@string/orders" />
     <item
         android:id="@+id/menuLogOut"
         android:icon="@drawable/ic_login_foreground"
-        android:title="LogOut" />
+        android:title="@string/b_log_out" />
 </menu>

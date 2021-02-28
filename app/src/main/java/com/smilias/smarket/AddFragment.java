@@ -123,7 +123,10 @@ public class AddFragment extends Fragment {
                 String et=editTextQuantity.getText().toString();
                 if(!et.isEmpty())
                     myRef.child("CATEGORIES").child(category).child(item).child(supermarket).child("QUANTITY").setValue(Integer.parseInt(et));
-                else Toast.makeText(getActivity(),"Quantity is empty", Toast.LENGTH_LONG).show();
+                else {
+                    editTextQuantity.setError(getString(R.string.set_quantity));
+                    editTextQuantity.requestFocus();
+                }
             }
         });
         buttonPr=rootView.findViewById(R.id.buttonPr);
@@ -134,7 +137,10 @@ public class AddFragment extends Fragment {
                 String et=editTextPr.getText().toString();
                 if(!et.isEmpty())
                     myRef.child("CATEGORIES").child(category).child(item).child(supermarket).child("PRICE").setValue(Double.parseDouble(et));
-                else Toast.makeText(getActivity(),"Price is empty", Toast.LENGTH_LONG).show();
+                else {
+                    editTextPr.setError(getString(R.string.set_price));
+                    editTextPr.requestFocus();
+                }
             }
         });
         textViewQuantity=rootView.findViewById(R.id.textViewQuantity);

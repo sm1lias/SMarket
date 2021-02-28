@@ -7,7 +7,7 @@
     <item
         android:id="@+id/menuAdd"
         android:icon="@drawable/ic_categories_foreground"
-        android:title="Categories" />
+        android:title="@string/categories" />
     <item
         android:id="@+id/menuDelete"
         android:icon="@drawable/ic_cart_foreground"

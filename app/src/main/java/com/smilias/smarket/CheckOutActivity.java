@@ -56,42 +56,42 @@ public class CheckOutActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         if(PersonName.isEmpty()){
-            editTextTextPersonName.setError("Name is required");
+            editTextTextPersonName.setError(getString(R.string.name_is_required));
             editTextTextPersonName.requestFocus();
             return;
         }else if(!PersonName.matches("^((?:[A-Z]+ ?){1,3})$")){
-            editTextTextPersonName.setError("Name is wrong");
+            editTextTextPersonName.setError(getString(R.string.name_is_wrong));
             editTextTextPersonName.requestFocus();
             return;
         }
         else if (Number.isEmpty()) {
-            editTextNumber.setError("Card Number is required");
+            editTextNumber.setError(getString(R.string.ccname_is_required));
             editTextNumber.requestFocus();
             return;
         }else if(Number.length()!=16){
-            editTextNumber.setError("Card Number is wrong");
+            editTextNumber.setError(getString(R.string.ccnumber_is_wrong));
             editTextNumber.requestFocus();
             return;
         }
         else if (Date.isEmpty()) {
-            editTextDate.setError("Expiration Date is required");
+            editTextDate.setError(getString(R.string.exp_date_required));
             editTextDate.requestFocus();
             return;
         }else if (!Date.matches("(0[1-9]|1[0-2])/[0-9]{2}")) {
-            editTextDate.setError("Card date is wrong, right format MM/YY");
+            editTextDate.setError(getString(R.string.cdate_wrong));
             editTextDate.requestFocus();
             return;
         }else if(expired){
-            editTextDate.setError("Card has already expired");
+            editTextDate.setError(getString(R.string.card_expired));
             editTextDate.requestFocus();
             return;
         }
         else if (CCV.isEmpty()) {
-            editTextCCV.setError("CCV is required");
+            editTextCCV.setError(getString(R.string.ccv_required));
             editTextCCV.requestFocus();
             return;
         }else if(CCV.length()!=3){
-            editTextCCV.setError("CCV is wrong");
+            editTextCCV.setError(getString(R.string.ccv_wrong));
             editTextCCV.requestFocus();
             return;
         }
@@ -112,7 +112,7 @@ public class CheckOutActivity extends AppCompatActivity {
         }
         db.execSQL("DROP TABLE cart ");
         db.close();
-        Toast.makeText(this, "YOUR BUY IS COMPLETE", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.purchase_complete).toUpperCase(), Toast.LENGTH_LONG).show();
         Intent intent2= new Intent(this,MainActivity.class);
         startActivity(intent2);
     }
@@ -138,6 +138,6 @@ public class CheckOutActivity extends AppCompatActivity {
         quantityorders = extras.getIntegerArrayList("quantityorders");
         category = extras.getStringArrayList("category");
         textViewPrice=findViewById(R.id.textViewPrice);
-        textViewPrice.setText("price: "+ String.valueOf(pr) +" €");
+        textViewPrice.setText(getString(R.string.price).toUpperCase()+": "+ String.valueOf(pr) +" €");
     }
 }

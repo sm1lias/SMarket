@@ -30,22 +30,22 @@ public class SignUpActivity extends AppCompatActivity {
         final String rpassword = editTRPass.getText().toString();
         //elegxei an einai kapio koutaki keno kai antistoixa to kanei focus
         if (email.isEmpty()) {
-            editTEmail2.setError("Email is required");
+            editTEmail2.setError(getString(R.string.email_is_required));
             editTEmail2.requestFocus();
             return;
         }
         if (password.isEmpty()) {
-            editTPass2.setError("Password is required");
+            editTPass2.setError(getString(R.string.password_is_required));
             editTPass2.requestFocus();
             return;
         }
         if (rpassword.isEmpty()) {
-            editTRPass.setError("Reapeat Password is required");
+            editTRPass.setError(getString(R.string.rp_is_required));
             editTRPass.requestFocus();
             return;
         }
         if (!password.equals(rpassword)) {
-            Toast.makeText(SignUpActivity.this, "The password is not the same", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.passwords_not_same), Toast.LENGTH_SHORT).show();
         }
         //dimiourgei to user
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -65,13 +65,13 @@ public class SignUpActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
-                            Toast.makeText(SignUpActivity.this, "You have signed up successfully.",
+                            Toast.makeText(SignUpActivity.this, getString(R.string.signup_success),
                                     Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                            Toast.makeText(SignUpActivity.this, getString(R.string.auth_failed),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

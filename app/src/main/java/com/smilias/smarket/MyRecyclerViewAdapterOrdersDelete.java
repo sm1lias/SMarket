@@ -16,6 +16,7 @@ import java.util.List;
 public class MyRecyclerViewAdapterOrdersDelete extends RecyclerView.Adapter<MyRecyclerViewAdapterOrdersDelete.ViewHolder> {
 
     private final DatabaseReference myRef;
+    private final Context context;
     private String q;
     private List<String> mItem;
     private List<Integer> mQuantity;
@@ -29,6 +30,7 @@ public class MyRecyclerViewAdapterOrdersDelete extends RecyclerView.Adapter<MyRe
 
     // data is passed into the constructor
         MyRecyclerViewAdapterOrdersDelete(Context context, List<String> items, List<Integer> quantitylist, String uid, String smarket, DatabaseReference myRf) {
+            this.context = context;
             this.mInflater = LayoutInflater.from(context);
             this.mItem = items;
             this.mQuantity = quantitylist;
@@ -50,7 +52,7 @@ public class MyRecyclerViewAdapterOrdersDelete extends RecyclerView.Adapter<MyRe
         item = mItem.get(position);
         quantity=mQuantity.get(position);
         holder.textViewQuantity.setText(String.valueOf(quantity));
-        holder.myTextViewItem.setText("ITEM: "+item);
+        holder.myTextViewItem.setText(context.getString(R.string.item).toUpperCase()+": "+item);
     }
 
     // total number of rows
@@ -70,7 +72,7 @@ public class MyRecyclerViewAdapterOrdersDelete extends RecyclerView.Adapter<MyRe
             myTextViewItem = itemView.findViewById(R.id.priceTextView);
             textViewQuantity = itemView.findViewById(R.id.textViewQ);
             button = itemView.findViewById(R.id.button3);
-            button.setText("DELIVER");
+            button.setText(context.getString(R.string.deliver).toUpperCase());
 
             itemView.setOnClickListener(this);
             button.setOnClickListener(this);

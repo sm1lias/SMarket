@@ -50,10 +50,10 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
         item = mData.get(position);
         price= mPrice.get(position);
         quantitys = mQuantity.get(position);
-        holder.myTextView2.setText("SUPERMARKET: "+item);
-        holder.myTextView1.setText("PRICE: "+price);
+        holder.myTextView2.setText(context.getString(R.string.supermarket).toUpperCase()+": "+item);
+        holder.myTextView1.setText(context.getString(R.string.price).toUpperCase()+": "+price+"€");
         holder.textViewQuantity.setText("1");
-        holder.textViewSQ.setText("IN SUPERMARKET: "+quantitys);
+        holder.textViewSQ.setText(context.getString(R.string.in_supermarket).toUpperCase()+": "+quantitys);
     }
 
     // total number of rows
@@ -97,7 +97,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                     quan=Integer.parseInt(cursor2.getString(0));
                 }
                 if((quan+quantity)>mQuantity.get(i)){
-                    Toast.makeText(context," Can't be completed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,context.getString(R.string.cant_competed), Toast.LENGTH_SHORT).show();
                 }else {
                     Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
                     if (cursor.getCount() > 0) {
@@ -105,7 +105,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                     } else {
                         db.execSQL("INSERT INTO cart VALUES('" + pitem + "','" + mData.get(i) + "','" + quantity + "')");
                     }
-                    Toast.makeText(context,"ADDED!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,context.getString(R.string.added).toUpperCase(), Toast.LENGTH_SHORT).show();
                 }
             } else if(view.getId()==buttonAdd.getId()){
                 q=textViewQuantity.getText().toString();

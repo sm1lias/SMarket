@@ -11,53 +11,56 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="117dp"
-        android:layout_marginBottom="22dp"
-        android:text="ADD TO CART"
+        android:layout_marginStart="88dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/add_to_cart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQ" />
+        app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonAdd"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="10dp"
         android:text="+"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button3" />
+        app:layout_constraintStart_toEndOf="@+id/buttonDelete"
+        app:layout_constraintTop_toTopOf="@+id/button3" />
 
     <Button
         android:id="@+id/buttonDelete"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
         android:text="-"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAdd" />
+        app:layout_constraintBottom_toBottomOf="@+id/buttonAdd"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="@+id/buttonAdd" />
 
     <TextView
         android:id="@+id/category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginBottom="39dp"
         android:text="placeholder"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/priceTextView"
-        app:layout_constraintStart_toStartOf="@+id/priceTextView" />
+        app:layout_constraintBottom_toBottomOf="@+id/textViewQ"
+        app:layout_constraintStart_toStartOf="@+id/priceTextView"
+        app:layout_constraintTop_toTopOf="@+id/textViewSQ" />
 
     <TextView
         android:id="@+id/priceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="13dp"
         android:text="placeholder"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button3"
@@ -67,20 +70,22 @@
         android:id="@+id/textViewQ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="86dp"
         android:layout_marginEnd="3dp"
+        android:layout_marginBottom="87dp"
         android:text="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textViewSQ" />
 
     <TextView
         android:id="@+id/textViewSQ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="244dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="83dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textViewQ"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

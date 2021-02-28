@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecyclerViewAdapterDelete.ViewHolder> {
 
     private final DatabaseReference myRef;
+    private final Context context;
     private String q;
     private List<String> mItem;
     private List<Integer> mQuantity;
@@ -29,6 +30,7 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
 
     // data is passed into the constructor
         MyRecyclerViewAdapterDelete(Context context, List<String> item, List<Integer> quantitylist, String cat, String smarket, DatabaseReference myRf) {
+            this.context = context;
             this.mInflater = LayoutInflater.from(context);
             this.mItem = item;
             this.mQuantity = quantitylist;
@@ -50,7 +52,7 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
         item = mItem.get(position);
         quantity=mQuantity.get(position);
         holder.textViewQuantity.setText(String.valueOf(quantity));
-        holder.myTextViewItem.setText("ITEM: "+item);
+        holder.myTextViewItem.setText(context.getString(R.string.item).toUpperCase()+": "+item);
     }
 
     // total number of rows

@@ -57,11 +57,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng METRO = new LatLng(37.9297351, 23.7370946);
         LatLng MY_MARKET = new LatLng(37.9298601, 23.7286832);
         LatLng AB_VASILOPOYLOS = new LatLng(37.9391139, 23.6699681);
-        mMap.addMarker(new MarkerOptions().position(SKLAVENITIS).title("SUPERMARKET SKLAVENITIS"));
-        mMap.addMarker(new MarkerOptions().position(LIDL).title("SUPERMARKET LIDL"));
-        mMap.addMarker(new MarkerOptions().position(METRO).title("SUPERMARKET METRO"));
-        mMap.addMarker(new MarkerOptions().position(MY_MARKET).title("SUPERMARKET MY_MARKET"));
-        mMap.addMarker(new MarkerOptions().position(AB_VASILOPOYLOS).title("SUPERMARKET AB_VASILOPOYLOS"));
+        mMap.addMarker(new MarkerOptions().position(SKLAVENITIS).title(getString(R.string.supermarket).toUpperCase()+" "+getString((R.string.sklavenitis))));
+        mMap.addMarker(new MarkerOptions().position(LIDL).title(getString(R.string.supermarket)+" LIDL"));
+        mMap.addMarker(new MarkerOptions().position(METRO).title(getString(R.string.supermarket)+" METRO"));
+        mMap.addMarker(new MarkerOptions().position(MY_MARKET).title(getString(R.string.supermarket)+" MYMARKET"));
+        mMap.addMarker(new MarkerOptions().position(AB_VASILOPOYLOS).title(getString(R.string.supermarket)+" "+getString(R.string.vasilopoulos)));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(x, y), 10));
         }
         marker = mMap.addMarker(new MarkerOptions().position(new LatLng(x, y))
-                .title("My Location").icon(BitmapDescriptorFactory
+                .title(getString(R.string.my_location)).icon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         i++;
     }

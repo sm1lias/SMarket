@@ -69,8 +69,8 @@ public class LoginFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         // Inflate the layout for this fragment
         bLogInOut=v.findViewById(R.id.bLogInOut);
-        if (cuser != null)  bLogInOut.setText("SIGN OUT");
-        else bLogInOut.setText("LOG IN");
+        if (cuser != null)  bLogInOut.setText(getString(R.string.sign_out).toUpperCase());
+        else bLogInOut.setText(getString(R.string.button_login).toUpperCase());
         return v;
     }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 
 public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerViewAdapterCart.ViewHolder> {
 
+    private final Context context;
     private List<String> mItem,mSupermarket;
     private List<Integer> mQuantity;
     private LayoutInflater mInflater;
@@ -23,8 +24,10 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
     String item, supermarket;
 
 
+
     // data is passed into the constructor
     MyRecyclerViewAdapterCart(Context context, List<String> item, List<String> supermarket, List<Integer> quantitylist,SQLiteDatabase db) {
+        this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.mItem = item;
         this.mSupermarket = supermarket;
@@ -46,8 +49,8 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
         supermarket= mSupermarket.get(position);
         quantity=mQuantity.get(position);
         holder.textViewQuantity.setText(String.valueOf(quantity));
-        holder.myTextView2.setText("ITEM: "+ item);
-        holder.myTextView1.setText("SUPERMARKET: "+ supermarket);
+        holder.myTextView2.setText(context.getString(R.string.item).toUpperCase()+": "+ item);
+        holder.myTextView1.setText(context.getString(R.string.supermarket).toUpperCase()+": "+ supermarket);
     }
 
     // total number of rows

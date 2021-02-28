@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+    public void bInfo(View view){
+        Toast.makeText(this,getString(R.string.b_info), Toast.LENGTH_LONG).show();
+    }
+
     public void lang_change(View view){
         SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
         if (language.equals("el")) {
@@ -162,7 +166,7 @@ public class MainActivity extends AppCompatActivity  {
         tts.setSpeechRate((float) 0.5);
         if (cuser != null)
         tts.speak(FirebaseAuth.getInstance().getCurrentUser().getUid(), TextToSpeech.QUEUE_ADD, null);
-        else Toast.makeText(MainActivity.this,"Please LogIn", Toast.LENGTH_LONG).show();
+        else Toast.makeText(MainActivity.this,getString(R.string.please_login), Toast.LENGTH_LONG).show();
     }
 
     //gia tin anagnwrisi tis fwnis
@@ -199,15 +203,16 @@ public class MainActivity extends AppCompatActivity  {
                     } else Toast.makeText(MainActivity.this, "Say order", Toast.LENGTH_LONG).show();
                 }
             }
-        }else Toast.makeText(MainActivity.this,"Please LogIn", Toast.LENGTH_LONG).show();
+        }else Toast.makeText(MainActivity.this,getString(R.string.please_login), Toast.LENGTH_LONG).show();
     }
 
     //gia to showMessage
     public void showMessage(String s){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-        if (language.equals("el")) builder.setTitle("ΠΑΡΑΓΓΕΛΙΑ");
-        else builder.setTitle("ORDER");
+//        if (language.equals("el")) builder.setTitle("ΠΑΡΑΓΓΕΛΙΑ");
+//        else builder.setTitle("ORDER");
+        builder.setTitle(getString(R.string.order).toUpperCase());
         builder.setMessage(s);
         builder.show();
     }
@@ -248,8 +253,8 @@ public class MainActivity extends AppCompatActivity  {
                             for (int i=0;i<itemlist.size();i++) builder.append(itemlist.get(i));
                             notItem=builder.toString();
                             if (itemlist.size()==1)
-                                Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" is not available any more", Toast.LENGTH_LONG).show();
-                            else Toast.makeText(MainActivity.this,"The quantity of "+ notItem +" are not available any more", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this,getString(R.string.the_item)+ notItem + getString(R.string.is_not_available), Toast.LENGTH_LONG).show();
+                            else Toast.makeText(MainActivity.this,getString(R.string.the_items)+ notItem +getString(R.string.are_not_available), Toast.LENGTH_LONG).show();
                         }else {
                             if(i>0){
                             Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
@@ -268,7 +273,7 @@ public class MainActivity extends AppCompatActivity  {
                     }
                 });
 
-            } else Toast.makeText(this, "YOUR CART IS EMPTY", Toast.LENGTH_LONG).show();
-        } else Toast.makeText(this, "PLEASE LOG IN", Toast.LENGTH_LONG).show();
+            } else Toast.makeText(this, getString(R.string.cart_empty).toUpperCase(), Toast.LENGTH_LONG).show();
+        } else Toast.makeText(this, getString(R.string.please_login).toUpperCase(), Toast.LENGTH_LONG).show();
     }
 }

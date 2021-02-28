@@ -14,7 +14,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="81dp"
         android:onClick="login"
-        android:text="LOGIN"
+        android:text="@string/button_login"
         app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
@@ -36,7 +36,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="67dp"
         android:onClick="toMaps"
-        android:text="Maps"
+        android:text="@string/maps"
         app:layout_constraintBottom_toTopOf="@+id/buttonVoice"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -47,7 +47,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginBottom="227dp"
         android:onClick="recognize"
-        android:text="VOICE"
+        android:text="@string/voice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -58,7 +58,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginBottom="123dp"
         android:onClick="speech"
-        android:text="ID SPEECH"
+        android:text="@string/id_speech"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

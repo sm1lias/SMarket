@@ -13,7 +13,7 @@
         android:layout_marginStart="79dp"
         android:layout_marginTop="208dp"
         android:ems="10"
-        android:hint="CARD NAME"
+        android:hint="@string/card_name"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,10 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
-        android:maxLength="16"
         android:ems="10"
-        android:hint="CREDIT CARD NUMBER"
+        android:hint="@string/cc_number"
         android:inputType="number"
+        android:maxLength="16"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
@@ -37,9 +37,9 @@
         android:layout_marginTop="289dp"
         android:layout_marginBottom="289dp"
         android:ems="10"
-        android:maxLength="5"
-        android:hint="EXPIRE DATE MM/YY"
+        android:hint="@string/expire_date"
         android:inputType="date"
+        android:maxLength="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/editTextNumber"
         app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
@@ -50,9 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
         android:ems="10"
-        android:maxLength="3"
-        android:hint="CCV"
+        android:hint="@string/ccv"
         android:inputType="number"
+        android:maxLength="3"
         app:layout_constraintStart_toStartOf="@+id/editTextDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
@@ -62,7 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="138dp"
         android:layout_marginTop="89dp"
-        android:text="TOTAL PRICE"
+        android:text="@string/total_price"
+        android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +74,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="33dp"
         android:onClick="finish"
-        android:text="FINISH ORDER"
+        android:text="@string/finish_order"
         app:layout_constraintEnd_toEndOf="@+id/editTextCCV"
         app:layout_constraintTop_toBottomOf="@+id/editTextCCV" />
 </androidx.constraintlayout.widget.ConstraintLayout>

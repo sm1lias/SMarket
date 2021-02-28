@@ -21,7 +21,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         final String email=editTEmail3.getText().toString();
         //checkarei an einai keno
         if (email.isEmpty()) {
-            editTEmail3.setError("Email is required");
+            editTEmail3.setError(getString(R.string.email_is_required));
             editTEmail3.requestFocus();
             return;
         }
@@ -30,11 +30,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(ForgotPasswordActivity.this, "Reset email instructions sent to " + email, Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPasswordActivity.this, getString(R.string.email_instructions) + email, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ForgotPasswordActivity.this, LogInActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(ForgotPasswordActivity.this, email + " does not exist", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPasswordActivity.this, email + getString(R.string.doesnt_exist), Toast.LENGTH_LONG).show();
                 }
             }
         });

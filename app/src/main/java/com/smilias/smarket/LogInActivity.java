@@ -35,12 +35,12 @@ public class LogInActivity extends AppCompatActivity {
         final String password = editTPass.getText().toString();
         //check oti einai simplirwmena kai zitaei focus an den einai
         if (email.isEmpty()) {
-            editTEmail.setError("Email is required");
+            editTEmail.setError(getString(R.string.email_is_required));
             editTEmail.requestFocus();
             return;
         }
         if (password.isEmpty()) {
-            editTPass.setError("Password is required");
+            editTPass.setError(getString(R.string.password_is_required));
             editTPass.requestFocus();
             return;
         }
@@ -52,7 +52,7 @@ public class LogInActivity extends AppCompatActivity {
                     startActivity(intent1);
                     break;
                 }else{
-                    Toast.makeText(LogInActivity.this, "wrong password.",
+                    Toast.makeText(LogInActivity.this, getString(R.string.wrong_password),
                             Toast.LENGTH_SHORT).show();
                 }
             }else b++;
@@ -79,7 +79,7 @@ public class LogInActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LogInActivity.this, "Authentication failed.",
+                                Toast.makeText(LogInActivity.this, getString(R.string.auth_failed),
                                         Toast.LENGTH_SHORT).show();
                             }
                         }

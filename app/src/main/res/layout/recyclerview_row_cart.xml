@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
         android:layout_marginBottom="10dp"
-        android:text="REMOVE FROM CART"
+        android:text="@string/remove_from_cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -25,7 +25,7 @@ public class VerifyActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(VerifyActivity.this,"We have sent you a verification email",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(VerifyActivity.this,getString(R.string.vemail_sent),Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "Email sent.");
                             Intent intent=new Intent(VerifyActivity.this,LogInActivity.class);
                             startActivity(intent);
