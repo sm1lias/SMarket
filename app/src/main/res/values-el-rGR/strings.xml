@@ -43,7 +43,7 @@
     <string name="password_is_required">Απαιτείται κωδικός</string>
     <string name="wrong_password">λάθος κωδικός</string>
     <string name="auth_failed">Η επιβεβαίωση των στοιχείων απέτυχε</string>
-    <string name="sign_out">αποσύνεση</string>
+    <string name="sign_out">αποσύνδεση</string>
     <string name="supermarket">πολυκατάστημα</string>
     <string name="sklavenitis">Σκλαβενίτης</string>
     <string name="vasilopoulos">ΑΒ Βασιλόπουλος</string>
