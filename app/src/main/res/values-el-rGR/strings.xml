@@ -83,4 +83,6 @@
     <string name="delete">Διαγραφή</string>
     <string name="orders">Παραγγελίες</string>
     <string name="b_log_out">Αποσύνδεση</string>
+    <string name="plz_say_order">Παρακαλώ πείτε: παραγγελία</string>
+    <string name="code">κωδικός</string>
 </resources>

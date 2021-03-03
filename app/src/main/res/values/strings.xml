@@ -95,6 +95,8 @@
     <string name="delete">Delete</string>
     <string name="orders">Orders</string>
     <string name="b_log_out">LogOut</string>
+    <string name="plz_say_order">Please say: order</string>
+    <string name="code">code</string>
 
     <string-array name="languages">
         <item>English</item>

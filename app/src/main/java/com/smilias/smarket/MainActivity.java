@@ -169,16 +169,11 @@ public class MainActivity extends AppCompatActivity  {
         else Toast.makeText(MainActivity.this,getString(R.string.please_login), Toast.LENGTH_LONG).show();
     }
 
-    //gia tin anagnwrisi tis fwnis
     public void recognize(View view){
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        if (language.equals("el")) {
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "el-rGr");
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Παρακαλώ πείτε: παραγγελία");
-        }else{
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Please say: order");
-        }
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toString());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.plz_say_order));
+
         startActivityForResult(intent,REC_RESULT);
     }
 
@@ -189,19 +184,12 @@ public class MainActivity extends AppCompatActivity  {
         if (cuser != null) {
             if (requestCode==REC_RESULT && resultCode==RESULT_OK){
                 ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                if (language.equals("el")) {
-                    if(matches.contains("παραγγελία")){
-                        buffer.append("κωδικός: " + FirebaseAuth.getInstance().getCurrentUser().getUid() + "\n");
+                    if(matches.contains(getString(R.string.order))){
+                        buffer.append(getString(R.string.code)+": " + FirebaseAuth.getInstance().getCurrentUser().getUid() + "\n");
                         buffer.append("---------------------------------\n");
                         showMessage(buffer.toString());
-                    }else Toast.makeText(MainActivity.this,"Παρακαλώ πείτε: παραγγελία", Toast.LENGTH_LONG).show();
-                }else {
-                    if (matches.contains("order")) {
-                        buffer.append("id: " + FirebaseAuth.getInstance().getCurrentUser().getUid() + "\n");
-                        buffer.append("---------------------------------\n");
-                        showMessage(buffer.toString());
-                    } else Toast.makeText(MainActivity.this, "Say order", Toast.LENGTH_LONG).show();
-                }
+                    }else Toast.makeText(MainActivity.this,getString(R.string.plz_say_order), Toast.LENGTH_LONG).show();
+
             }
         }else Toast.makeText(MainActivity.this,getString(R.string.please_login), Toast.LENGTH_LONG).show();
     }
