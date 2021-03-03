@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = editTextTextSearch.getText().toString();
+                String text = editTextTextSearch.getText().toString().toUpperCase();
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {

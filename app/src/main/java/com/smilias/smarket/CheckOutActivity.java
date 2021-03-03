@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -134,6 +135,9 @@ public class CheckOutActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         pr= extras.getDouble("price");
+        DecimalFormat f = new DecimalFormat("##.00");
+        String nnum=(f.format(pr));
+        pr=Double.parseDouble(nnum);
         quantityfirebase = extras.getIntegerArrayList("quantityfirebase");
         quantityorders = extras.getIntegerArrayList("quantityorders");
         category = extras.getStringArrayList("category");
