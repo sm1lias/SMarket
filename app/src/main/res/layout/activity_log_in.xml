@@ -7,38 +7,35 @@
     tools:context=".LogInActivity">
 
     <Button
-        android:id="@+id/bLogIn"
+        android:id="@+id/btnLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="logIn"
         android:text="@string/button_login"
-        app:layout_constraintEnd_toEndOf="@+id/bSignUp"
+        app:layout_constraintEnd_toEndOf="@+id/btnSignUp"
         app:layout_constraintTop_toBottomOf="@+id/editTPass" />
 
     <Button
-        android:id="@+id/bSignUp"
+        android:id="@+id/btnSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
         android:layout_marginTop="33dp"
         android:layout_marginEnd="77dp"
-        android:onClick="bSignUp"
         android:text="@string/button_signup"
         app:layout_constraintEnd_toEndOf="@+id/editTPass"
-        app:layout_constraintStart_toStartOf="@+id/bFPass"
-        app:layout_constraintTop_toBottomOf="@+id/bLogIn" />
+        app:layout_constraintStart_toStartOf="@+id/btnFPass"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogIn" />
 
     <Button
-        android:id="@+id/bFPass"
+        android:id="@+id/btnFPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginTop="45dp"
-        android:onClick="forgetPassword"
         android:text="@string/button_forgot_password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bSignUp" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
 
     <EditText
         android:id="@+id/editTPass"

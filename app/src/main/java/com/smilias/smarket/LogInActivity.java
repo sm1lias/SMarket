@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,20 +17,37 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
-    EditText editTEmail, editTPass;
+    private EditText editTEmail, editTPass;
     private static final String TAG = "LogInActivity";
-    String[] adminEmail = {"skadmin","metroadmin","abadmin","lidladmin","myadmin"};
-    String[] adminPass = {"skadmin","metroadmin","abadmin","lidladmin","myadmin"};
-    String[] supermarket = {"SKLAVENITIS","METRO","AB VASILOPOYLOS","LIDL","MY MARKET"};
+    private String[] adminEmail = {"skadmin","metroadmin","abadmin","lidladmin","myadmin"};
+    private String[] adminPass = {"skadmin","metroadmin","abadmin","lidladmin","myadmin"};
+    private String[] supermarket = {"SKLAVENITIS","METRO","AB VASILOPOYLOS","LIDL","MY MARKET"};
+    private Button btnLogIn, btnSignUp, btnFPass;
 
-    public void bSignUp(View view){
-        Intent intent = new Intent(this,SignUpActivity.class);
-        startActivity(intent);
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.btnLogIn:
+                logIn();
+                break;
+            case R.id.btnSignUp:
+                Intent intent = new Intent(this,SignUpActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btnFPass:
+                Intent intent2=new Intent(LogInActivity.this,ForgotPasswordActivity.class);
+                startActivity(intent2);
+                break;
+            default:
+                break;
+        }
     }
 
-    public void logIn(View view) {
+
+
+    private void logIn() {
         int b=0;
         final String email = editTEmail.getText().toString();
         final String password = editTPass.getText().toString();
@@ -87,10 +105,7 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
-    public void forgetPassword(View view) {
-        Intent intent=new Intent(LogInActivity.this,ForgotPasswordActivity.class);
-        startActivity(intent);
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +114,15 @@ public class LogInActivity extends AppCompatActivity {
         editTEmail = findViewById(R.id.editTEmail);
         editTPass = findViewById(R.id.editTPass);
         mAuth = FirebaseAuth.getInstance();
+
+        btnLogIn=findViewById(R.id.btnLogIn);
+        btnLogIn.setOnClickListener(this);
+
+        btnSignUp=findViewById(R.id.btnSignUp);
+        btnSignUp.setOnClickListener(this);
+
+        btnFPass=findViewById(R.id.btnFPass);
+        btnFPass.setOnClickListener(this);
     }
 
 }

@@ -17,7 +17,6 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
 
     private final DatabaseReference myRef;
     private final Context context;
-    private String q;
     private List<String> mItem;
     private List<Integer> mQuantity;
     private LayoutInflater mInflater;
@@ -25,8 +24,7 @@ public class MyRecyclerViewAdapterDelete extends RecyclerView.Adapter<MyRecycler
     private int quantity=0;
     private String category;
     private String supermarket;
-
-    String item;
+    private String item;
 
     // data is passed into the constructor
         MyRecyclerViewAdapterDelete(Context context, List<String> item, List<Integer> quantitylist, String cat, String smarket, DatabaseReference myRf) {

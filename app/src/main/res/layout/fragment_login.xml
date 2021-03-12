@@ -8,56 +8,51 @@
     tools:context=".LoginFragment">
 
     <Button
-        android:id="@+id/bLogInOut"
+        android:id="@+id/btnLogInOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="81dp"
-        android:onClick="login"
         android:text="@string/button_login"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintStart_toEndOf="@+id/btnLangChange"
+        app:layout_constraintTop_toBottomOf="@+id/btnLangChange" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnLangChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="32dp"
-        android:onClick="lang_change"
         android:text="@string/lan_change"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonMaps"
+        android:id="@+id/btnMaps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="67dp"
-        android:onClick="toMaps"
         android:text="@string/maps"
-        app:layout_constraintBottom_toTopOf="@+id/buttonVoice"
+        app:layout_constraintBottom_toTopOf="@+id/btnVoice"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonVoice"
+        android:id="@+id/btnVoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="227dp"
-        android:onClick="recognize"
         android:text="@string/voice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonSpeech"
+        android:id="@+id/btnSpeech"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="123dp"
-        android:onClick="speech"
         android:text="@string/id_speech"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

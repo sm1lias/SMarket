@@ -23,9 +23,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Marker marker;
     private GoogleMap mMap;
-    LocationManager locationManager;
-    Double x,y;
-    int i=0;
+    private LocationManager locationManager;
+    private Double x,y;
+    private int i=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

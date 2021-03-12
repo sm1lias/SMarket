@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class CheckOutActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FirebaseUser currentFirebaseUser;
 
-    public void finish(View view) throws ParseException {
+    public void finish() {
         i=0;
         PersonName = editTextTextPersonName.getText().toString();
         Number = editTextNumber.getText().toString();
@@ -132,6 +133,14 @@ public class CheckOutActivity extends AppCompatActivity {
         editTextNumber=findViewById(R.id.editTextNumber);
         editTextDate=findViewById(R.id.editTextDate);
         editTextCCV=findViewById(R.id.editTextCCV);
+
+        Button btnFinish=findViewById(R.id.btnFinish);
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         pr= extras.getDouble("price");

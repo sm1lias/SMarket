@@ -25,15 +25,15 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class OrdersFragment extends Fragment {
-    DatabaseReference myRef;
-    RecyclerView recyclerView;
-    FirebaseDatabase database;
-    ArrayList<Integer> quantity= new ArrayList<>();
-    ArrayList<String> items= new ArrayList<>();
-    LinearLayoutManager layoutManager;
-    MyRecyclerViewAdapterOrdersDelete adapter;
-    String uid,supermarket;
-    int i;
+    private DatabaseReference myRef;
+    private RecyclerView recyclerView;
+    private FirebaseDatabase database;
+    private ArrayList<Integer> quantity= new ArrayList<>();
+    private ArrayList<String> items= new ArrayList<>();
+    private LinearLayoutManager layoutManager;
+    private MyRecyclerViewAdapterOrdersDelete adapter;
+    private String uid,supermarket;
+    private int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

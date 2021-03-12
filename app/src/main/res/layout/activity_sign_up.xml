@@ -7,11 +7,10 @@
     tools:context=".SignUpActivity">
 
     <Button
-        android:id="@+id/bSignUp2"
+        android:id="@+id/btnSignUp2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
-        android:onClick="signUp2"
         android:text="@string/button_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

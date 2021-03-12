@@ -25,15 +25,15 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class CategoriesFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
-    DatabaseReference myRef;
-    RecyclerView recyclerView;
-    FirebaseDatabase database;
-    ArrayList<String> categories= new ArrayList<>();
-    LinearLayoutManager layoutManager;
-    MyRecyclerViewAdapter adapter;
-    String supermarket="consumer";
-    boolean b=true;
-    int i;
+    private DatabaseReference myRef;
+    private RecyclerView recyclerView;
+    private FirebaseDatabase database;
+    private ArrayList<String> categories= new ArrayList<>();
+    private LinearLayoutManager layoutManager;
+    private MyRecyclerViewAdapter adapter;
+    private String supermarket="consumer";
+    private boolean b=true;
+    private int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -27,14 +27,14 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class AddFragment extends Fragment {
 
-    String item,supermarket,category;
-    DatabaseReference myRef;
-    FirebaseDatabase database;
-    int quantity=0;
-    double price=0.0;
-    Button buttonQuantity,buttonPr;
-    TextView textViewQuantity,textViewPr,TextViewItem;
-    EditText editTextQuantity,editTextPr;
+    private String item,supermarket,category;
+    private DatabaseReference myRef;
+    private FirebaseDatabase database;
+    private int quantity=0;
+    private double price=0.0;
+    private Button buttonQuantity,buttonPr;
+    private TextView textViewQuantity,textViewPr,TextViewItem;
+    private EditText editTextQuantity,editTextPr;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
