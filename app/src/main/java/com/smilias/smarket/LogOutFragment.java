@@ -71,7 +71,6 @@ public class LogOutFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return v;
     }
 }

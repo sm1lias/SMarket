@@ -20,8 +20,8 @@ public class MyRecyclerViewAdapterCart extends RecyclerView.Adapter<MyRecyclerVi
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private int quantity=0;
-    SQLiteDatabase db;
-    String item, supermarket;
+    private SQLiteDatabase db;
+    private String item, supermarket;
 
 
 

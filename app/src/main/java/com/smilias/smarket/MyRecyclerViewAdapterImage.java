@@ -22,17 +22,17 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private int quantity=0,quan,quantitys;
-    SQLiteDatabase db;
-    Context context;
-    String item, price, pitem;
+    private SQLiteDatabase db;
+    private Context context;
+    private String item, price, pItem;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices, List<Integer> quantitylist, String pitem, SQLiteDatabase db) {
+    MyRecyclerViewAdapterImage(Context context, List<String> data, List<String> prices, List<Integer> quantityList, String pItem, SQLiteDatabase db) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.mPrice = prices;
-        this.mQuantity = quantitylist;
-        this.pitem=pitem;
+        this.mQuantity = quantityList;
+        this.pItem =pItem;
         this.db = db;
         this.context=context;
     }
@@ -91,7 +91,7 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                 int i=getAdapterPosition();
                 q=textViewQuantity.getText().toString();
                 quantity=Integer.parseInt(q);
-                Cursor cursor2 = db.rawQuery("SELECT quantity FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
+                Cursor cursor2 = db.rawQuery("SELECT quantity FROM cart WHERE item=? AND supermarket=?", new String[]{pItem, mData.get(i)});
                 if (cursor2.getCount()>0){
                     cursor2.moveToFirst();
                     quan=Integer.parseInt(cursor2.getString(0));
@@ -99,11 +99,11 @@ public class MyRecyclerViewAdapterImage extends RecyclerView.Adapter<MyRecyclerV
                 if((quan+quantity)>mQuantity.get(i)){
                     Toast.makeText(context,context.getString(R.string.cant_competed), Toast.LENGTH_SHORT).show();
                 }else {
-                    Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pitem, mData.get(i)});
+                    Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE item=? AND supermarket=?", new String[]{pItem, mData.get(i)});
                     if (cursor.getCount() > 0) {
-                        db.execSQL("UPDATE cart SET quantity = quantity+" + quantity + " WHERE item=?  AND supermarket =?", new String[]{pitem, mData.get(i)});
+                        db.execSQL("UPDATE cart SET quantity = quantity+" + quantity + " WHERE item=?  AND supermarket =?", new String[]{pItem, mData.get(i)});
                     } else {
-                        db.execSQL("INSERT INTO cart VALUES('" + pitem + "','" + mData.get(i) + "','" + quantity + "')");
+                        db.execSQL("INSERT INTO cart VALUES('" + pItem + "','" + mData.get(i) + "','" + quantity + "')");
                     }
                     Toast.makeText(context,context.getString(R.string.added).toUpperCase(), Toast.LENGTH_SHORT).show();
                 }

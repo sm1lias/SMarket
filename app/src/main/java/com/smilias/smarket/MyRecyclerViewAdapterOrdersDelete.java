@@ -25,7 +25,7 @@ public class MyRecyclerViewAdapterOrdersDelete extends RecyclerView.Adapter<MyRe
     private int quantity=0;
     private String uid;
     private String supermarket;
-    String item;
+    private String item;
 
 
     // data is passed into the constructor
