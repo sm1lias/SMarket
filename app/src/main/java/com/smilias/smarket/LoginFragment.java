@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,11 +105,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         tts = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
-
+                if (i == TextToSpeech.SUCCESS) {
+                    int result = tts.setLanguage(Locale.US);
+                    if (result == TextToSpeech.LANG_MISSING_DATA ||
+                            result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Language not supported");
+                    }
+                } else {
+                    Log.e("TTS", "Initialization failed");
+                }
             }
         });
 
-        cUser = FirebaseAuth.getInstance().getCurrentUser();
+
     }
 
     @Override
@@ -116,6 +125,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         // Inflate the layout for this fragment
+
+
+
+        cUser = FirebaseAuth.getInstance().getCurrentUser();
         btnLogInOut=v.findViewById(R.id.btnLogInOut);
         btnLogInOut.setOnClickListener(this);
 
@@ -178,7 +191,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         tts.setLanguage(Locale.US);
         tts.setSpeechRate((float) 0.5);
         if (cUser != null)
-            tts.speak(FirebaseAuth.getInstance().getCurrentUser().getUid(), TextToSpeech.QUEUE_ADD, null);
+            tts.speak(cUser.getUid(), TextToSpeech.QUEUE_ADD, null);
         else Toast.makeText(getActivity(),getString(R.string.please_login), Toast.LENGTH_LONG).show();
     }
 
