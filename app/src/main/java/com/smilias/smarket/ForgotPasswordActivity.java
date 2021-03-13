@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    EditText editTEmail3;
+    private EditText editTEmail3;
     private FirebaseAuth mAuth;
 
     public void confirm(View view) {
