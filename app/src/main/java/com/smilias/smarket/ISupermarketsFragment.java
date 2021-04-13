@@ -28,17 +28,17 @@ import java.util.ArrayList;
  */
 public class ISupermarketsFragment extends Fragment implements MyRecyclerViewAdapterImage.ItemClickListener {
 
-    DatabaseReference myRef;
-    RecyclerView recyclerView;
-    FirebaseDatabase database;
-    ArrayList<String> prices= new ArrayList<>();
-    ArrayList<String> categories=new ArrayList<>();
-    ArrayList<Integer> quantity= new ArrayList<>();
-    LinearLayoutManager layoutManager;
-    MyRecyclerViewAdapterImage adapter;
-    String item1, item2;
-    SQLiteDatabase db;
-    int i;
+    private DatabaseReference myRef;
+    private RecyclerView recyclerView;
+    private FirebaseDatabase database;
+    private ArrayList<String> prices= new ArrayList<>();
+    private ArrayList<String> categories=new ArrayList<>();
+    private ArrayList<Integer> quantity= new ArrayList<>();
+    private LinearLayoutManager layoutManager;
+    private MyRecyclerViewAdapterImage adapter;
+    private String item1, item2;
+    private SQLiteDatabase db;
+    private int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

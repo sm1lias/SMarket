@@ -34,79 +34,15 @@ import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity  {
-    SharedPreferences preferences;
-    public String language,item,item2,supermarket, notItem;
-    public double price;
-    public Locale locale;
-    SQLiteDatabase db;
-    DatabaseReference myRef;
-    FirebaseDatabase database;
-    FirebaseUser cuser;
-    int quantitydb,i;
-    Button bloginout;
-    ArrayList<Integer> quantityfirebase= new ArrayList<>();
-    ArrayList<Integer> quantityorders= new ArrayList<>();
-    ArrayList<String> category= new ArrayList<>();
-    FirebaseUser currentFirebaseUser;
-    TextToSpeech tts;
-    private static final int REC_RESULT = 653;
 
+    private SharedPreferences preferences;
+    private String language;
+    private SQLiteDatabase db;
 
-    public void login(View view) {
-        if (cuser == null) {
-            Intent intent2 = new Intent(MainActivity.this, LogInActivity.class);
-            startActivity(intent2);
-        }
-        else{
-            FirebaseAuth.getInstance().signOut();
-            cuser=null;
-            this.getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.flFragment, new LoginFragment(), "findThisFragment")
-                    .commit();
-        }
-    }
-
-    public void bInfo(View view){
-        Toast.makeText(this,getString(R.string.b_info), Toast.LENGTH_LONG).show();
-    }
-
-    public void lang_change(View view){
-        SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
-        if (language.equals("el")) {
-            editor.putString("lang", "en");
-            locale = new Locale("en");
-            language="en";
-            Toast.makeText(this,"Language changed to english",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            editor.putString("lang", "el");
-            locale = new Locale("el");
-            language="el";
-            Toast.makeText(this,"Η γλώσσα άλλαξε σε ελληνικά",Toast.LENGTH_SHORT).show();
-        }
-        editor.commit();
-        Intent refresh = new Intent(this, MainActivity.class);
-        finish();
-        startActivity(refresh);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-
-            }
-        });
-
-        cuser = FirebaseAuth.getInstance().getCurrentUser();
-        bloginout=findViewById(R.id.bLogInOut);
-
-
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference();
 
         db = openOrCreateDatabase("cartDb", Context.MODE_PRIVATE,null);
         db.execSQL("CREATE TABLE IF NOT EXISTS cart(item TEXT,supermarket TEXT, quantity INT)");
@@ -121,6 +57,7 @@ public class MainActivity extends AppCompatActivity  {
                 getBaseContext().getResources().getDisplayMetrics());
 
         this.setContentView(R.layout.activity_main);
+
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -161,107 +98,16 @@ public class MainActivity extends AppCompatActivity  {
         }
     };
 
-    public void speech(View view){
-        tts.setLanguage(Locale.US);
-        tts.setSpeechRate((float) 0.5);
-        if (cuser != null)
-        tts.speak(FirebaseAuth.getInstance().getCurrentUser().getUid(), TextToSpeech.QUEUE_ADD, null);
-        else Toast.makeText(MainActivity.this,getString(R.string.please_login), Toast.LENGTH_LONG).show();
-    }
 
-    public void recognize(View view){
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toString());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.plz_say_order));
 
-        startActivityForResult(intent,REC_RESULT);
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        StringBuffer buffer = new StringBuffer();
-        super.onActivityResult(requestCode, resultCode, data);
-        if (cuser != null) {
-            if (requestCode==REC_RESULT && resultCode==RESULT_OK){
-                ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    if(matches.contains(getString(R.string.order))){
-                        buffer.append(getString(R.string.code)+": " + FirebaseAuth.getInstance().getCurrentUser().getUid() + "\n");
-                        buffer.append("---------------------------------\n");
-                        showMessage(buffer.toString());
-                    }else Toast.makeText(MainActivity.this,getString(R.string.plz_say_order), Toast.LENGTH_LONG).show();
 
-            }
-        }else Toast.makeText(MainActivity.this,getString(R.string.please_login), Toast.LENGTH_LONG).show();
-    }
 
-    //gia to showMessage
-    public void showMessage(String s){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-//        if (language.equals("el")) builder.setTitle("ΠΑΡΑΓΓΕΛΙΑ");
-//        else builder.setTitle("ORDER");
-        builder.setTitle(getString(R.string.order).toUpperCase());
-        builder.setMessage(s);
-        builder.show();
-    }
 
-    public void toMaps(View view ){
-        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-        startActivity(intent);
-    }
 
-    public void toCheckOut(View view) {
-        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-        i=0;
-        ArrayList<String> itemlist=new ArrayList<>();
-        if (cuser != null) {
-            price = 0.0;
-            Cursor cursor = db.rawQuery("SELECT * FROM cart", null);
-            if (cursor.getCount() > 0) {
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot MainSnapshot) {
-                        while (cursor.moveToNext()) {
-                            item2 = cursor.getString(0);
-                            supermarket = cursor.getString(1);
-                            quantitydb = cursor.getInt(2);
-                            for (DataSnapshot snap : MainSnapshot.child("CATEGORIES").getChildren()) {
-                                if (snap.hasChild(item2)) {
-                                    category.add(snap.getKey());
-                                }
-                            }
-                            price = price + (quantitydb * MainSnapshot.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("PRICE").getValue(double.class));
-                            quantityfirebase.add(MainSnapshot.child("CATEGORIES").child(category.get(i)).child(item2).child(supermarket).child("QUANTITY").getValue(int.class));
-                            quantityorders.add(MainSnapshot.child("ORDERS").child(currentFirebaseUser.getUid()).child(supermarket).child(item2).child("QUANTITY").getValue(int.class));
-                            if (quantityfirebase.get(i)-quantitydb<0) itemlist.add(item2+" in "+supermarket+", ");
-                            i++;
-                        }
-                        if (!itemlist.isEmpty()){
-                            StringBuilder builder = new StringBuilder();
-                            for (int i=0;i<itemlist.size();i++) builder.append(itemlist.get(i));
-                            notItem=builder.toString();
-                            if (itemlist.size()==1)
-                                Toast.makeText(MainActivity.this,getString(R.string.the_item)+ notItem + getString(R.string.is_not_available), Toast.LENGTH_LONG).show();
-                            else Toast.makeText(MainActivity.this,getString(R.string.the_items)+ notItem +getString(R.string.are_not_available), Toast.LENGTH_LONG).show();
-                        }else {
-                            if(i>0){
-                            Intent intent = new Intent(MainActivity.this, CheckOutActivity.class);
-                            intent.putExtra("price", price);
-                            intent.putExtra("quantityfirebase",quantityfirebase);
-                            intent.putExtra("category",category);
-                            intent.putExtra("quantityorders",quantityorders);
-                            startActivity(intent);
-                            }
-                        }
-                        i=0;
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
 
-            } else Toast.makeText(this, getString(R.string.cart_empty).toUpperCase(), Toast.LENGTH_LONG).show();
-        } else Toast.makeText(this, getString(R.string.please_login).toUpperCase(), Toast.LENGTH_LONG).show();
-    }
+
+
+
 }

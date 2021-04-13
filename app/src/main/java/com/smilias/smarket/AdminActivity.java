@@ -12,7 +12,7 @@ import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AdminActivity extends AppCompatActivity {
-    public String supermarket;
+    private String supermarket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +61,6 @@ public class AdminActivity extends AppCompatActivity {
         }
     };
 
-
-    public void bLogOut(View view){
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-
-    }
 
 }
 

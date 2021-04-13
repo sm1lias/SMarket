@@ -25,15 +25,15 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class DeleteFragment extends Fragment implements MyRecyclerViewAdapterDelete.ItemClickListener {
-    DatabaseReference myRef;
-    RecyclerView recyclerView;
-    FirebaseDatabase database;
-    ArrayList<Integer> quantity= new ArrayList<>();
-    ArrayList<String> categories= new ArrayList<>();
-    LinearLayoutManager layoutManager;
-    MyRecyclerViewAdapterDelete adapter2;
-    String item,supermarket;
-    int i;
+    private DatabaseReference myRef;
+    private RecyclerView recyclerView;
+    private FirebaseDatabase database;
+    private ArrayList<Integer> quantity= new ArrayList<>();
+    private ArrayList<String> categories= new ArrayList<>();
+    private LinearLayoutManager layoutManager;
+    private MyRecyclerViewAdapterDelete adapter2;
+    private String item,supermarket;
+    private int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

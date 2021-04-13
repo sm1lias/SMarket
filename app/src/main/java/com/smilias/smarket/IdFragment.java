@@ -25,15 +25,14 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class IdFragment extends Fragment {
-    DatabaseReference myRef;
-    RecyclerView recyclerView;
-    FirebaseDatabase database;
-    ArrayList<String> uid= new ArrayList<>();
-    LinearLayoutManager layoutManager;
-    MyRecyclerViewAdapter adapter;
-    String supermarket="consumer";
-    boolean b=true;
-    int i;
+    private DatabaseReference myRef;
+    private RecyclerView recyclerView;
+    private FirebaseDatabase database;
+    private ArrayList<String> uid= new ArrayList<>();
+    private LinearLayoutManager layoutManager;
+    private MyRecyclerViewAdapter adapter;
+    private String supermarket="consumer";
+    private int i;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,8 +47,8 @@ public class IdFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public IdFragment(String passedsupermarket) {
-        supermarket=passedsupermarket;
+    public IdFragment(String passedSupermarket) {
+        supermarket=passedSupermarket;
     }
 
     /**

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,13 +19,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
-    EditText editTEmail2, editTPass2, editTRPass;
+    private EditText editTEmail2, editTPass2, editTRPass;
     private FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference myRef;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference myRef;
     private static final String TAG = "SignUpActivity";
 
-    public void signUp2(View view) {
+    private void signUp2() {
         final String email = editTEmail2.getText().toString();
         final String password = editTPass2.getText().toString();
         final String rpassword = editTRPass.getText().toString();
@@ -89,5 +90,13 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference("users");
+
+        Button btnSingUp2=findViewById(R.id.btnSignUp2);
+        btnSingUp2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUp2();
+            }
+        });
     }
 }

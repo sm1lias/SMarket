@@ -7,10 +7,9 @@
     tools:context=".ISupermarketsFragment">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="bInfo"
         android:text="@string/info" />
 
     <androidx.recyclerview.widget.RecyclerView
