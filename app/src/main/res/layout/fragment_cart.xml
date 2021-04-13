@@ -8,11 +8,10 @@
     tools:context=".CartFragment">
 
     <Button
-        android:id="@+id/buttonBuy"
+        android:id="@+id/btnCheckOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:onClick="toCheckOut"
         android:text="@string/check_out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonBuy"
+        app:layout_constraintBottom_toTopOf="@+id/btnCheckOut"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
