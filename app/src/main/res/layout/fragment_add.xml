@@ -11,75 +11,73 @@
         android:id="@+id/buttonQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="@string/b_set_quantity"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextQuantity"
-        app:layout_constraintEnd_toStartOf="@+id/editTextQuantity"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
     <Button
         android:id="@+id/buttonPr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="@string/b_set_price"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextPr"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/buttonQuantity"
+        app:layout_constraintStart_toStartOf="@+id/buttonQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPr" />
 
     <EditText
         android:id="@+id/editTextQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="153dp"
-        android:layout_marginEnd="23dp"
+        android:layout_marginStart="32dp"
         android:ems="10"
         android:hint="@string/quantity"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonQuantity"
         app:layout_constraintStart_toEndOf="@+id/buttonQuantity"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/buttonQuantity" />
 
     <EditText
         android:id="@+id/editTextPr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="327dp"
-        android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="@string/tprice"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/buttonPr"
+        app:layout_constraintEnd_toEndOf="@+id/editTextQuantity"
+        app:layout_constraintStart_toStartOf="@+id/editTextQuantity"
+        app:layout_constraintTop_toTopOf="@+id/buttonPr" />
 
     <TextView
         android:id="@+id/textViewQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="50dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/buttonQuantity"
+        app:layout_constraintStart_toStartOf="@+id/buttonQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItem" />
 
     <TextView
         android:id="@+id/textViewPr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginTop="70dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttonPr"
-        app:layout_constraintEnd_toStartOf="@+id/editTextQuantity"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textViewQuantity"
+        app:layout_constraintStart_toStartOf="@+id/textViewQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/buttonQuantity" />
 
     <TextView
         android:id="@+id/textViewItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
